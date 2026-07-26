@@ -1,6 +1,13 @@
 // Note layouts per product handle — generated from shop.ayasainstruments.com (2026-07-26)
 // Used by the product template to render the note-map SVG. Edit freely.
 const PRODUCT_NOTES = {
+  "fis-low-pygmy-12-ember-steel": {
+    "title": "F# Low Pygmy 12 - Ember Steel",
+    "ding": "F#3",
+    "top": ["G#3","A3","C#4","E4","F#4","G#4","A4","C#5","E5","F#5","G#5"],
+    "bottom": [],
+    "spec": "F# Minor pentatonic scale"
+  },
   "d-ashakiran-19-ember-steel-spotted": {
     "title": "D Ashakiran 19 - Ember Steel - Spotted",
     "ding": "D3",

@@ -1,0 +1,80 @@
+<section class="section section-makers full-width" id="makers">
+  <div class="section-head reveal">
+    <p class="kicker">{{ section.settings.kicker }}</p>
+    <h2>{{ section.settings.heading | newline_to_br }}</h2>
+  </div>
+  <div class="makers-grid">
+    <div class="reveal">
+      {{ section.settings.body }}
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <a class="btn btn-primary" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+      {%- endif -%}
+    </div>
+    <div class="maker-materials reveal">
+      {%- for block in section.blocks -%}
+        <div class="fact" {{ block.shopify_attributes }}>
+          <strong>{{ block.settings.title }}</strong>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa maker shop",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "The industry position"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Most European handpans\nbegin life as an Ayasa shell."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Text",
+      "default": "<p>Since 2017, Ayasa has been the world's leading manufacturer of handpan shells. Many respected makers across Europe and beyond build their instruments on Ayasa Ember Steel.</p><p>It matters because of how the shells are made. Ayasa's deep-draw tooling keeps the steel's thickness even across the whole form — something hydroforming, spinning and hand-sinking can't match. An even shell is a predictable shell: tone fields sit where the tuner expects them, tuning is faster and more precise, and the finished instrument holds its voice for years.</p><p>When a maker chooses Ayasa steel, they're not outsourcing craft — they're starting from the most consistent canvas in the industry. The community has a name for what that earned the company: <strong>the makers' maker</strong>.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Visit the Maker Shop",
+      "info": "Button is hidden until a link is set (Maker Shop page comes later)."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "material",
+      "name": "Material card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Material" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ayasa maker shop",
+      "blocks": [
+        { "type": "material", "settings": { "title": "Ember Steel", "text": "The signature alloy — stability of nitrided, voice of stainless. 0.9 mm, even across the shell." } },
+        { "type": "material", "settings": { "title": "Stainless AISI 430", "text": "Classic stainless character for makers who want long, shimmering sustain." } },
+        { "type": "material", "settings": { "title": "DC04", "text": "The traditional deep-drawing steel — warm, familiar, endlessly workable." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

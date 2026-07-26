@@ -1,20 +1,42 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
+    "hero": { "type": "ayasa-hero", "settings": {} },
+    "stats": {
+      "type": "ayasa-stats",
+      "blocks": {
+        "stat1": { "type": "stat", "settings": { "value": "2013", "label": "Founded in the Netherlands" } },
+        "stat2": { "type": "stat", "settings": { "value": "13+", "label": "Years of tuning, one obsession" } },
+        "stat3": { "type": "stat", "settings": { "value": "49", "label": "Named artists play Ayasa" } },
+        "stat4": { "type": "stat", "settings": { "value": "№1", "label": "Handpan shell maker worldwide*" } },
+        "stat5": { "type": "stat", "settings": { "value": "6+", "label": "Years without a retune — documented" } }
+      },
+      "block_order": ["stat1", "stat2", "stat3", "stat4", "stat5"],
       "settings": {}
-    }
+    },
+    "story": { "type": "ayasa-story", "settings": {} },
+    "ember": {
+      "type": "ayasa-ember",
+      "blocks": {
+        "fact1": { "type": "fact", "settings": { "title": "Tuned to stay tuned", "text": "Thousands of hammer strikes, finished in soundproofed tuning chambers. Documented cases of instruments holding their voice for over six years — and when one does need attention, the workshop retunes it." } },
+        "fact2": { "type": "fact", "settings": { "title": "0.9 mm, even everywhere", "text": "Deep-drawn Ember Steel keeps its thickness even across the whole form — the foundation of a predictable, stable instrument." } },
+        "palette": { "type": "palette", "settings": {} }
+      },
+      "block_order": ["fact1", "fact2", "palette"],
+      "settings": {}
+    },
+    "range": { "type": "ayasa-range", "settings": {} },
+    "artists": { "type": "ayasa-artists", "settings": {} },
+    "makers": {
+      "type": "ayasa-makers",
+      "blocks": {
+        "mat1": { "type": "material", "settings": { "title": "Ember Steel", "text": "The signature alloy — stability of nitrided, voice of stainless. 0.9 mm, even across the shell." } },
+        "mat2": { "type": "material", "settings": { "title": "Stainless AISI 430", "text": "Classic stainless character for makers who want long, shimmering sustain." } },
+        "mat3": { "type": "material", "settings": { "title": "DC04", "text": "The traditional deep-drawing steel — warm, familiar, endlessly workable." } }
+      },
+      "block_order": ["mat1", "mat2", "mat3"],
+      "settings": {}
+    },
+    "partners": { "type": "ayasa-partners", "settings": {} }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["hero", "stats", "story", "ember", "range", "artists", "makers", "partners"]
 }

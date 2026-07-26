@@ -1,76 +1,71 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
-
-  <div class="header__menu">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
-
-  <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      <shopify-account menu="{{ section.settings.customer_account_menu }}">
-        {{ 'icon-account.svg' | inline_asset_content }}
-      </shopify-account>
-    {% endif %}
-
-    <a href="{{ routes.cart_url }}">
-      {% if cart.item_count > 0 %}
-        <sup>{{ cart.item_count }}</sup>
-      {% endif %}
-
+<header class="nav full-width" id="nav">
+  <a class="nav-logo" href="{{ routes.root_url }}">
+    <img src="{{ 'favicon.png' | asset_url }}" alt="" width="30" height="30">
+    AYASA<span>·</span>INSTRUMENTS
+  </a>
+  <nav class="nav-links" id="navLinks">
+    {%- if section.settings.menu != blank -%}
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="/#story">Story</a>
+      <a href="/#ember">Ember Steel</a>
+      <a href="/#range">The Range</a>
+      <a href="/#artists">Artists</a>
+      <a href="/#partners">UK Partners</a>
+    {%- endif -%}
+    <a class="nav-cta" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label | default: 'Shop' }}</a>
+    <a class="nav-cart" href="{{ routes.cart_url }}" aria-label="Cart">
       {{ 'icon-cart.svg' | inline_asset_content }}
+      {%- if cart.item_count > 0 -%}<sup>{{ cart.item_count }}</sup>{%- endif -%}
     </a>
-  </div>
+  </nav>
+  <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
 
 {% stylesheet %}
-  header {
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  header a {
+  .nav-cart {
     position: relative;
-    text-decoration: none;
-    color: var(--color-foreground);
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    color: var(--muted);
   }
-  header a sup {
+  .nav-cart svg { width: 20px; height: 20px; }
+  .nav-cart sup {
     position: absolute;
-    left: 100%;
-    overflow: hidden;
-    max-width: var(--page-margin);
-  }
-  header svg {
-    width: 2rem;
-  }
-  header .header__menu,
-  header .header__icons {
-    display: flex;
-    gap: 1rem;
+    top: -6px;
+    right: -10px;
+    font-size: 0.62rem;
+    color: var(--ink);
+    background: var(--brand-deep);
+    border-radius: 999px;
+    padding: 1px 5px;
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.header",
+  "name": "Header",
   "settings": [
     {
       "type": "link_list",
       "id": "menu",
-      "label": "t:labels.menu"
+      "label": "Menu",
+      "info": "Leave empty to use the default Ayasa links."
     },
     {
-      "type": "link_list",
-      "id": "customer_account_menu",
-      "label": "t:labels.customer_account_menu",
-      "default": "customer-account-main-menu"
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
     }
   ]
 }

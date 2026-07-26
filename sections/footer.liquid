@@ -1,56 +1,114 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
+<footer class="footer full-width">
+  <div class="footer-grid">
+    <div>
+      <img class="footer-badge" src="{{ 'logo-512.png' | asset_url }}" alt="{{ shop.name }}" width="92" height="92">
+      <p class="footer-logo">AYASA<span>·</span>INSTRUMENTS</p>
+      <p class="footer-tag">{{ section.settings.tagline }}</p>
+    </div>
+    <div>
+      <strong>{{ section.settings.col1_title }}</strong>
+      <p>{{ section.settings.col1_text | newline_to_br }}</p>
+    </div>
+    <div>
+      <strong>{{ section.settings.col2_title }}</strong>
+      <p>{{ section.settings.col2_text | newline_to_br }}</p>
+    </div>
+    <div>
+      <strong>Follow the sound</strong>
+      <p>
+        {%- if section.settings.social_instagram != blank -%}
+          <a href="{{ section.settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a> ·
+        {%- endif %}
+        {%- if section.settings.social_facebook != blank -%}
+          <a href="{{ section.settings.social_facebook }}" target="_blank" rel="noopener">Facebook</a> ·
+        {%- endif %}
+        {%- if section.settings.social_youtube != blank -%}
+          <a href="{{ section.settings.social_youtube }}" target="_blank" rel="noopener">YouTube</a>
+        {%- endif %}
+      </p>
+      {%- form 'customer', class: 'newsletter' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}
+          <label>Thank you ✓ — you're on the list.</label>
+        {%- else -%}
+          <label for="nl-email">{{ section.settings.newsletter_label }}</label>
+          <div class="newsletter-row">
+            <input id="nl-email" type="email" name="contact[email]" placeholder="you@example.com" required>
+            <button type="submit" class="btn btn-primary">Join</button>
+          </div>
+          {%- if form.errors -%}
+            <label>{{ form.errors.translated_fields.email }} {{ form.errors.messages.email }}</label>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
   </div>
-
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
-
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
-    {% endif %}
-  </div>
+  <p class="footer-fine">© {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.fine_print }}</p>
 </footer>
-
-{% stylesheet %}
-  footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-  }
-  footer a {
-    text-decoration: none;
-    color: var(--color-foreground);
-  }
-  footer .footer__links,
-  footer .footer__payment {
-    display: flex;
-    gap: 1rem;
-  }
-{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.footer",
+  "name": "Footer",
   "settings": [
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Named for the iron. Tuned for a lifetime."
     },
     {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
-      "default": true
+      "type": "text",
+      "id": "col1_title",
+      "label": "Column 1 title",
+      "default": "Workshop"
+    },
+    {
+      "type": "textarea",
+      "id": "col1_text",
+      "label": "Column 1 text",
+      "default": "Ayasa Instruments\nAlmere, the Netherlands"
+    },
+    {
+      "type": "text",
+      "id": "col2_title",
+      "label": "Column 2 title",
+      "default": "United Kingdom"
+    },
+    {
+      "type": "textarea",
+      "id": "col2_text",
+      "label": "Column 2 text",
+      "default": "Ayasa Instruments UK Ltd\n20 Wenlock Rd, London N1 7GU\nCompany no. 17182571 · VAT GB519777149\nuk@ayasainstruments.co.uk"
+    },
+    {
+      "type": "text",
+      "id": "social_instagram",
+      "label": "Instagram URL",
+      "default": "https://www.instagram.com/ayasa_instruments/"
+    },
+    {
+      "type": "text",
+      "id": "social_facebook",
+      "label": "Facebook URL",
+      "default": "https://www.facebook.com/ayasahandpan/"
+    },
+    {
+      "type": "text",
+      "id": "social_youtube",
+      "label": "YouTube URL",
+      "default": "https://www.youtube.com/c/AyasaInstruments"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_label",
+      "label": "Newsletter label",
+      "default": "One email when new scales sing."
+    },
+    {
+      "type": "text",
+      "id": "fine_print",
+      "label": "Fine print",
+      "default": "* №1 handpan shell maker worldwide per community sources. RRPs are recommendations only. E&OE."
     }
   ]
 }

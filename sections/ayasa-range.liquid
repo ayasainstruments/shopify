@@ -1,0 +1,73 @@
+{% comment %}
+  The model cards are rendered client-side from ayasa-data.js (MODELS),
+  exactly as on the original static site. This will be re-wired to real
+  Shopify products/collections in the product-experience phase.
+{% endcomment %}
+<section class="section full-width" id="range">
+  <div class="section-head reveal">
+    <p class="kicker">{{ section.settings.kicker }}</p>
+    <h2>{{ section.settings.heading | newline_to_br }}</h2>
+    <p class="section-sub">{{ section.settings.subheading }}</p>
+  </div>
+  <div class="range-grid" id="premiumGrid"><!-- rendered from ayasa-data.js --></div>
+
+  <div class="section-head reveal elements-head">
+    <p class="kicker">{{ section.settings.elements_kicker }}</p>
+    <h2>{{ section.settings.elements_heading | newline_to_br }}</h2>
+    <p class="section-sub">{{ section.settings.elements_subheading }}</p>
+  </div>
+  <div class="range-grid range-grid-elements" id="elementsGrid"><!-- rendered from ayasa-data.js --></div>
+
+  <p class="range-note reveal">{{ section.settings.note }}</p>
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa range",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "The range"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ayasa Premium. One standard."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Hammered, tuned and finished in the Almere workshop, as they have been since 2013. Every scale shown with its full note map — ding first, then the topside circle, bottomside notes beneath. In-stock models ship within two working days; built-to-order models are worth the wait: someone is making this for you."
+    },
+    {
+      "type": "text",
+      "id": "elements_kicker",
+      "label": "Elements kicker",
+      "default": "New · built in the UK"
+    },
+    {
+      "type": "textarea",
+      "id": "elements_heading",
+      "label": "Elements heading",
+      "default": "Ayasa Elements.\nPriced to open the door."
+    },
+    {
+      "type": "textarea",
+      "id": "elements_subheading",
+      "label": "Elements subheading",
+      "default": "The same Ember Steel, shells and shaping standards as every Ayasa — tuned and finished in Britain by a select group of the UK's most experienced makers. Not a “beginner handpan”: a real one, at a price that makes beginning possible. To our knowledge, Ayasa is the first handpan maker from outside the UK to establish instrument production in the UK."
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Closing note",
+      "default": "Accessories: Ayasa Softcase, Evatek 2.0 Hardcase, Phoenix Oil."
+    }
+  ],
+  "presets": [{ "name": "Ayasa range" }]
+}
+{% endschema %}

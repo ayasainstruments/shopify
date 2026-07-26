@@ -1,0 +1,56 @@
+<section class="section section-partners full-width" id="partners">
+  <div class="section-head reveal">
+    <p class="kicker">{{ section.settings.kicker }}</p>
+    <h2>{{ section.settings.heading | newline_to_br }}</h2>
+    <p class="section-sub">{{ section.settings.subheading }}</p>
+  </div>
+  <div class="partner-cta reveal">
+    <a class="btn btn-primary" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+    <span>{{ section.settings.cta_note }}</span>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa UK partners",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Ayasa Instruments UK Ltd · est. 2026"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Now building in the UK.\nNow taking UK partners."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "With Ayasa Elements, UK shops can finally stock a real, tunable, warrantied instrument at a first-buyer price — with the premium Dutch range as the natural upgrade path. In a category flooded with unpredictable imports, every Ayasa you order sounds like the one your customer heard online. Consistency is the sale."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Request the trade catalogue"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Button link",
+      "default": "mailto:uk@ayasainstruments.co.uk?subject=Trade%20catalogue%20request"
+    },
+    {
+      "type": "text",
+      "id": "cta_note",
+      "label": "Note under button",
+      "default": "Launch allocations offered to established partners first · uk@ayasainstruments.co.uk"
+    }
+  ],
+  "presets": [{ "name": "Ayasa UK partners" }]
+}
+{% endschema %}

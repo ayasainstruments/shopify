@@ -1,0 +1,83 @@
+<section class="section section-ember full-width" id="ember">
+  <div class="ember-band" aria-hidden="true"></div>
+  <div class="section-head reveal">
+    <p class="kicker">{{ section.settings.kicker }}</p>
+    <h2>{{ section.settings.heading | newline_to_br }}</h2>
+  </div>
+  <div class="ember-grid">
+    <div class="ember-text reveal">
+      {{ section.settings.body }}
+    </div>
+    <div class="ember-facts reveal">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'fact' -%}
+            <div class="fact" {{ block.shopify_attributes }}>
+              <strong>{{ block.settings.title }}</strong>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          {%- when 'palette' -%}
+            <div class="fact fact-palette" {{ block.shopify_attributes }}>
+              <strong>{{ block.settings.title }}</strong>
+              <div class="palette"><span title="bright gold"></span><span title="ember red"></span><span title="violet"></span><span title="deep blue"></span></div>
+              <p>{{ block.settings.text }}</p>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa Ember Steel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Material & craft"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ember Steel: the stability of nitrided,\nthe voice of stainless."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Text",
+      "default": "<p>Every current Ayasa instrument is made from <strong>Ember Steel</strong> — a stainless alloy the workshop spent years of material research to find, and now shapes exclusively. It was chosen against six criteria: sustain, clarity, a ceramic feel under the fingers, workability, stability, and resistance to rust.</p><p>The result is a signature sound the community describes the same way again and again: <strong>full and warm, with a crystal-like upper register</strong> — long stainless sustain, but round and controlled rather than wild. It responds to a light touch, which makes it notably forgiving for beginners, and it shrugs off temperature swings that push other instruments out of tune — genuinely suited to outdoor playing.</p><p>Annealing brings each shell's colour up somewhere between bright gold, ember red and deep blue — a living patina that will slowly shift toward a vintage character over years of playing. No two are alike; none of it affects the sound.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fact card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Fact" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "" }
+      ]
+    },
+    {
+      "type": "palette",
+      "name": "Annealing palette card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "The annealing spectrum" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Bright gold → ember red → deep blue. Your instrument's colour is its own." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ayasa Ember Steel",
+      "blocks": [
+        { "type": "fact", "settings": { "title": "Tuned to stay tuned", "text": "Thousands of hammer strikes, finished in soundproofed tuning chambers. Documented cases of instruments holding their voice for over six years — and when one does need attention, the workshop retunes it." } },
+        { "type": "fact", "settings": { "title": "0.9 mm, even everywhere", "text": "Deep-drawn Ember Steel keeps its thickness even across the whole form — the foundation of a predictable, stable instrument." } },
+        { "type": "palette" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,83 @@
+<section class="section section-artists full-width" id="artists" style="--watermark: url('{{ 'logo-512.png' | asset_url }}')">
+  <div class="section-head reveal">
+    <p class="kicker">{{ section.settings.kicker }}</p>
+    <h2>{{ section.settings.heading | newline_to_br }}</h2>
+  </div>
+
+  <figure class="feature-quote reveal">
+    <div class="feature-photo">
+      {%- if section.settings.photo != blank -%}
+        {{ section.settings.photo | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', alt: section.settings.photo.alt }}
+      {%- else -%}
+        <img src="{{ 'player-malte.jpg' | asset_url }}" alt="Malte Marten holding a handpan against the setting sun in an open field" loading="lazy" width="900" height="1270">
+      {%- endif -%}
+    </div>
+    <div class="feature-body">
+      <blockquote>{{ section.settings.quote }}</blockquote>
+      <figcaption>
+        <strong>{{ section.settings.quote_by }}</strong>
+        <span>{{ section.settings.quote_cred }}</span>
+      </figcaption>
+    </div>
+  </figure>
+
+  <div class="carousel-head reveal">
+    {{ section.settings.carousel_intro }}
+    <div class="carousel-nav">
+      <button class="car-btn" id="carPrev" aria-label="Previous players">←</button>
+      <button class="car-btn" id="carNext" aria-label="Next players">→</button>
+    </div>
+  </div>
+  <div class="player-carousel reveal" id="playerCarousel" tabindex="0" aria-label="Ayasa players"><!-- rendered from ayasa-data.js --></div>
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa artists",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Players"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The other half of the sound."
+    },
+    {
+      "type": "image_picker",
+      "id": "photo",
+      "label": "Featured photo",
+      "info": "Leave empty to use the built-in Malte Marten photo."
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Featured quote",
+      "default": "“The handpan is so much more than just a musical instrument… it can serve as a channel for the many emotions and feelings that we feel as human beings.”"
+    },
+    {
+      "type": "text",
+      "id": "quote_by",
+      "label": "Quote attribution",
+      "default": "Malte Marten"
+    },
+    {
+      "type": "text",
+      "id": "quote_cred",
+      "label": "Attribution detail",
+      "default": "1.4M YouTube subscribers · plays Ayasa exclusively"
+    },
+    {
+      "type": "richtext",
+      "id": "carousel_intro",
+      "label": "Carousel intro",
+      "default": "<p><strong>49 named artists</strong> play Ayasa. Meet some of them —</p>"
+    }
+  ],
+  "presets": [{ "name": "Ayasa artists" }]
+}
+{% endschema %}

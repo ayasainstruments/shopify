@@ -1,0 +1,65 @@
+<section class="section full-width" id="story">
+  <div class="section-head reveal">
+    <p class="kicker">{{ section.settings.kicker }}</p>
+    <h2>{{ section.settings.heading | newline_to_br }}</h2>
+  </div>
+  <div class="story-grid">
+    <div class="story-text reveal">
+      {{ section.settings.body }}
+    </div>
+    <figure class="story-quote reveal">
+      {%- if section.settings.photo != blank -%}
+        {{ section.settings.photo | image_url: width: 1200 | image_tag: class: 'story-photo', widths: '600, 900, 1200', alt: section.settings.photo.alt }}
+      {%- else -%}
+        <img class="story-photo" src="{{ 'story-ralf.jpg' | asset_url }}" alt="Ralf van den Bor inspecting a handpan shell by torchlight in the workshop" loading="lazy" width="591" height="780">
+      {%- endif -%}
+      <blockquote>{{ section.settings.quote }}</blockquote>
+      <figcaption>{{ section.settings.quote_by }}</figcaption>
+    </figure>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Since 2013 · the heart of the Netherlands"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "“Ayasa” — आयास —\nnamed for the iron itself."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Story text",
+      "default": "<p>Pantams — the instruments the world calls handpans — are made of sheet steel, and steel is derived from iron. So when founder Ralf van den Bor, long drawn to Eastern philosophy and yogic practice, needed a name, he chose the Sanskrit word for the root source of the instrument: <strong>Ayasa</strong>. Iron.</p><p>Ralf started his journey with steel in 2013 — eighteen months of research and prototypes that led to the birth of the <strong>Adiyuga</strong> series: Sanskrit again, “first generation”, the beginning of a new age. A year on came <strong>Gauna</strong>, “the second” — the same search for consistency and quality, now with purpose-built specialist tools.</p><p>Thirteen years later, every instrument is still made with thousands of hammer strikes, each one influencing its character. <em>No two Ayasas are alike.</em></p><p>It remains, above all, a workshop of friends and family. <strong>Rick</strong> — the childhood friend who first introduced Ralf to the handpan — is still the first voice you'll reach today. <strong>Marius Farcas</strong>, brought in by the renowned player Kabeção, has helped define the Ayasa sound since 2015. And <strong>Roy</strong>, Ralf's twin brother, was the last convert: he left to travel the world convinced the project was a mistake, saw Ralf's first videos, and asked for a pan to be shipped out to Australia. Hooked, he came home four years later — today he runs the Maker Shop.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "photo",
+      "label": "Photo",
+      "info": "Leave empty to use the built-in workshop photo."
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "“You need both the player and the maker for the full symbiosis of sound. A well crafted instrument is nothing without a soulful player to give it a powerful voice.”"
+    },
+    {
+      "type": "text",
+      "id": "quote_by",
+      "label": "Quote attribution",
+      "default": "Ralf van den Bor — Founder, Ayasa Instruments"
+    }
+  ],
+  "presets": [{ "name": "Ayasa story" }]
+}
+{% endschema %}

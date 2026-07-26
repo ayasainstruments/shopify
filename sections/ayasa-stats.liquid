@@ -1,0 +1,36 @@
+<section class="stats full-width" id="stats">
+  {%- for block in section.blocks -%}
+    <div class="stat reveal" {{ block.shopify_attributes }}>
+      <strong>{{ block.settings.value }}</strong>
+      <span>{{ block.settings.label }}</span>
+    </div>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa stats",
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "2013" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Founded in the Netherlands" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ayasa stats",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "2013", "label": "Founded in the Netherlands" } },
+        { "type": "stat", "settings": { "value": "13+", "label": "Years of tuning, one obsession" } },
+        { "type": "stat", "settings": { "value": "49", "label": "Named artists play Ayasa" } },
+        { "type": "stat", "settings": { "value": "№1", "label": "Handpan shell maker worldwide*" } },
+        { "type": "stat", "settings": { "value": "6+", "label": "Years without a retune — documented" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

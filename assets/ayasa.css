@@ -757,3 +757,22 @@ select:focus { outline: none; border-color: var(--slate); }
 .model-card-linked:hover .model-link { color: var(--ink); }
 .model-card-linked:hover .model-link .arrow { transform: translateX(4px); }
 .model-card-linked:has(.model-link:focus-visible) { border-color: var(--brand); }
+
+/* ---------- lightbox buy bar (product pages only) ---------- */
+.demo-cta {
+  border-top: 1px solid var(--line);
+  padding-top: 0.85rem;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.demo-cta.visible { opacity: 1; transform: none; }
+.demo-cta-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.demo-cta-price { margin: 0; }
+.demo-cta-price s { color: var(--muted); margin-right: 0.5rem; font-size: 0.85rem; }
+.demo-cta-price strong { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--ink); }
+.demo-cta-btn { cursor: pointer; border: 0; font-family: var(--font-body); padding: 0.55rem 1.3rem; white-space: nowrap; }
+.demo-cta-btn[disabled] { opacity: 0.6; cursor: default; }
+.demo-cta-casewrap { margin-top: 0.75rem; }
+.demo-cta-casewrap label { display: block; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.4rem; }
+.demo-cta-case { width: 100%; }
+.demo-cta-error { color: #d99a8f; font-size: 0.8rem; margin: 0.5rem 0 0; }

@@ -17,7 +17,14 @@
   assign cases = collections['cases'].products
 -%}
 
-<section class="section product-section full-width" data-handle="{{ product.handle }}">
+<section
+  class="section product-section full-width"
+  data-handle="{{ product.handle }}"
+  data-variant="{{ variant.id }}"
+  data-price="{{ product.price | money }}"
+  data-compare="{% if product.compare_at_price > product.price %}{{ product.compare_at_price | money }}{% endif %}"
+  data-available="{{ product.available }}"
+>
   <nav class="product-crumb">
     {%- for collection in product.collections limit: 1 -%}
       <a href="{{ collection.url }}">← {{ collection.title }}</a>

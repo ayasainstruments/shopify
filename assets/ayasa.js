@@ -137,7 +137,7 @@ function artistInfoHTML(label) {
     <div class="demo-artist-links">${links}</div>`;
 }
 
-function openDemoLightbox(model, startIndex) {
+function openDemoLightbox(model, startIndex, buyCtx) {
   const start = startIndex || 0;
   const lb = document.createElement("div");
   lb.className = "demo-lightbox";
@@ -145,6 +145,22 @@ function openDemoLightbox(model, startIndex) {
   lb.setAttribute("aria-label", `Demo videos for ${model.name}`);
   const tabs = model.videos.map((v, i) =>
     `<button class="demo-tab${i === start ? " active" : ""}" data-i="${i}">${v.artist}</button>`).join("");
+  // buy bar (product pages only): fades in once the viewer is watching
+  const ctaHTML = buyCtx && buyCtx.available ? `
+      <div class="demo-cta" hidden>
+        <div class="demo-cta-row">
+          <p class="demo-cta-price">
+            ${buyCtx.compareAt ? `<s>${buyCtx.compareAt}</s>` : ""}<strong>${buyCtx.price}</strong>
+          </p>
+          <button type="button" class="btn btn-primary demo-cta-btn">Add to cart</button>
+        </div>
+        ${buyCtx.caseSelect ? `
+        <div class="demo-cta-casewrap" hidden>
+          <label for="demoCtaCase">Choose your case — every instrument ships in one</label>
+          <select id="demoCtaCase" class="demo-cta-case">${buyCtx.caseSelect.innerHTML}</select>
+        </div>` : ""}
+        <p class="demo-cta-error" hidden></p>
+      </div>` : "";
   lb.innerHTML = `
     <div class="demo-backdrop"></div>
     <div class="demo-panel">
@@ -158,6 +174,7 @@ function openDemoLightbox(model, startIndex) {
       <video controls playsinline preload="metadata"
              poster="${model.videos[start].file.replace(/\.mp4$/, ".jpg")}"
              src="${model.videos[start].file}"></video>
+      ${ctaHTML}
       <div class="demo-tabs" role="tablist" aria-label="Choose artist">${tabs}</div>
       <div class="demo-artist">${artistInfoHTML(model.videos[start].artist)}</div>
     </div>`;
@@ -193,6 +210,72 @@ function openDemoLightbox(model, startIndex) {
   lb.querySelector(".demo-backdrop").addEventListener("click", close);
   lb.querySelector(".demo-close").addEventListener("click", close);
   tabEls.forEach(tab => tab.addEventListener("click", () => select(+tab.dataset.i)));
+
+  // buy bar: reveal after ~4s of watching, add to cart without leaving the moment
+  const cta = lb.querySelector(".demo-cta");
+  if (cta) {
+    const reveal = () => {
+      if (!cta.hidden) return;
+      cta.hidden = false;
+      requestAnimationFrame(() => cta.classList.add("visible"));
+    };
+    video.addEventListener("timeupdate", () => { if (video.currentTime >= 4) reveal(); });
+    video.addEventListener("ended", reveal);
+
+    const btn = cta.querySelector(".demo-cta-btn");
+    const caseWrap = cta.querySelector(".demo-cta-casewrap");
+    const caseSel = cta.querySelector(".demo-cta-case");
+    const err = cta.querySelector(".demo-cta-error");
+
+    const addToCart = async caseId => {
+      const items = [{ id: buyCtx.variantId, quantity: 1, properties: buyCtx.getProperties() }];
+      if (caseId) items.push({ id: +caseId, quantity: 1 });
+      btn.disabled = true;
+      btn.textContent = "Adding…";
+      try {
+        const r = await fetch("/cart/add.js", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items })
+        });
+        if (!r.ok) throw new Error((await r.json()).description || "Could not add to cart");
+        cta.querySelector(".demo-cta-row").innerHTML = `
+          <p class="demo-cta-price"><strong>Added to cart ✓</strong></p>
+          <a class="btn btn-primary demo-cta-btn" href="/cart">View cart →</a>`;
+        if (caseWrap) caseWrap.hidden = true;
+      } catch (e2) {
+        err.textContent = e2.message;
+        err.hidden = false;
+        btn.disabled = false;
+        btn.textContent = "Add to cart";
+      }
+    };
+
+    btn.addEventListener("click", () => {
+      err.hidden = true;
+      const pageCase = buyCtx.caseSelect;
+      if (!pageCase) return addToCart(null); // no case required for this product
+      if (pageCase.value) return addToCart(pageCase.value); // already chosen on the page
+      if (caseWrap.hidden) {
+        caseWrap.hidden = false;
+        caseSel.focus();
+      } else {
+        err.textContent = "Please choose a case first.";
+        err.hidden = false;
+        caseSel.focus();
+      }
+    });
+
+    // picking a case in the lightbox adds immediately and syncs the page form
+    if (caseSel) {
+      caseSel.addEventListener("change", () => {
+        if (!caseSel.value) return;
+        if (buyCtx.caseSelect) buyCtx.caseSelect.value = caseSel.value;
+        addToCart(caseSel.value);
+      });
+    }
+  }
+
   video.play();
 }
 
@@ -289,7 +372,7 @@ function initProductPage() {
     document.getElementById("productDemosSub").textContent =
       `${demoModel.videos.length} performances by ${artistCount} artists — played on this model.`;
     document.getElementById("productDemos").hidden = false;
-    const open = card => openDemoLightbox(demoModel, +card.dataset.i);
+    const open = card => openDemoLightbox(demoModel, +card.dataset.i, buildBuyCtx());
     strip.addEventListener("click", e => {
       const card = e.target.closest(".demo-card");
       if (card) open(card);
@@ -304,6 +387,27 @@ function initProductPage() {
   const form = document.getElementById("buyForm");
   const caseSelect = document.getElementById("caseSelect");
   const error = document.getElementById("buyError");
+
+  // product context for the lightbox buy bar (built lazily at click time)
+  function buildBuyCtx() {
+    return {
+      variantId: +form.elements.id.value,
+      price: section.dataset.price,
+      compareAt: section.dataset.compare || "",
+      available: section.dataset.available === "true",
+      caseSelect,
+      getProperties: () => {
+        const properties = {};
+        const size = document.getElementById("shirtSize");
+        const color = document.getElementById("shirtColor");
+        if (size && size.value !== "No free t-shirt") {
+          properties["Free t-shirt size"] = size.value;
+          properties["Free t-shirt color"] = color.value;
+        }
+        return properties;
+      }
+    };
+  }
   form.addEventListener("submit", async e => {
     e.preventDefault();
     error.hidden = true;

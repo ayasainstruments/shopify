@@ -1,0 +1,132 @@
+{%- liquid
+  assign is_instrument = false
+  assign has_tshirt = false
+  assign ship_date = blank
+  for t in product.tags
+    if t == 'instrument'
+      assign is_instrument = true
+    endif
+    if t == 'free-tshirt'
+      assign has_tshirt = true
+    endif
+    if t contains 'ships:'
+      assign ship_date = t | remove: 'ships:'
+    endif
+  endfor
+  assign variant = product.selected_or_first_available_variant | default: product.variants.first
+  assign cases = collections['cases'].products
+-%}
+
+<section class="section product-section full-width" data-handle="{{ product.handle }}">
+  <nav class="product-crumb">
+    {%- for collection in product.collections limit: 1 -%}
+      <a href="{{ collection.url }}">← {{ collection.title }}</a>
+    {%- else -%}
+      <a href="{{ routes.all_products_collection_url }}">← Shop</a>
+    {%- endfor -%}
+  </nav>
+
+  <div class="product-grid">
+    <div class="product-gallery">
+      <div class="product-photo" id="productPhoto">
+        {%- if product.featured_image -%}
+          {{ product.featured_image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', alt: product.featured_image.alt | default: product.title }}
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="product-thumbs" id="productThumbs">
+          {%- for image in product.images -%}
+            <button type="button" class="product-thumb{% if forloop.first %} active{% endif %}" data-src="{{ image | image_url: width: 1200 }}" aria-label="Photo {{ forloop.index }}">
+              {{ image | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' }}</h1>
+      <div class="product-meta">
+        {% render 'availability-badge', product: product %}
+        <p class="product-price">
+          {%- if product.compare_at_price > product.price -%}
+            <s>{{ product.compare_at_price | money }}</s>
+          {%- endif -%}
+          {{ product.price | money }}
+        </p>
+      </div>
+
+      <div class="product-notes" id="productNotes" hidden>
+        <div class="notemap">
+          <span id="productNoteMap"></span>
+          <p class="notemap-bottom" id="productNoteBottom"></p>
+        </div>
+      </div>
+
+      <div class="product-desc">{{ product.description }}</div>
+
+      <form id="buyForm" action="{{ routes.cart_add_url }}" method="post">
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+
+        {%- if is_instrument -%}
+          <div class="product-option">
+            <label for="caseSelect">Handpan case <span class="option-required">required — we pack every instrument in a proper case so it arrives safely</span></label>
+            <select id="caseSelect" required>
+              <option value="" selected disabled>Please choose a case…</option>
+              {%- for c in cases -%}
+                {%- assign cv = c.selected_or_first_available_variant | default: c.variants.first -%}
+                <option value="{{ cv.id }}" {% unless c.available %}disabled{% endunless %}>
+                  {{ c.title }} — {{ c.price | money }}{% unless c.available %} (out of stock){% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+            {%- if cases.size == 0 -%}
+              <p class="option-note">⚠ The “Cases” collection is empty — create it per import/IMPORT-GUIDE.md.</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if has_tshirt -%}
+          <div class="product-option">
+            <label for="shirtSize">Free Ayasa t-shirt</label>
+            <div class="option-row">
+              <select id="shirtSize" name="properties[Free t-shirt size]">
+                <option value="No free t-shirt">No free t-shirt</option>
+                <option>EU Small / US Extra Small</option>
+                <option>EU Medium / US Small</option>
+                <option>EU Large / US Medium</option>
+                <option>EU XL / US Large</option>
+                <option>EU XXL / US XL</option>
+                <option>EU XXXL / US XXL</option>
+              </select>
+              <select id="shirtColor" name="properties[Free t-shirt color]" aria-label="T-shirt color">
+                <option>Black</option>
+                <option>Off-white</option>
+                <option>Khaki</option>
+              </select>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <p class="option-error" id="buyError" hidden></p>
+
+        {%- if product.available -%}
+          <button type="submit" class="btn btn-primary product-buy">
+            {%- if ship_date != blank -%}Pre-order — ships {{ ship_date | date: '%d-%m-%Y' }}{%- else -%}Add to cart{%- endif -%}
+          </button>
+        {%- else -%}
+          <button type="button" class="btn btn-ghost product-buy" disabled>Sold out</button>
+        {%- endif -%}
+      </form>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa product",
+  "settings": [],
+  "disabled_on": { "groups": ["header", "footer"] }
+}
+{% endschema %}

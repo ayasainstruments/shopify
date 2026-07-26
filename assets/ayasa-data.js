@@ -71,6 +71,7 @@ const MODELS = [
   {
     range: "premium",
     name: "F# Low Pygmy 21",
+    productHandle: "fis-low-pygmy-21-ember-steel",
     scale: "F# minor pentatonic · fully extended",
     ding: "F#3",
     top: ["G#3", "A3", "C#4", "E4", "F#4", "G#4", "A4", "C#5", "E5", "F#5", "G#5"],
@@ -82,6 +83,7 @@ const MODELS = [
   {
     range: "premium",
     name: "D Aegean 18",
+    productHandle: "d-aegean-18-ember-steel",
     scale: "D Lydian",
     ding: "D3",
     top: ["F#3", "A3", "C#4", "D4", "F#4", "G#4", "A4", "C#5", "D5", "F#5"],
@@ -101,6 +103,7 @@ const MODELS = [
   {
     range: "premium",
     name: "D Aegean 20",
+    productHandle: "d-aegean-20-ember-steel",
     scale: "D Lydian · extended",
     ding: "D3",
     top: ["F#3", "A3", "C#4", "D4", "F#4", "G#4", "A4", "C#5", "D5", "F#5", "G#5", "A5"],
@@ -112,6 +115,7 @@ const MODELS = [
   {
     range: "premium",
     name: "D Ashakiran 19",
+    productHandle: "d-ashakiran-19-ember-steel-spotted",
     scale: "Extended major · “Ray of Hope”",
     ding: "D3",
     top: ["G3", "A3", "B3", "C#4", "D4", "E4", "F#4", "A4", "B4", "F#5"], // VERIFY: catalogue card partly illegible in draft
@@ -123,6 +127,7 @@ const MODELS = [
   {
     range: "premium",
     name: "E Amara 20",
+    productHandle: "e-amara-20-ember-steel",
     scale: "E Celtic minor · fully extended",
     ding: "E3",
     top: ["B3", "D4", "E4", "F#4", "G4", "A4", "B4", "D5", "E5", "F#5", "G5", "A5"], // VERIFY against final catalogue
@@ -134,6 +139,7 @@ const MODELS = [
   {
     range: "premium",
     name: "B2 Aavartan 17",
+    productHandle: "b2-aavartan-17-ember-steel",
     scale: "B major · low B2 ding",
     ding: "B2",
     top: ["D#3", "F#3", "G#3", "A#3", "B3", "C#4", "D#4", "F#4"],
@@ -145,6 +151,7 @@ const MODELS = [
   {
     range: "premium",
     name: "D Kurd 19",
+    productHandle: "d-kurd-19-ember-steel",
     scale: "Full extended D minor · with Bb2",
     ding: "D3",
     top: ["A3", "Bb3", "C4", "D4", "E4", "F4", "G4", "A4", "C5", "D5", "E5", "F5"],
@@ -156,6 +163,7 @@ const MODELS = [
   {
     range: "premium",
     name: "F#2 Nordlys 16",
+    productHandle: "fis2-nordlys-16-ember-steel",
     scale: "F# Lydian hexatonic · deep F#2 ding",
     ding: "F#2",
     top: ["F#3", "G#3", "A#3", "C4", "C#4", "F4", "G#4", "C5"],

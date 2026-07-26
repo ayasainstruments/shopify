@@ -1,0 +1,20 @@
+{% comment %}
+  Availability badge for a product.
+  Made-to-order items carry a `ships:YYYY-MM-DD` tag (see import/IMPORT-GUIDE.md).
+  Usage: {% render 'availability-badge', product: product %}
+{% endcomment %}
+{%- liquid
+  assign ship_date = blank
+  for t in product.tags
+    if t contains 'ships:'
+      assign ship_date = t | remove: 'ships:'
+    endif
+  endfor
+-%}
+{%- if ship_date != blank -%}
+  <span class="badge badge-order">Ships on {{ ship_date | date: '%d-%m-%Y' }}</span>
+{%- elsif product.available -%}
+  <span class="badge badge-stock">Directly available</span>
+{%- else -%}
+  <span class="badge badge-soldout">Sold out</span>
+{%- endif -%}

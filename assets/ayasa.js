@@ -31,7 +31,7 @@ function modelCard(m) {
     : "Topside only";
   const priceOrLink = m.rrp
     ? `<span class="model-price">RRP ${m.rrp}</span>`
-    : `<a class="model-link" href="https://shop.ayasainstruments.com" target="_blank" rel="noopener">View in shop →</a>`;
+    : `<a class="model-link" href="${m.productHandle ? `/products/${m.productHandle}` : "/collections/instruments"}">View in shop →</a>`;
   const idx = MODELS.indexOf(m);
   const hearIt = m.videos && m.videos.length
     ? `<button class="hear-btn" data-model="${idx}" aria-haspopup="dialog">
@@ -234,9 +234,79 @@ function initHeroMotion() {
   }
 }
 
+// ---------- product page (Shopify) ----------
+function initProductPage() {
+  const section = document.querySelector(".product-section");
+  if (!section) return;
+
+  // note map from PRODUCT_NOTES (assets/ayasa-notes.js), keyed by product handle
+  const handle = section.dataset.handle;
+  const notes = typeof PRODUCT_NOTES !== "undefined" && PRODUCT_NOTES[handle];
+  if (notes) {
+    const mapEl = document.getElementById("productNoteMap");
+    const bottomEl = document.getElementById("productNoteBottom");
+    mapEl.innerHTML = noteMapSVG({ name: notes.title, ding: notes.ding, top: notes.top });
+    bottomEl.innerHTML = notes.bottom.length
+      ? `<b>+${notes.bottom.length} bottom:</b> ${notes.bottom.join(" ")}`
+      : "Topside only";
+    document.getElementById("productNotes").hidden = false;
+  }
+
+  // gallery thumbs
+  const photo = document.querySelector("#productPhoto img");
+  document.querySelectorAll(".product-thumb").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".product-thumb").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      photo.src = btn.dataset.src;
+      photo.removeAttribute("srcset");
+    });
+  });
+
+  // buy form: instrument + required case go into the cart together
+  const form = document.getElementById("buyForm");
+  const caseSelect = document.getElementById("caseSelect");
+  const error = document.getElementById("buyError");
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    error.hidden = true;
+    if (caseSelect && !caseSelect.value) {
+      error.textContent = "Please choose a case — we pack every instrument in a proper case so it arrives safely.";
+      error.hidden = false;
+      caseSelect.focus();
+      return;
+    }
+    const properties = {};
+    const size = document.getElementById("shirtSize");
+    const color = document.getElementById("shirtColor");
+    if (size && size.value !== "No free t-shirt") {
+      properties["Free t-shirt size"] = size.value;
+      properties["Free t-shirt color"] = color.value;
+    }
+    const items = [{ id: +form.elements.id.value, quantity: 1, properties }];
+    if (caseSelect) items.push({ id: +caseSelect.value, quantity: 1 });
+    const btn = form.querySelector(".product-buy");
+    btn.disabled = true;
+    try {
+      const r = await fetch("/cart/add.js", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items })
+      });
+      if (!r.ok) throw new Error((await r.json()).description || "Could not add to cart");
+      window.location.href = "/cart";
+    } catch (err) {
+      error.textContent = err.message;
+      error.hidden = false;
+      btn.disabled = false;
+    }
+  });
+}
+
 renderRange();
 renderPlayers();
 initDemoButtons();
 initReveal();
 initNav();
 initHeroMotion();
+initProductPage();

@@ -1,0 +1,68 @@
+<section class="section shop-section full-width">
+  <div class="section-head">
+    <p class="kicker">{{ 'Ayasa shop' }}</p>
+    <h2>{{ collection.title }}</h2>
+    {%- if collection.description != blank -%}
+      <p class="section-sub">{{ collection.description }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="shop-toolbar">
+    <p class="shop-count">{{ collection.products_count }} product{% unless collection.products_count == 1 %}s{% endunless %}</p>
+    <label class="shop-sort">
+      Sort
+      <select id="sortSelect">
+        {%- assign current = collection.sort_by | default: collection.default_sort_by -%}
+        {%- for option in collection.sort_options -%}
+          <option value="{{ option.value }}" {% if option.value == current %}selected{% endif %}>{{ option.name }}</option>
+        {%- endfor -%}
+      </select>
+    </label>
+  </div>
+
+  {% paginate collection.products by 24 %}
+    <div class="shop-grid">
+      {%- for product in collection.products -%}
+        <a class="shop-card" href="{{ product.url }}">
+          <div class="shop-card-photo">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 800 | image_tag: widths: '400, 600, 800', alt: product.featured_image.alt | default: product.title, loading: 'lazy' }}
+            {%- endif -%}
+          </div>
+          <div class="shop-card-body">
+            <h3>{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' }}</h3>
+            {% render 'availability-badge', product: product %}
+            <p class="shop-card-price">
+              {%- if product.compare_at_price > product.price -%}
+                <s>{{ product.compare_at_price | money }}</s>
+              {%- endif -%}
+              {{ product.price | money }}
+            </p>
+          </div>
+        </a>
+      {%- else -%}
+        <p class="section-sub">No products here yet.</p>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="shop-pagination">{{ paginate | default_pagination }}</nav>
+    {%- endif -%}
+  {% endpaginate %}
+</section>
+
+{% javascript %}
+  const sel = document.getElementById('sortSelect');
+  if (sel) sel.addEventListener('change', () => {
+    const url = new URL(window.location);
+    url.searchParams.set('sort_by', sel.value);
+    window.location = url;
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Ayasa collection",
+  "settings": []
+}
+{% endschema %}

@@ -465,7 +465,7 @@ select:focus { outline: none; border-color: var(--slate); }
 }
 .cart-line-photo { display: block; width: 84px; height: 84px; border-radius: 12px; overflow: hidden; background: #fff; }
 .cart-line-photo img { width: 100%; height: 100%; object-fit: contain; }
-.cart-line-title { color: var(--ink); font-family: var(--font-display); font-size: 1.1rem; }
+.cart-line-title { display: block; color: var(--ink); font-family: var(--font-display); font-size: 1.1rem; }
 .cart-line-title:hover { color: var(--brand-light); }
 .cart-line-prop { color: var(--muted); font-size: 0.8rem; margin-top: 0.2rem; }
 .cart-line-remove { display: inline-block; margin-top: 0.4rem; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
@@ -633,4 +633,63 @@ select:focus { outline: none; border-color: var(--slate); }
 #shopify-pc__prefs__header-close circle {
   fill: none !important;
   stroke: var(--muted) !important;
+}
+
+/* ============================================================
+   MOBILE — breakpoint fixes & polish
+   ============================================================ */
+
+@media (max-width: 900px) {
+  /* the artists feature grid demanded ~524px min-width and widened
+     every section on phones (min-content propagates through the
+     .shopify-section grid wrapper) — stack it instead */
+  .feature-quote { grid-template-columns: 1fr; }
+  .feature-photo img { min-height: 0; max-height: 360px; }
+}
+
+@media (max-width: 520px) {
+  /* nav: keep wordmark + burger inside 375px */
+  .nav { padding-top: 0.9rem; padding-bottom: 0.9rem; }
+  .nav-logo { font-size: 0.72rem; letter-spacing: 0.2em; gap: 0.55rem; }
+  .nav-logo img { width: 26px; height: 26px; }
+
+  /* calmer hero headline wrap on small screens */
+  h1 { font-size: clamp(1.9rem, 8.6vw, 2.6rem); }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-ctas .btn { padding: 0.7rem 1.4rem; }
+
+  /* section rhythm a touch tighter */
+  .section-head { margin-bottom: 2.2rem; }
+
+  /* stats: 2-up, odd last stat spans the full row (no empty cell) */
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  /* artists carousel: arrows drop under the intro line */
+  .carousel-head { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+
+  /* product page */
+  .product-section { padding-top: 5.6rem; }
+  .product-info h1 { font-size: 1.7rem; }
+  .product-price { font-size: 1.3rem; }
+  .option-row { flex-direction: column; gap: 0.5rem; }
+  .product-thumb { width: 60px; height: 60px; }
+
+  /* collection toolbar wraps cleanly */
+  .shop-toolbar { flex-wrap: wrap; }
+
+  /* cart: summary uses full width, buttons stretch */
+  .cart-section { padding-top: 5.6rem; }
+  .cart-summary { max-width: none; }
+  .cart-actions { justify-content: stretch; }
+  .cart-actions .btn { flex: 1; text-align: center; }
+
+  /* footer + newsletter breathing room */
+  .footer { padding-top: 2.6rem; }
+
+  /* cookie banner hugs the full width minus margin */
+  #shopify-pc__banner.shopify-pc__banner__dialog {
+    inset: auto 14px 14px 14px !important;
+    width: auto !important;
+  }
 }

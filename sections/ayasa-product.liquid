@@ -121,6 +121,19 @@
       </form>
     </div>
   </div>
+
+  {% comment %}
+    "Hear it played" — performance videos + artists, rendered by ayasa.js
+    from the model data (ayasa-data.js) when this product has demo clips.
+  {% endcomment %}
+  <div class="product-demos" id="productDemos" hidden>
+    <div class="section-head">
+      <p class="kicker">The sound</p>
+      <h2>Hear it played.</h2>
+      <p class="section-sub" id="productDemosSub"></p>
+    </div>
+    <div class="demo-strip" id="demoStrip"></div>
+  </div>
 </section>
 
 {% schema %}

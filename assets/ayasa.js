@@ -134,13 +134,14 @@ function artistInfoHTML(label) {
     <div class="demo-artist-links">${links}</div>`;
 }
 
-function openDemoLightbox(model) {
+function openDemoLightbox(model, startIndex) {
+  const start = startIndex || 0;
   const lb = document.createElement("div");
   lb.className = "demo-lightbox";
   lb.setAttribute("role", "dialog");
   lb.setAttribute("aria-label", `Demo videos for ${model.name}`);
   const tabs = model.videos.map((v, i) =>
-    `<button class="demo-tab${i === 0 ? " active" : ""}" data-i="${i}">${v.artist}</button>`).join("");
+    `<button class="demo-tab${i === start ? " active" : ""}" data-i="${i}">${v.artist}</button>`).join("");
   lb.innerHTML = `
     <div class="demo-backdrop"></div>
     <div class="demo-panel">
@@ -152,10 +153,10 @@ function openDemoLightbox(model) {
         <button class="demo-close" aria-label="Close">✕</button>
       </div>
       <video controls playsinline preload="metadata"
-             poster="${model.videos[0].file.replace(/\.mp4$/, ".jpg")}"
-             src="${model.videos[0].file}"></video>
+             poster="${model.videos[start].file.replace(/\.mp4$/, ".jpg")}"
+             src="${model.videos[start].file}"></video>
       <div class="demo-tabs" role="tablist" aria-label="Choose artist">${tabs}</div>
-      <div class="demo-artist">${artistInfoHTML(model.videos[0].artist)}</div>
+      <div class="demo-artist">${artistInfoHTML(model.videos[start].artist)}</div>
     </div>`;
   document.body.appendChild(lb);
   document.body.style.overflow = "hidden";
@@ -262,6 +263,39 @@ function initProductPage() {
       photo.removeAttribute("srcset");
     });
   });
+
+  // "Hear it played" — performance strip from the model data
+  const demoModel = typeof MODELS !== "undefined" &&
+    MODELS.find(m => m.productHandle === handle && m.videos && m.videos.length);
+  if (demoModel) {
+    const strip = document.getElementById("demoStrip");
+    strip.innerHTML = demoModel.videos.map((v, i) => {
+      const base = v.artist.split(" — ")[0];
+      const a = (typeof ARTISTS !== "undefined" && ARTISTS[base]) || {};
+      return `
+      <article class="demo-card" data-i="${i}" tabindex="0" role="button" aria-label="Play performance by ${v.artist}">
+        <img src="${v.file.replace(/\.mp4$/, ".jpg")}" alt="" loading="lazy">
+        <span class="demo-card-play" aria-hidden="true">▶</span>
+        <div class="demo-card-info">
+          <strong>${base}</strong>
+          ${a.credential ? `<span>${a.credential}</span>` : ""}
+        </div>
+      </article>`;
+    }).join("");
+    const artistCount = new Set(demoModel.videos.map(v => v.artist.split(" — ")[0])).size;
+    document.getElementById("productDemosSub").textContent =
+      `${demoModel.videos.length} performances by ${artistCount} artists — played on this model.`;
+    document.getElementById("productDemos").hidden = false;
+    const open = card => openDemoLightbox(demoModel, +card.dataset.i);
+    strip.addEventListener("click", e => {
+      const card = e.target.closest(".demo-card");
+      if (card) open(card);
+    });
+    strip.addEventListener("keydown", e => {
+      const card = e.target.closest(".demo-card");
+      if (card && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); open(card); }
+    });
+  }
 
   // buy form: instrument + required case go into the cart together
   const form = document.getElementById("buyForm");

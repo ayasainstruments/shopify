@@ -29,9 +29,12 @@ function modelCard(m) {
   const bottom = m.bottom && m.bottom.length
     ? `<b>+${m.bottom.length} bottom:</b> ${m.bottom.join(" ")}`
     : "Topside only";
+  // cards with a shop destination are fully clickable (stretched link);
+  // RRP-only cards (Elements) get no link and no clickable affordance
+  const linked = !m.rrp;
   const priceOrLink = m.rrp
     ? `<span class="model-price">RRP ${m.rrp}</span>`
-    : `<a class="model-link" href="${m.productHandle ? `/products/${m.productHandle}` : "/collections/instruments"}">View in shop →</a>`;
+    : `<a class="model-link" href="${m.productHandle ? `/products/${m.productHandle}` : "/collections/instruments"}" aria-label="View ${m.name} in the shop">View in shop <span class="arrow">→</span></a>`;
   const idx = MODELS.indexOf(m);
   const hearIt = m.videos && m.videos.length
     ? `<button class="hear-btn" data-model="${idx}" aria-haspopup="dialog">
@@ -46,7 +49,7 @@ function modelCard(m) {
        </a>`
     : "";
   return `
-  <article class="model-card reveal">
+  <article class="model-card reveal${linked ? " model-card-linked" : ""}">
     <div class="model-head">
       <h3>${m.name}</h3>
     </div>

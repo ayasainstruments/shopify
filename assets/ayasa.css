@@ -740,3 +740,20 @@ select:focus { outline: none; border-color: var(--slate); }
   display: block; margin-top: 0.3rem; font-size: 0.6rem;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-light);
 }
+
+/* ---------- homepage model cards: whole card clickable ---------- */
+.model-card { position: relative; }
+/* stretched link: the "View in shop" anchor covers the entire card */
+.model-card-linked .model-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+/* interactive children stay above the stretched link */
+.model-actions { position: relative; z-index: 2; }
+/* only genuinely clickable cards behave clickable */
+.model-card:not(.model-card-linked):hover { transform: none; border-color: var(--line); }
+/* hovering anywhere on the card confirms the destination.
+   NB: never transform .model-link itself — a transform would turn it into
+   the containing block for its stretched ::after and collapse the overlay. */
+.model-link { transition: color 0.2s ease; }
+.model-link .arrow { display: inline-block; transition: transform 0.2s ease; }
+.model-card-linked:hover .model-link { color: var(--ink); }
+.model-card-linked:hover .model-link .arrow { transform: translateX(4px); }
+.model-card-linked:has(.model-link:focus-visible) { border-color: var(--brand); }

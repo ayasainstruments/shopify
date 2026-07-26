@@ -762,8 +762,9 @@ select:focus { outline: none; border-color: var(--slate); }
 .demo-cta {
   border-top: 1px solid var(--line);
   padding-top: 0.85rem;
-  opacity: 0; transform: translateY(8px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 0; transform: translateY(10px);
+  /* slow, settling ease — the bar should drift in, not pop */
+  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .demo-cta.visible { opacity: 1; transform: none; }
 .demo-cta-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }

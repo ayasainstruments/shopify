@@ -1,6 +1,6 @@
 {
   "sections": {
-    "hero": { "type": "ayasa-hero", "settings": {} },
+    "hero": { "type": "ayasa-hero", "settings": { } },
     "stats": {
       "type": "ayasa-stats",
       "blocks": {

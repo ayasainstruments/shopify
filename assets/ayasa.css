@@ -253,6 +253,9 @@ strong { font-weight: 600; }
 .player-carousel {
   display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
   padding-bottom: 0.8rem; scrollbar-width: thin; scrollbar-color: var(--brand-deep) transparent;
+  /* keep the fixed-width cards from inflating the section's min-content
+     (sections are grid items inside .shopify-section wrappers) */
+  width: 0; min-width: 100%;
 }
 .player-carousel:focus-visible { outline: 1px solid var(--brand); outline-offset: 4px; }
 .player-card {

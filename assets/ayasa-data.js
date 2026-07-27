@@ -19,7 +19,7 @@
 // TODO (Ralf): fill in Immie's and Roni's credential/bio + links + photo.
 const ARTISTS = {
   "Malte Marten": {
-    credential: "1.4M YouTube subscribers · plays Ayasa exclusively",
+    credential: "1.4M YouTube subscribers · plays mostly Ayasa",
     bio: "Germany's most-watched handpan artist; his Ayasa meditations have been heard over 50 million times on YouTube.",
     img: AYASA_ASSET("player-malte.jpg"),
     links: { youtube: "https://www.youtube.com/@MalteMarten", web: "https://www.maltemarten.com/" }
@@ -44,7 +44,7 @@ const ARTISTS = {
 const PLAYERS = [
   {
     name: "Malte Marten",
-    credential: "1.4M YouTube subscribers · plays Ayasa exclusively",
+    credential: "1.4M YouTube subscribers · plays mostly Ayasa",
     quote: "The handpan can serve as a channel for the many emotions we feel as human beings.",
     img: AYASA_ASSET("player-malte.jpg"),
     links: { youtube: "https://www.youtube.com/@MalteMarten", web: "https://www.maltemarten.com/" }

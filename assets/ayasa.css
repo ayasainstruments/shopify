@@ -350,9 +350,11 @@ strong { font-weight: 600; }
 .demo-tab:hover { color: var(--ink); border-color: var(--brand-deep); }
 .demo-tab.active { background: var(--brand-fill); border-color: var(--brand); color: var(--ink); }
 .demo-artist {
-  display: flex; align-items: center; gap: 0.85rem;
+  display: flex; align-items: flex-start; gap: 0.85rem;
   border-top: 1px solid var(--line); padding-top: 0.9rem;
 }
+/* avatar centers on the name + credential lines, not the whole bio block */
+.demo-artist-avatar, .demo-artist-initial { margin-top: 0.45rem; }
 .demo-artist-avatar {
   width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: 50% 18%;
   border: 1px solid var(--brand-deep); flex: 0 0 auto;

@@ -187,14 +187,22 @@ function openDemoLightbox(model, startIndex, buyCtx) {
              poster="${model.videos[start].file.replace(/\.mp4$/, ".jpg")}"
              src="${model.videos[start].file}"></video>
       ${ctaHTML}
-      <div class="demo-tabs" role="tablist" aria-label="Choose artist">${tabs}</div>
-      <div class="demo-artist">${artistInfoHTML(model.videos[start].artist)}</div>
+      <div class="demo-scroll">
+        <div class="demo-tabs" role="tablist" aria-label="Choose artist">${tabs}</div>
+        <div class="demo-artist">${artistInfoHTML(model.videos[start].artist)}</div>
+      </div>
     </div>`;
   document.body.appendChild(lb);
   document.body.style.overflow = "hidden";
 
   const video = lb.querySelector("video");
   const artistBox = lb.querySelector(".demo-artist");
+  // mobile sheet: fade the scroll area's bottom edge while more content is below
+  const scroller = lb.querySelector(".demo-scroll");
+  const updateFade = () => scroller.classList.toggle("scroll-fade",
+    scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight > 8);
+  scroller.addEventListener("scroll", updateFade, { passive: true });
+  updateFade();
   const close = () => {
     video.pause();
     document.body.style.overflow = "";
@@ -211,6 +219,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     video.src = v.file;
     video.play();
     artistBox.innerHTML = artistInfoHTML(v.artist);
+    updateFade();
   };
   const current = () => tabEls.findIndex(t => t.classList.contains("active"));
   const onKey = e => {
@@ -230,6 +239,8 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     const reveal = () => cta.classList.add("visible");
     video.addEventListener("timeupdate", () => { if (video.currentTime >= 4) reveal(); });
     video.addEventListener("ended", reveal);
+    // the growing bar squeezes the mobile sheet's scroll area — re-check the fade hint
+    cta.addEventListener("transitionend", updateFade);
   }
   if (cta && buyCtx) {
     const btn = cta.querySelector(".demo-cta-btn");

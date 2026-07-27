@@ -338,6 +338,9 @@ strong { font-weight: 600; }
   width: 100%; aspect-ratio: 9 / 16; max-height: 62svh; object-fit: contain;
   background: #000; border-radius: 12px;
 }
+/* tabs + artist live in a wrapper; on desktop it's inert (keeps the panel's
+   0.9rem rhythm), on mobile it becomes the sheet's scroll area */
+.demo-scroll { display: flex; flex-direction: column; gap: 0.9rem; }
 .demo-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .demo-tab {
   background: var(--bg-3); border: 1px solid var(--line); border-radius: 999px;
@@ -806,3 +809,42 @@ select:focus { outline: none; border-color: var(--slate); }
 .demo-cta-casewrap label { display: block; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.4rem; }
 .demo-cta-case { width: 100%; }
 .demo-cta-error { color: #d99a8f; font-size: 0.8rem; margin: 0.5rem 0 0; }
+
+/* ---------- demo lightbox: mobile bottom sheet ---------- */
+@media (max-width: 640px) {
+  .demo-lightbox { place-items: end center; }
+  .demo-panel {
+    width: 100vw; height: 100svh; max-height: 100svh;
+    border-radius: 0; border: 0;
+    padding: 0 0 max(1rem, env(safe-area-inset-bottom));
+    animation: demo-sheet-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* full-bleed video from the very top; title + close float over it on a scrim */
+  .demo-top {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+    padding: max(1rem, env(safe-area-inset-top)) 1.1rem 2.4rem;
+    background: linear-gradient(180deg, rgba(8, 9, 11, 0.78) 0%, rgba(8, 9, 11, 0.38) 55%, transparent 100%);
+  }
+  /* slim black bar above the full-bleed video */
+  .demo-panel video { max-height: 62svh; border-radius: 0; border-top: 14px solid #000; }
+  .demo-scroll { padding: 0 1.1rem; }
+  .demo-cta { margin-left: 1.1rem; margin-right: 1.1rem; }
+  .demo-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  /* touch + fade hint carry the scroll affordance — no scrollbar needed */
+  .demo-scroll { scrollbar-width: none; }
+  .demo-scroll::-webkit-scrollbar { display: none; }
+  /* tighter rhythm so the artist row stays visible alongside the cta bar */
+  .demo-scroll { gap: 0.45rem; }
+  .demo-artist { border-top: 0; padding-top: 0.1rem; }
+  .demo-cta-row { padding-top: 0.6rem; }
+  .demo-cta-price strong { font-size: 0.95rem; }
+  .demo-cta-btn { padding: 0.45rem 1rem; font-size: 0.78rem; }
+  .demo-scroll.scroll-fade {
+    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(180deg, #000 calc(100% - 32px), transparent);
+  }
+}
+@keyframes demo-sheet-up { from { transform: translateY(28px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .demo-panel { animation: none; }
+}

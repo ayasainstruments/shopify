@@ -8,22 +8,42 @@
   </div>
 
   <div class="shop-toolbar">
-    <p class="shop-count">{{ collection.products_count }} product{% unless collection.products_count == 1 %}s{% endunless %}</p>
-    <label class="shop-sort">
-      Sort
-      <select id="sortSelect">
-        {%- assign current = collection.sort_by | default: collection.default_sort_by -%}
-        {%- for option in collection.sort_options -%}
-          <option value="{{ option.value }}" {% if option.value == current %}selected{% endif %}>{{ option.name }}</option>
-        {%- endfor -%}
-      </select>
-    </label>
+    {%- comment -%} reverse-alpha keeps Handpans ahead of Accessories regardless of product sort {%- endcomment -%}
+    {%- assign types = collection.products | map: 'type' | uniq | sort | reverse -%}
+    {%- comment -%} handpans are the primary product — pre-select that filter when present {%- endcomment -%}
+    {%- if types contains 'Handpan' -%}
+      {%- assign default_type = 'Handpan' -%}
+      {%- assign shown_count = collection.products | where: 'type', 'Handpan' | size -%}
+    {%- else -%}
+      {%- assign default_type = blank -%}
+      {%- assign shown_count = collection.products_count -%}
+    {%- endif -%}
+    <div class="shop-filters" role="group" aria-label="Filter by category">
+      {%- for type in types -%}
+        {%- if type == blank %}{% continue %}{% endif -%}
+        <button class="filter-chip{% if type == default_type %} on{% endif %}" data-filter="{{ type | handleize }}" aria-pressed="{% if type == default_type %}true{% else %}false{% endif %}">
+          {%- if type == 'Accessory' %}Accessories{% else %}{{ type }}s{% endif -%}
+        </button>
+      {%- endfor -%}
+    </div>
+    <div class="shop-toolbar-right">
+      <p class="shop-count" data-total="{{ collection.products_count }}">{{ shown_count }} product{% unless shown_count == 1 %}s{% endunless %}</p>
+      <label class="shop-sort">
+        Sort
+        <select id="sortSelect">
+          {%- assign current = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == current %}selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </label>
+    </div>
   </div>
 
-  {% paginate collection.products by 24 %}
+  {% paginate collection.products by 50 %}
     <div class="shop-grid">
       {%- for product in collection.products -%}
-        <a class="shop-card" href="{{ product.url }}">
+        <a class="shop-card" href="{{ product.url }}" data-type="{{ product.type | handleize }}"{% if default_type != blank and product.type != default_type %} style="display: none"{% endif %}>
           <div class="shop-card-photo">
             {%- if product.featured_image -%}
               {{ product.featured_image | image_url: width: 800 | image_tag: widths: '400, 600, 800', alt: product.featured_image.alt | default: product.title, loading: 'lazy' }}
@@ -58,6 +78,21 @@
     url.searchParams.set('sort_by', sel.value);
     window.location = url;
   });
+
+  const chips = document.querySelectorAll('.filter-chip');
+  const cards = document.querySelectorAll('.shop-card');
+  const count = document.querySelector('.shop-count');
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    const active = !chip.classList.contains('on'); // clicking the active chip clears the filter
+    chips.forEach(c => { const on = active && c === chip; c.classList.toggle('on', on); c.setAttribute('aria-pressed', on); });
+    let visible = 0;
+    cards.forEach(card => {
+      const show = !active || card.dataset.type === chip.dataset.filter;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (count) count.textContent = visible + ' product' + (visible === 1 ? '' : 's');
+  }));
 {% endjavascript %}
 
 {% schema %}

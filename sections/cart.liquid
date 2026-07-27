@@ -17,7 +17,7 @@
               {%- endif -%}
             </a>
             <div class="cart-line-info">
-              <a class="cart-line-title" href="{{ item.url }}">{{ item.product.title | remove: ' - 440Hz' | remove: '- 440Hz' }}</a>
+              <a class="cart-line-title" href="{{ item.url }}">{{ item.product.title | remove: ' - 440Hz' | remove: '- 440Hz' | replace: 'Ember Steel', 'Ember Steel®' }}</a>
               {%- for p in item.properties -%}
                 {%- unless p.last == blank or p.last == 'No free t-shirt' -%}
                   <p class="cart-line-prop">{{ p.first }}: {{ p.last }}</p>

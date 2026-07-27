@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-maker-shop"
+    }
+  },
+  "order": ["main"]
+}

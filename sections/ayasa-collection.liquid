@@ -50,7 +50,7 @@
             {%- endif -%}
           </div>
           <div class="shop-card-body">
-            <h3>{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' }}</h3>
+            <h3>{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' | replace: 'Ember Steel', 'Ember Steel®' }}</h3>
             {% render 'availability-badge', product: product %}
             <p class="shop-card-price">
               {%- if product.compare_at_price > product.price -%}

@@ -18,7 +18,7 @@
       "type": "ayasa-ember",
       "blocks": {
         "fact1": { "type": "fact", "settings": { "title": "Tuned to stay tuned", "text": "Thousands of hammer strikes, finished in soundproofed tuning chambers. Documented cases of instruments holding their voice for over six years — and when one does need attention, the workshop retunes it." } },
-        "fact2": { "type": "fact", "settings": { "title": "0.9 mm, even everywhere", "text": "Deep-drawn Ember Steel keeps its thickness even across the whole form — the foundation of a predictable, stable instrument." } },
+        "fact2": { "type": "fact", "settings": { "title": "0.9 mm, even everywhere", "text": "Deep-drawn Ember Steel® keeps its thickness even across the whole form — the foundation of a predictable, stable instrument." } },
         "palette": { "type": "palette", "settings": {} }
       },
       "block_order": ["fact1", "fact2", "palette"],
@@ -29,7 +29,7 @@
     "makers": {
       "type": "ayasa-makers",
       "blocks": {
-        "mat1": { "type": "material", "settings": { "title": "Ember Steel", "text": "The signature alloy — stability of nitrided, voice of stainless. 0.9 mm, even across the shell." } },
+        "mat1": { "type": "material", "settings": { "title": "Ember Steel®", "text": "The signature alloy — stability of nitrided, voice of stainless. 0.9 mm, even across the shell." } },
         "mat2": { "type": "material", "settings": { "title": "Stainless AISI 430", "text": "Classic stainless character for makers who want long, shimmering sustain." } },
         "mat3": { "type": "material", "settings": { "title": "DC04", "text": "The traditional deep-drawing steel — warm, familiar, endlessly workable." } }
       },

@@ -52,7 +52,7 @@
     </div>
 
     <div class="product-info">
-      <h1>{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' }}</h1>
+      <h1>{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' | replace: 'Ember Steel', 'Ember Steel®' }}</h1>
       <div class="product-meta">
         {% render 'availability-badge', product: product %}
         <p class="product-price">

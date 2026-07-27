@@ -241,6 +241,8 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     document.removeEventListener("keydown", onKey);
   };
   lb.__close = close;
+  // state snapshot for cross-page resurrection of the minimized player
+  lb.__state = () => ({ name: model.name, index: current(), time: video.currentTime });
 
   // desktop: minimize to a corner mini-player so the page stays browsable
   const btnMin = lb.querySelector(".demo-min");
@@ -383,6 +385,37 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   }
 
   video.play();
+}
+
+// PROTOTYPE: resurrect the minimized player across page loads.
+// On leave: stash which video + timestamp if (and only if) the player is minimized.
+addEventListener("pagehide", () => {
+  const lb = document.querySelector(".demo-lightbox");
+  if (lb && lb.classList.contains("minimized") && lb.__state) {
+    sessionStorage.setItem("ayasaMiniPlayer", JSON.stringify(lb.__state()));
+  } else {
+    sessionStorage.removeItem("ayasaMiniPlayer");
+  }
+});
+
+// On arrival: rebuild the mini player in the corner, seeked to where it was.
+// Chrome carries autoplay permission through same-site link clicks, so it
+// usually resumes with sound; stricter browsers show the paused player.
+function restoreMiniPlayer() {
+  if (matchMedia("(max-width: 640px)").matches) return; // mini player is desktop-only
+  let saved = null;
+  try { saved = JSON.parse(sessionStorage.getItem("ayasaMiniPlayer")); } catch (e) { /* corrupt state */ }
+  if (!saved || typeof MODELS === "undefined") return;
+  const model = MODELS.find(m => m.name === saved.name && m.videos && m.videos.length);
+  if (!model) return;
+  openDemoLightbox(model, saved.index || 0);
+  const lb = document.querySelector(".demo-lightbox");
+  if (!lb) return;
+  lb.querySelector(".demo-min").click(); // dock straight into the corner
+  const v = lb.querySelector("video");
+  const seek = () => { v.currentTime = saved.time || 0; };
+  if (v.readyState >= 1) seek();
+  else v.addEventListener("loadedmetadata", seek, { once: true });
 }
 
 function initDemoButtons() {
@@ -601,3 +634,4 @@ initReveal();
 initNav();
 initHeroMotion();
 initProductPage();
+restoreMiniPlayer();

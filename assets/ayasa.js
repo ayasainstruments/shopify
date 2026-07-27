@@ -145,21 +145,33 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   lb.setAttribute("aria-label", `Demo videos for ${model.name}`);
   const tabs = model.videos.map((v, i) =>
     `<button class="demo-tab${i === start ? " active" : ""}" data-i="${i}">${v.artist}</button>`).join("");
-  // buy bar (product pages only): fades in once the viewer is watching
+  // cta bar: fades in once the viewer is watching.
+  // product pages (buyCtx) get add-to-cart; the homepage gets a "View in shop"
+  // link when the model declares a videoShop target.
   const ctaHTML = buyCtx && buyCtx.available ? `
-      <div class="demo-cta" hidden>
-        <div class="demo-cta-row">
-          <p class="demo-cta-price">
-            ${buyCtx.compareAt ? `<s>${buyCtx.compareAt}</s>` : ""}<strong>${buyCtx.price}</strong>
-          </p>
-          <button type="button" class="btn btn-primary demo-cta-btn">Add to cart</button>
+      <div class="demo-cta">
+        <div class="demo-cta-inner">
+          <div class="demo-cta-row">
+            <p class="demo-cta-price">
+              ${buyCtx.compareAt ? `<s>${buyCtx.compareAt}</s>` : ""}<strong>${buyCtx.price}</strong>
+            </p>
+            <button type="button" class="btn btn-primary demo-cta-btn">Add to cart</button>
+          </div>
+          ${buyCtx.caseSelect ? `
+          <div class="demo-cta-casewrap" hidden>
+            <label for="demoCtaCase">Choose your case — every instrument ships in one</label>
+            <select id="demoCtaCase" class="demo-cta-case">${buyCtx.caseSelect.innerHTML}</select>
+          </div>` : ""}
+          <p class="demo-cta-error" hidden></p>
         </div>
-        ${buyCtx.caseSelect ? `
-        <div class="demo-cta-casewrap" hidden>
-          <label for="demoCtaCase">Choose your case — every instrument ships in one</label>
-          <select id="demoCtaCase" class="demo-cta-case">${buyCtx.caseSelect.innerHTML}</select>
-        </div>` : ""}
-        <p class="demo-cta-error" hidden></p>
+      </div>` : !buyCtx && model.videoShop ? `
+      <div class="demo-cta">
+        <div class="demo-cta-inner">
+          <div class="demo-cta-row">
+            <p class="demo-cta-price"><strong>${model.videoShop.name}</strong></p>
+            <a class="btn btn-primary demo-cta-btn" href="${model.videoShop.url}">View in shop →</a>
+          </div>
+        </div>
       </div>` : "";
   lb.innerHTML = `
     <div class="demo-backdrop"></div>
@@ -211,17 +223,15 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   lb.querySelector(".demo-close").addEventListener("click", close);
   tabEls.forEach(tab => tab.addEventListener("click", () => select(+tab.dataset.i)));
 
-  // buy bar: reveal after ~4s of watching, add to cart without leaving the moment
+  // cta bar: reveal after ~4s of watching; add-to-cart wiring is buy-bar only
+  // (the homepage "View in shop" variant is a plain link and needs none)
   const cta = lb.querySelector(".demo-cta");
   if (cta) {
-    const reveal = () => {
-      if (!cta.hidden) return;
-      cta.hidden = false;
-      requestAnimationFrame(() => cta.classList.add("visible"));
-    };
+    const reveal = () => cta.classList.add("visible");
     video.addEventListener("timeupdate", () => { if (video.currentTime >= 4) reveal(); });
     video.addEventListener("ended", reveal);
-
+  }
+  if (cta && buyCtx) {
     const btn = cta.querySelector(".demo-cta-btn");
     const caseWrap = cta.querySelector(".demo-cta-casewrap");
     const caseSel = cta.querySelector(".demo-cta-case");

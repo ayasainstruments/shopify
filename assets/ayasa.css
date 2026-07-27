@@ -58,9 +58,18 @@ strong { font-weight: 600; }
   position: fixed; inset: 0 0 auto 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.1rem clamp(1.2rem, 4vw, 3rem);
-  transition: background 0.35s ease, box-shadow 0.35s ease;
+  transition: box-shadow 0.35s ease;
 }
-.nav.scrolled { background: rgba(13, 14, 17, 0.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+/* the scrolled backdrop lives on a pseudo-element: backdrop-filter on .nav itself
+   would make the nav the containing block for the fixed-position mobile menu,
+   pinning the full-screen overlay inside the 60px bar */
+.nav::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgba(13, 14, 17, 0.92); backdrop-filter: blur(12px);
+  opacity: 0; transition: opacity 0.35s ease;
+}
+.nav.scrolled { box-shadow: 0 1px 0 var(--line); }
+.nav.scrolled::before { opacity: 1; }
 .nav-logo { font-size: 0.85rem; letter-spacing: 0.3em; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 0.7rem; }
 .nav-logo img { display: block; }
 .nav-logo span { color: var(--brand-light); margin: 0 0.15em; }
@@ -769,15 +778,25 @@ select:focus { outline: none; border-color: var(--slate); }
 .model-card-linked:has(.model-link:focus-visible) { border-color: var(--brand); }
 
 /* ---------- lightbox buy bar (product pages only) ---------- */
+/* the bar sits collapsed in the layout (0fr row + a negative margin cancelling
+   the panel's flex gap); reveal grows the space over 2s, then the content
+   fades in over 2s starting 1s into the growth */
 .demo-cta {
-  border-top: 1px solid var(--line);
-  padding-top: 0.85rem;
-  opacity: 0; transform: translateY(10px);
-  /* slow, settling ease — the bar should drift in, not pop */
-  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: grid; grid-template-rows: 0fr;
+  margin-top: -0.9rem;
+  transition: grid-template-rows 2s cubic-bezier(0.16, 1, 0.3, 1), margin-top 2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.demo-cta.visible { opacity: 1; transform: none; }
-.demo-cta-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.demo-cta.visible { grid-template-rows: 1fr; margin-top: 0; }
+.demo-cta-inner {
+  overflow: hidden; min-height: 0;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s, transform 2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+}
+.demo-cta.visible .demo-cta-inner { opacity: 1; transform: none; }
+.demo-cta-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  border-top: 1px solid var(--line); padding-top: 0.85rem;
+}
 .demo-cta-price { margin: 0; }
 .demo-cta-price s { color: var(--muted); margin-right: 0.5rem; font-size: 0.85rem; }
 .demo-cta-price strong { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--ink); }

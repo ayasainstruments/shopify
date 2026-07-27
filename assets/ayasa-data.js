@@ -92,6 +92,8 @@ const MODELS = [
     availability: "In stock — ships in 1–2 working days",
     inStock: true,
     // detailPage: re-enable when the D Aegean 18 product page (with 3D viewer) exists on Shopify
+    // homepage lightbox: delayed "View in shop" for this model's product page
+    videoShop: { name: "D Aegean 18 — Ember Steel®", url: "/products/d-aegean-18-ember-steel" },
     // demo clips: one poster jpg per mp4 (same basename), served from theme assets
     videos: [
       { artist: "Malte Marten", file: AYASA_ASSET("d-aegean-18__malte-1.mp4") },

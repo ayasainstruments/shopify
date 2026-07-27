@@ -137,7 +137,28 @@ function artistInfoHTML(label) {
     <div class="demo-artist-links">${links}</div>`;
 }
 
+// small centered popup for missed required choices (case / t-shirt)
+function showChoicePopup(msg) {
+  document.querySelector(".choice-popup")?.remove();
+  const p = document.createElement("div");
+  p.className = "choice-popup";
+  p.setAttribute("role", "alert");
+  p.textContent = msg;
+  document.body.appendChild(p);
+  setTimeout(() => {
+    p.classList.add("out");
+    setTimeout(() => p.remove(), 400);
+  }, 2600);
+}
+function choiceMessage(needCase, needShirt) {
+  if (needCase && needShirt) return "Please choose a case and a t-shirt";
+  if (needCase) return "Please choose a case";
+  return "Please choose a t-shirt — “No free t-shirt” is fine too";
+}
+
 function openDemoLightbox(model, startIndex, buyCtx) {
+  // one player at a time — a lingering (possibly minimized) lightbox closes first
+  document.querySelectorAll(".demo-lightbox").forEach(el => el.__close && el.__close());
   const start = startIndex || 0;
   const lb = document.createElement("div");
   lb.className = "demo-lightbox";
@@ -159,9 +180,16 @@ function openDemoLightbox(model, startIndex, buyCtx) {
           </div>
           ${buyCtx.caseSelect ? `
           <div class="demo-cta-casewrap" hidden>
-            <label for="demoCtaCase">Choose your case — every instrument ships in one</label>
-            <select id="demoCtaCase" class="demo-cta-case">${buyCtx.caseSelect.innerHTML}</select>
-          </div>` : ""}
+            ${document.getElementById("shirtSize") ? `
+            <label class="demo-shirt-label" for="demoShirtSize">Free Ayasa t-shirt — optional</label>
+            <div class="demo-shirt-row">
+              <select id="demoShirtSize">${document.getElementById("shirtSize").innerHTML}</select>
+              <select id="demoShirtColor">${document.getElementById("shirtColor").innerHTML}</select>
+            </div>` : ""}
+            <label class="demo-case-label">Choose your case — every instrument ships in one</label>
+            <div class="case-picker demo-case-picker">${(document.getElementById("casePicker") || { innerHTML: "" }).innerHTML}</div>
+          </div>
+          <button type="button" class="btn btn-primary demo-cta-add" hidden>Add to cart</button>` : ""}
           <p class="demo-cta-error" hidden></p>
         </div>
       </div>` : !buyCtx && model.videoShop ? `
@@ -181,7 +209,10 @@ function openDemoLightbox(model, startIndex, buyCtx) {
           <p class="demo-title">${model.name}</p>
           <p class="demo-sub">${model.scale}</p>
         </div>
-        <button class="demo-close" aria-label="Close">✕</button>
+        <div class="demo-top-btns">
+          <button class="demo-min" aria-label="Minimize">–</button>
+          <button class="demo-close" aria-label="Close">✕</button>
+        </div>
       </div>
       <video controls playsinline preload="metadata"
              poster="${model.videos[start].file.replace(/\.mp4$/, ".jpg")}"
@@ -209,6 +240,17 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     lb.remove();
     document.removeEventListener("keydown", onKey);
   };
+  lb.__close = close;
+
+  // desktop: minimize to a corner mini-player so the page stays browsable
+  const btnMin = lb.querySelector(".demo-min");
+  btnMin.addEventListener("click", () => {
+    const min = lb.classList.toggle("minimized");
+    document.body.style.overflow = min ? "" : "hidden";
+    btnMin.textContent = min ? "⤢" : "–";
+    btnMin.setAttribute("aria-label", min ? "Expand" : "Minimize");
+    requestAnimationFrame(updateFade); // scroll geometry changes with the size
+  });
   const tabEls = [...lb.querySelectorAll(".demo-tab")];
   const select = i => {
     const n = (i + model.videos.length) % model.videos.length;
@@ -243,16 +285,17 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     cta.addEventListener("transitionend", updateFade);
   }
   if (cta && buyCtx) {
-    const btn = cta.querySelector(".demo-cta-btn");
+    const btnFirst = cta.querySelector(".demo-cta-btn");
+    const btnAdd = cta.querySelector(".demo-cta-add");
     const caseWrap = cta.querySelector(".demo-cta-casewrap");
-    const caseSel = cta.querySelector(".demo-cta-case");
+    const casePick = cta.querySelector(".demo-case-picker");
     const err = cta.querySelector(".demo-cta-error");
 
-    const addToCart = async caseId => {
+    const addToCart = async (caseId, actBtn) => {
       const items = [{ id: buyCtx.variantId, quantity: 1, properties: buyCtx.getProperties() }];
       if (caseId) items.push({ id: +caseId, quantity: 1 });
-      btn.disabled = true;
-      btn.textContent = "Adding…";
+      actBtn.disabled = true;
+      actBtn.textContent = "Adding…";
       try {
         const r = await fetch("/cart/add.js", {
           method: "POST",
@@ -262,38 +305,80 @@ function openDemoLightbox(model, startIndex, buyCtx) {
         if (!r.ok) throw new Error((await r.json()).description || "Could not add to cart");
         cta.querySelector(".demo-cta-row").innerHTML = `
           <p class="demo-cta-price"><strong>Added to cart ✓</strong></p>
-          <a class="btn btn-primary demo-cta-btn" href="/cart">View cart →</a>`;
+          ${btnAdd ? "" : `<a class="btn btn-primary demo-cta-btn" href="/cart">View cart →</a>`}`;
+        if (btnAdd) btnAdd.outerHTML = `<a class="btn btn-primary demo-cta-add" href="/cart">View cart →</a>`;
         if (caseWrap) caseWrap.hidden = true;
       } catch (e2) {
         err.textContent = e2.message;
         err.hidden = false;
-        btn.disabled = false;
-        btn.textContent = "Add to cart";
+        actBtn.disabled = false;
+        actBtn.textContent = "Add to cart";
       }
     };
 
-    btn.addEventListener("click", () => {
+    // step 1: the small button. No case needed → add straight away; otherwise it
+    // fades out and hands over to the case picker + the big add button below.
+    btnFirst.addEventListener("click", () => {
       err.hidden = true;
-      const pageCase = buyCtx.caseSelect;
-      if (!pageCase) return addToCart(null); // no case required for this product
-      if (pageCase.value) return addToCart(pageCase.value); // already chosen on the page
-      if (caseWrap.hidden) {
+      // buying from the mini-player: bring the full lightbox back first
+      if (lb.classList.contains("minimized")) btnMin.click();
+      if (!buyCtx.caseSelect) return addToCart(null, btnFirst);
+      if (btnFirst.classList.contains("fading")) return;
+      btnFirst.classList.add("fading");
+      setTimeout(() => {
+        btnFirst.hidden = true;
         caseWrap.hidden = false;
-        caseSel.focus();
-      } else {
-        err.textContent = "Please choose a case first.";
-        err.hidden = false;
-        caseSel.focus();
-      }
+        btnAdd.hidden = false;
+        requestAnimationFrame(updateFade);
+        caseWrap.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }, 320);
     });
 
-    // picking a case in the lightbox adds immediately and syncs the page form
-    if (caseSel) {
-      caseSel.addEventListener("change", () => {
-        if (!caseSel.value) return;
-        if (buyCtx.caseSelect) buyCtx.caseSelect.value = caseSel.value;
-        addToCart(caseSel.value);
+    // step 2: the big button bundles handpan + chosen case + t-shirt
+    if (btnAdd) {
+      btnAdd.addEventListener("click", () => {
+        err.hidden = true;
+        const pageCase = buyCtx.caseSelect;
+        const pageShirt = document.getElementById("shirtSize");
+        const needCase = !pageCase.value;
+        const needShirt = pageShirt && !pageShirt.value;
+        if (needCase || needShirt) {
+          showChoicePopup(choiceMessage(needCase, needShirt));
+          // the shirt row sits on top — scroll there whenever it's part of what's missing
+          const target = needShirt ? cta.querySelector("#demoShirtSize") : casePick;
+          target?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          return;
+        }
+        addToCart(pageCase.value, btnAdd);
       });
+    }
+
+    // picking a case is selection only — it highlights and syncs the page form
+    if (casePick) {
+      casePick.addEventListener("click", e => {
+        const card = e.target.closest(".case-card");
+        if (!card || card.disabled) return;
+        casePick.querySelectorAll(".case-card").forEach(b => b.classList.toggle("on", b === card));
+        if (buyCtx.caseSelect) {
+          buyCtx.caseSelect.value = card.dataset.variant;
+          buyCtx.caseSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        err.hidden = true;
+      });
+    }
+
+    // t-shirt choice in the lightbox mirrors the page selects (getProperties reads those)
+    const demoShirtSize = cta.querySelector("#demoShirtSize");
+    const demoShirtColor = cta.querySelector("#demoShirtColor");
+    const pageShirtSize = document.getElementById("shirtSize");
+    const pageShirtColor = document.getElementById("shirtColor");
+    if (demoShirtSize && pageShirtSize) {
+      demoShirtSize.value = pageShirtSize.value;
+      demoShirtSize.addEventListener("change", () => { pageShirtSize.value = demoShirtSize.value; });
+    }
+    if (demoShirtColor && pageShirtColor) {
+      demoShirtColor.value = pageShirtColor.value;
+      demoShirtColor.addEventListener("change", () => { pageShirtColor.value = demoShirtColor.value; });
     }
   }
 
@@ -409,6 +494,44 @@ function initProductPage() {
   const caseSelect = document.getElementById("caseSelect");
   const error = document.getElementById("buyError");
 
+  // visual case picker drives the hidden select; a select-style trigger drops it down
+  const picker = document.getElementById("casePicker");
+  const caseTrigger = document.getElementById("caseTrigger");
+  const pickerWrap = document.getElementById("casePickerWrap");
+  const openPicker = open => {
+    if (!pickerWrap) return;
+    pickerWrap.classList.toggle("open", open);
+    caseTrigger.setAttribute("aria-expanded", open);
+  };
+  if (picker && caseSelect) {
+    const syncPicker = () => {
+      let chosen = null;
+      picker.querySelectorAll(".case-card").forEach(b => {
+        const on = b.dataset.variant === caseSelect.value;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", on);
+        if (on) chosen = b;
+      });
+      const label = caseTrigger.querySelector(".case-trigger-label");
+      if (chosen) {
+        const img = chosen.querySelector("img");
+        label.innerHTML = `${img ? `<img src="${img.currentSrc || img.src}" alt="">` : ""}<span>${chosen.querySelector(".case-name").textContent} — ${chosen.querySelector(".case-price").textContent}</span>`;
+      } else {
+        label.textContent = "Please choose a case…";
+      }
+    };
+    caseTrigger.addEventListener("click", () => openPicker(!pickerWrap.classList.contains("open")));
+    picker.addEventListener("click", e => {
+      const card = e.target.closest(".case-card");
+      if (!card || card.disabled) return;
+      caseSelect.value = card.dataset.variant;
+      caseSelect.dispatchEvent(new Event("change", { bubbles: true }));
+      if (error) error.hidden = true;
+      openPicker(false);
+    });
+    caseSelect.addEventListener("change", syncPicker);
+  }
+
   // product context for the lightbox buy bar (built lazily at click time)
   function buildBuyCtx() {
     return {
@@ -421,7 +544,7 @@ function initProductPage() {
         const properties = {};
         const size = document.getElementById("shirtSize");
         const color = document.getElementById("shirtColor");
-        if (size && size.value !== "No free t-shirt") {
+        if (size && size.value && size.value !== "No free t-shirt") {
           properties["Free t-shirt size"] = size.value;
           properties["Free t-shirt color"] = color.value;
         }
@@ -432,16 +555,22 @@ function initProductPage() {
   form.addEventListener("submit", async e => {
     e.preventDefault();
     error.hidden = true;
-    if (caseSelect && !caseSelect.value) {
-      error.textContent = "Please choose a case — we pack every instrument in a proper case so it arrives safely.";
-      error.hidden = false;
-      caseSelect.focus();
+    const size = document.getElementById("shirtSize");
+    const needCase = caseSelect && !caseSelect.value;
+    const needShirt = size && !size.value;
+    if (needCase || needShirt) {
+      showChoicePopup(choiceMessage(needCase, needShirt));
+      if (needCase) {
+        openPicker(true);
+        caseTrigger?.scrollIntoView({ block: "center", behavior: "smooth" });
+      } else {
+        size.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
       return;
     }
     const properties = {};
-    const size = document.getElementById("shirtSize");
     const color = document.getElementById("shirtColor");
-    if (size && size.value !== "No free t-shirt") {
+    if (size && size.value && size.value !== "No free t-shirt") {
       properties["Free t-shirt size"] = size.value;
       properties["Free t-shirt color"] = color.value;
     }

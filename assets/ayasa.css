@@ -337,10 +337,21 @@ strong { font-weight: 600; }
 .demo-panel video {
   width: 100%; aspect-ratio: 9 / 16; max-height: 62svh; object-fit: contain;
   background: #000; border-radius: 12px;
+  min-height: 0; /* lets the video give way gracefully when the buy form needs room */
 }
-/* tabs + artist live in a wrapper; on desktop it's inert (keeps the panel's
-   0.9rem rhythm), on mobile it becomes the sheet's scroll area */
-.demo-scroll { display: flex; flex-direction: column; gap: 0.9rem; }
+/* tabs + artist live in a wrapper that can shrink and scroll (invisibly, with a
+   fade hint) whenever the panel runs out of room — mobile sheet, mini-player,
+   or a desktop lightbox with the case picker open */
+.demo-scroll {
+  display: flex; flex-direction: column; gap: 0.9rem;
+  min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.demo-scroll::-webkit-scrollbar { display: none; }
+.demo-scroll.scroll-fade {
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 28px), transparent);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 28px), transparent);
+}
 .demo-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .demo-tab {
   background: var(--bg-3); border: 1px solid var(--line); border-radius: 999px;
@@ -807,10 +818,107 @@ select:focus { outline: none; border-color: var(--slate); }
 .demo-cta-price strong { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--ink); }
 .demo-cta-btn { cursor: pointer; border: 0; font-family: var(--font-body); padding: 0.55rem 1.3rem; white-space: nowrap; }
 .demo-cta-btn[disabled] { opacity: 0.6; cursor: default; }
-.demo-cta-casewrap { margin-top: 0.75rem; }
+.demo-cta-casewrap {
+  margin-top: 0.75rem; max-height: 34svh; overflow-y: auto;
+  overscroll-behavior: contain; scrollbar-width: none;
+}
+.demo-cta-casewrap::-webkit-scrollbar { display: none; }
 .demo-cta-casewrap label { display: block; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.4rem; }
-.demo-cta-case { width: 100%; }
+.demo-case-picker { grid-template-columns: repeat(3, 1fr); margin-top: 0.4rem; }
+.demo-case-label { margin-top: 0.85rem; }
+.demo-cta-casewrap > label:first-child { margin-top: 0; }
+.demo-shirt-row { display: flex; gap: 0.5rem; }
+.demo-shirt-row select { flex: 1; min-width: 0; }
+.demo-cta-add {
+  display: block; width: 100%; margin-top: 0.8rem; padding: 0.7rem 1rem;
+  border: 0; cursor: pointer; text-align: center; font-family: var(--font-body);
+}
+.demo-cta-add[disabled] { opacity: 0.6; cursor: default; }
+.demo-cta-add[hidden] { display: none; } /* display:block above would defeat [hidden] */
+/* step 1 → step 2: the small button fades out, the buy form fades in */
+.demo-cta-btn { transition: opacity 0.32s ease; }
+.demo-cta-btn.fading { opacity: 0; pointer-events: none; }
+@keyframes demo-fade-in { from { opacity: 0; } }
+.demo-cta-casewrap:not([hidden]), .demo-cta-add:not([hidden]) { animation: demo-fade-in 0.45s ease; }
 .demo-cta-error { color: #d99a8f; font-size: 0.8rem; margin: 0.5rem 0 0; }
+
+/* ---------- required-choice popup ---------- */
+.choice-popup {
+  position: fixed; left: 50%; top: 16%; transform: translateX(-50%); z-index: 600;
+  background: var(--bg-3); border: 1px solid var(--brand); border-radius: 12px;
+  color: var(--ink); font-size: 0.95rem; padding: 0.85rem 1.3rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); max-width: min(90vw, 420px); text-align: center;
+  animation: choice-pop 0.3s ease; transition: opacity 0.4s ease;
+}
+.choice-popup.out { opacity: 0; }
+@keyframes choice-pop { from { opacity: 0; transform: translateX(-50%) translateY(-8px); } }
+
+/* ---------- case picker (product page) ---------- */
+#caseSelect { display: none; } /* hidden source of truth; the picker drives it */
+.case-trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+  color: var(--ink); font-family: var(--font-body); font-size: 0.9rem; padding: 0.55rem 0.9rem;
+  cursor: pointer; text-align: left;
+}
+.case-trigger:hover, .case-trigger[aria-expanded="true"] { border-color: var(--slate); }
+.case-trigger-label { display: flex; align-items: center; gap: 0.55rem; min-width: 0; }
+.case-trigger-label img { width: 26px; height: 26px; border-radius: 6px; background: #fff; object-fit: contain; flex: 0 0 auto; }
+.case-trigger-chev { color: var(--muted); transition: transform 0.25s ease; }
+.case-trigger[aria-expanded="true"] .case-trigger-chev { transform: rotate(180deg); }
+.case-picker-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+.case-picker-wrap.open { grid-template-rows: 1fr; }
+.case-picker-wrap > .case-picker { overflow: hidden; min-height: 0; }
+.case-picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 0.6rem; margin-top: 0.55rem; }
+.case-card {
+  background: var(--bg-3); border: 1px solid var(--line); border-radius: 12px; padding: 0.45rem 0.45rem 0.55rem;
+  cursor: pointer; text-align: center; color: var(--ink); font-family: var(--font-body);
+  display: flex; flex-direction: column; gap: 0.35rem; align-items: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.case-card:hover { border-color: var(--slate); }
+.case-card.on { border-color: var(--brand-light); background: var(--brand-fill); }
+.case-thumb { display: block; width: 100%; aspect-ratio: 1; background: #fff; border-radius: 8px; overflow: hidden; }
+.case-thumb img { width: 100%; height: 100%; object-fit: contain; }
+.case-name { font-size: 0.7rem; line-height: 1.25; }
+.case-price { font-size: 0.7rem; color: var(--brand-light); }
+.case-card[disabled] { opacity: 0.45; cursor: default; }
+
+/* ---------- demo lightbox: desktop mini-player ---------- */
+.demo-top-btns { display: flex; gap: 0.5rem; flex: 0 0 auto; }
+.demo-min {
+  background: none; border: 1px solid var(--line); border-radius: 50%; width: 34px; height: 34px;
+  color: var(--muted); cursor: pointer; font-size: 1rem; flex: 0 0 auto;
+}
+.demo-min:hover { color: var(--ink); border-color: var(--brand); }
+@media (min-width: 641px) {
+  .demo-lightbox.minimized { inset: auto 1.25rem 1.25rem auto; }
+  .demo-lightbox.minimized .demo-backdrop { display: none; }
+  .demo-lightbox.minimized .demo-panel {
+    width: 240px; max-height: min(72svh, 660px); padding: 0.55rem 0.55rem 0.5rem; gap: 0.5rem;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  }
+  .demo-lightbox.minimized .demo-panel video { max-height: 340px; border-radius: 9px; }
+  .demo-lightbox.minimized .demo-title { font-size: 0.95rem; }
+  .demo-lightbox.minimized .demo-sub { display: none; }
+  .demo-lightbox.minimized .demo-min, .demo-lightbox.minimized .demo-close { width: 28px; height: 28px; font-size: 0.75rem; }
+  /* the full content stays — tabs + artist scroll invisibly if the screen is short */
+  .demo-lightbox.minimized .demo-scroll {
+    min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+  .demo-lightbox.minimized .demo-scroll::-webkit-scrollbar { display: none; }
+  .demo-lightbox.minimized .demo-scroll.scroll-fade {
+    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(180deg, #000 calc(100% - 28px), transparent);
+  }
+  .demo-lightbox.minimized .demo-tab { font-size: 0.68rem; }
+  .demo-lightbox.minimized .demo-artist-bio { font-size: 0.75rem; }
+  .demo-lightbox.minimized .demo-cta-row { flex-direction: column; align-items: flex-start; gap: 0.45rem; }
+  .demo-lightbox.minimized .demo-cta-price strong { font-size: 0.85rem; }
+  .demo-lightbox.minimized .demo-case-picker { grid-template-columns: repeat(2, 1fr); }
+  .demo-lightbox.minimized .demo-cta-casewrap { max-height: 180px; }
+}
 
 /* ---------- demo lightbox: mobile bottom sheet ---------- */
 @media (max-width: 640px) {
@@ -829,6 +937,8 @@ select:focus { outline: none; border-color: var(--slate); }
   }
   /* slim black bar above the full-bleed video */
   .demo-panel video { max-height: 62svh; border-radius: 0; border-top: 14px solid #000; }
+  .demo-min { display: none; } /* minimize is desktop-only */
+  .demo-cta-casewrap { max-height: 26svh; } /* keep the video the hero on the sheet */
   .demo-scroll { padding: 0 1.1rem; }
   .demo-cta { margin-left: 1.1rem; margin-right: 1.1rem; }
   .demo-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }

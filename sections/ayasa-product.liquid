@@ -79,7 +79,11 @@
         {%- if is_instrument -%}
           <div class="product-option">
             <label for="caseSelect">Handpan case <span class="option-required">required — we pack every instrument in a proper case so it arrives safely</span></label>
-            <select id="caseSelect" required>
+            {%- comment -%} the select stays as the (hidden) source of truth for all cart logic;
+                the visual picker below drives it {%- endcomment -%}
+            {%- comment -%} no `required` attr: the select is hidden and a hidden required field
+                blocks native form submission before the JS validation can run {%- endcomment -%}
+            <select id="caseSelect">
               <option value="" selected disabled>Please choose a case…</option>
               {%- for c in cases -%}
                 {%- assign cv = c.selected_or_first_available_variant | default: c.variants.first -%}
@@ -88,6 +92,26 @@
                 </option>
               {%- endfor -%}
             </select>
+            <button type="button" class="case-trigger" id="caseTrigger" aria-expanded="false" aria-controls="casePickerWrap">
+              <span class="case-trigger-label">Please choose a case…</span>
+              <span class="case-trigger-chev" aria-hidden="true">▾</span>
+            </button>
+            <div class="case-picker-wrap" id="casePickerWrap">
+              <div class="case-picker" id="casePicker">
+                {%- for c in cases -%}
+                  {%- assign cv = c.selected_or_first_available_variant | default: c.variants.first -%}
+                  <button type="button" class="case-card" data-variant="{{ cv.id }}" {% unless c.available %}disabled{% endunless %} aria-pressed="false">
+                    <span class="case-thumb">
+                      {%- if c.featured_image -%}
+                        {{ c.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: c.title }}
+                      {%- endif -%}
+                    </span>
+                    <span class="case-name">{{ c.title | remove: 'Evatek 2.0 ' }}</span>
+                    <span class="case-price">{{ c.price | money }}{% unless c.available %} · out of stock{% endunless %}</span>
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
             {%- if cases.size == 0 -%}
               <p class="option-note">⚠ The “Cases” collection is empty — create it per import/IMPORT-GUIDE.md.</p>
             {%- endif -%}
@@ -99,6 +123,7 @@
             <label for="shirtSize">Free Ayasa t-shirt</label>
             <div class="option-row">
               <select id="shirtSize" name="properties[Free t-shirt size]">
+                <option value="" selected disabled>Please choose a t-shirt…</option>
                 <option value="No free t-shirt">No free t-shirt</option>
                 <option>EU Small / US Extra Small</option>
                 <option>EU Medium / US Small</option>

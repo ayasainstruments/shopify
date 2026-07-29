@@ -789,6 +789,14 @@ select:focus { outline: none; border-color: var(--slate); }
   backdrop-filter: blur(3px);
 }
 .demo-card-info { position: absolute; left: 1rem; right: 1rem; top: 0.9rem; z-index: 2; }
+/* side-scrolling strips (product pages): cards are always fully visible, so
+   labels sit at the bottom as before and the watched tag takes the top corner */
+.demo-strip .demo-card::after {
+  inset: 40% 0 0 0;
+  background: linear-gradient(180deg, transparent, rgba(8, 9, 11, 0.9));
+}
+.demo-strip .demo-card-info { top: auto; bottom: 0.95rem; }
+.demo-strip .demo-card.watched::before { bottom: auto; top: 0.85rem; }
 .demo-card-info strong {
   display: block; font-family: var(--font-display); font-weight: 500;
   font-size: 1.08rem; color: var(--ink); line-height: 1.2;

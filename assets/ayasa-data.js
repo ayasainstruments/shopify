@@ -22,9 +22,7 @@ const ARTISTS = {
     credential: "1.4M YouTube subscribers · plays mostly Ayasa",
     bio: "The world's most-listened handpan artist; his Ayasa meditations have been heard over 50 million times on YouTube.",
     img: AYASA_ASSET("player-malte.jpg"),
-    // artist page — lightbox names link here. ?view=artist-malte forces the
-    // template until the page's template is assigned in admin — drop it at live push
-    page: "/pages/malte-marten?view=artist-malte",
+    page: "/pages/malte-marten", // artist page — lightbox names link here
     links: { youtube: "https://www.youtube.com/@MalteMarten", web: "https://www.maltemarten.com/" },
     // artist page: curated instrument rail (editorial order, first `visiblePlays`
     // shown before the expander) + listening-room videos per instrument.

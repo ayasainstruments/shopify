@@ -35,8 +35,7 @@
       },
       "block_order": ["mat1", "mat2", "mat3"],
       "settings": {}
-    },
-    "partners": { "type": "ayasa-partners", "settings": {} }
+    }
   },
-  "order": ["hero", "stats", "story", "ember", "range", "artists", "makers", "partners"]
+  "order": ["hero", "stats", "story", "ember", "range", "artists", "makers"]
 }

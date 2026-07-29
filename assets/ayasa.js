@@ -49,7 +49,8 @@ function modelCard(m) {
        </a>`
     : "";
   return `
-  <article class="model-card reveal${linked ? " model-card-linked" : ""}">
+  <article class="model-card reveal${linked ? " model-card-linked" : ""}${m.cardPhoto ? " model-card-photo" : ""}">
+    ${m.cardPhoto ? `<div class="model-card-bg" style="background-image: url('${m.cardPhoto}')" aria-hidden="true"></div>` : ""}
     <div class="model-head">
       <h3>${m.name}</h3>
     </div>

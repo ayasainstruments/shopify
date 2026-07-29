@@ -168,6 +168,24 @@ strong { font-weight: 600; }
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 .model-card:hover { transform: translateY(-4px); border-color: rgba(101, 117, 153, 0.55); }
+/* featured cards: the photo owns the card's upper region at rest (solid core,
+   long fade toward the text) and the mask breathes open to the full card on
+   hover — the clear photograph, revealed */
+@property --mask-solid { syntax: "<percentage>"; initial-value: 20%; inherits: false; }
+@property --mask-fade { syntax: "<percentage>"; initial-value: 50%; inherits: false; }
+.model-card-photo { overflow: hidden; }
+.model-card-bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-size: cover; background-position: top right;
+  opacity: 0.72;
+  --mask-solid: 20%;
+  --mask-fade: 50%;
+  -webkit-mask-image: radial-gradient(140% 110% at 100% 0%, #000 var(--mask-solid), transparent var(--mask-fade));
+  mask-image: radial-gradient(140% 110% at 100% 0%, #000 var(--mask-solid), transparent var(--mask-fade));
+  transition: opacity 0.5s ease, --mask-solid 0.5s ease, --mask-fade 0.5s ease;
+}
+.model-card-photo:hover .model-card-bg { opacity: 0.9; --mask-solid: 85%; --mask-fade: 200%; }
+.model-card-photo > *:not(.model-card-bg) { position: relative; z-index: 1; }
 .model-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.6rem; }
 .model-head h3 { font-size: 1.3rem; }
 .model-scale { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--slate); }
@@ -980,6 +998,7 @@ select:focus { outline: none; border-color: var(--slate); }
 
 /* ---------- demo lightbox: mobile bottom sheet ---------- */
 @media (max-width: 640px) {
+  .gal-nav { display: none; } /* gallery arrows: swipe is the gesture on mobile */
   .demo-lightbox { place-items: end center; }
   .demo-panel {
     width: 100vw; height: 100svh; max-height: 100svh;

@@ -107,6 +107,8 @@ const MODELS = [
     range: "premium",
     name: "F# Low Pygmy 21",
     productHandle: "fis-low-pygmy-21-ember-steel",
+    // TEMP: Aegean close-up as texture until the Pygmy gets its own shoot
+    cardPhoto: AYASA_ASSET("gal-test-4.jpg") + "?v=2",
     scale: "F# minor pentatonic · fully extended",
     ding: "F#3",
     top: ["G#3", "A3", "C#4", "E4", "F#4", "G#4", "A4", "C#5", "E5", "F#5", "G#5"],
@@ -119,6 +121,7 @@ const MODELS = [
     range: "premium",
     name: "D Aegean 18",
     productHandle: "d-aegean-18-ember-steel",
+    cardPhoto: AYASA_ASSET("gal-test-1.jpg") + "?v=2", // masked card background (hands hero)
     scale: "D Lydian",
     ding: "D3",
     top: ["F#3", "A3", "C#4", "D4", "F#4", "G#4", "A4", "C#5", "D5", "F#5"],
@@ -248,3 +251,9 @@ const MODELS = [
     rrp: "£2,400 inc VAT"
   }
 ];
+
+// TEMP: placeholder card-photo backgrounds on every model (alternating two of
+// the photographer's test crops) until each instrument gets its own shoot.
+MODELS.forEach((m, i) => {
+  if (!m.cardPhoto) m.cardPhoto = AYASA_ASSET(i % 2 ? "gal-test-3.jpg" : "gal-test-2.jpg") + "?v=2";
+});

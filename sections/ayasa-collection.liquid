@@ -45,7 +45,10 @@
       {%- for product in collection.products -%}
         <a class="shop-card" href="{{ product.url }}" data-type="{{ product.type | handleize }}"{% if default_type != blank and product.type != default_type %} style="display: none"{% endif %}>
           <div class="shop-card-photo">
-            {%- if product.featured_image -%}
+            {%- if product.handle == 'd-aegean-18-ember-steel' -%}
+              {%- comment -%} TEMP: photographer test — matches the product page's TEST_GALLERY hero {%- endcomment -%}
+              <img src="{{ 'gal-test-1.jpg' | asset_url }}" alt="{{ product.title }}" loading="lazy" width="800" height="800">
+            {%- elsif product.featured_image -%}
               {{ product.featured_image | image_url: width: 800 | image_tag: widths: '400, 600, 800', alt: product.featured_image.alt | default: product.title, loading: 'lazy' }}
             {%- endif -%}
           </div>

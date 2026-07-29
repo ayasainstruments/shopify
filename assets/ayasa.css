@@ -173,9 +173,11 @@ strong { font-weight: 600; }
    hover — the clear photograph, revealed */
 @property --mask-solid { syntax: "<percentage>"; initial-value: 20%; inherits: false; }
 @property --mask-fade { syntax: "<percentage>"; initial-value: 50%; inherits: false; }
-.model-card-photo { overflow: hidden; }
+/* isolation + negative z keep the photo under ALL card content without
+   positioning the children — the stretched link must anchor to the card */
+.model-card-photo { overflow: hidden; isolation: isolate; }
 .model-card-bg {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background-size: cover; background-position: top right;
   opacity: 0.72;
   --mask-solid: 20%;
@@ -185,7 +187,6 @@ strong { font-weight: 600; }
   transition: opacity 0.5s ease, --mask-solid 0.5s ease, --mask-fade 0.5s ease;
 }
 .model-card-photo:hover .model-card-bg { opacity: 0.9; --mask-solid: 85%; --mask-fade: 200%; }
-.model-card-photo > *:not(.model-card-bg) { position: relative; z-index: 1; }
 .model-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.6rem; }
 .model-head h3 { font-size: 1.3rem; }
 .model-scale { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--slate); }
@@ -779,9 +780,9 @@ select:focus { outline: none; border-color: var(--slate); }
 
 /* ---------- product page: "Hear it played" performance strip ---------- */
 .product-demos {
-  margin-top: clamp(3rem, 7vw, 5rem);
+  margin-top: clamp(1.8rem, 4vw, 2.6rem);
   border-top: 1px solid var(--line);
-  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(1.6rem, 3vw, 2.4rem);
 }
 .product-demos .section-head { margin-bottom: 1.8rem; }
 .demo-strip {
@@ -917,6 +918,68 @@ select:focus { outline: none; border-color: var(--slate); }
 @keyframes demo-fade-in { from { opacity: 0; } }
 .demo-cta-casewrap:not([hidden]), .demo-cta-add:not([hidden]) { animation: demo-fade-in 0.45s ease; }
 .demo-cta-error { color: #d99a8f; font-size: 0.8rem; margin: 0.5rem 0 0; }
+
+/* ---------- scale switcher (product pages) ---------- */
+.scale-nav { margin-top: 1.6rem; }
+.scale-trigger {
+  width: 100%;
+  display: flex; justify-content: space-between; align-items: center; gap: 0.6rem;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px;
+  color: var(--ink); font-family: var(--font-body); font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  padding: 0.85rem 1.2rem; cursor: pointer; transition: border-color 0.2s ease;
+}
+.scale-trigger:hover, .scale-trigger[aria-expanded="true"] { border-color: var(--slate); }
+.scale-chev { color: var(--muted); transition: transform 0.25s ease; }
+/* filter chips inside the panel — same chips as the shop page */
+.scale-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.2rem 0 1.4rem; }
+/* .model-card is display:flex — without this, filtered-out cards ignore [hidden] */
+.scale-cards .model-card[hidden] { display: none; }
+.scale-trigger[aria-expanded="true"] .scale-chev { transform: rotate(180deg); }
+.scale-panel-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s ease; }
+.scale-panel-wrap.open { grid-template-rows: 1fr; }
+.scale-panel { overflow: hidden; min-height: 0; }
+.scale-panel .scale-grid { margin-top: 1rem; }
+.scale-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 0.7rem; }
+.scale-item {
+  display: flex; flex-direction: column; align-items: center; gap: 0.35rem; text-align: center;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px;
+  padding: 0.9rem 0.6rem 0.8rem; color: var(--ink);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.scale-item:hover { border-color: rgba(101, 117, 153, 0.55); transform: translateY(-2px); color: var(--ink); }
+.scale-item.active { border-color: var(--brand-light); background: var(--brand-fill); }
+.scale-item-static { cursor: default; }
+.scale-item-static:hover { transform: none; border-color: var(--line); }
+.scale-icon svg { width: 64px; height: 64px; display: block; }
+.scale-badge {
+  width: 64px; height: 64px; border-radius: 50%;
+  border: 1px solid var(--brand-deep); background: var(--bg-3);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 1.05rem; color: var(--brand-light);
+}
+.scale-item strong { font-family: var(--font-display); font-weight: 500; font-size: 0.95rem; line-height: 1.2; }
+.scale-price { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; min-height: 1em; }
+.scale-panel .scale-cards, .keep-exploring .scale-cards { margin-top: 1rem; }
+.model-card.scale-current { border-color: var(--brand-light); }
+.model-link-price {
+  font-family: var(--font-display); font-size: 1rem; color: var(--muted);
+  text-transform: none; letter-spacing: 0.02em;
+}
+.more-scales-label, .keep-elements-label {
+  margin: 1.8rem 0 0.9rem; font-family: var(--font-display); font-weight: 500;
+  font-size: 1.1rem; color: var(--brand-light);
+}
+/* kicker-style, matching "The sound" etc. */
+.more-scales-label {
+  margin-bottom: 0.35rem;
+  font-family: var(--font-body); font-weight: 500; font-size: 0.72rem;
+  letter-spacing: 0.34em; text-transform: uppercase;
+}
+.more-scales-sub { margin: 0 0 1rem; font-size: 0.88rem; color: var(--muted); }
+.keep-exploring { margin-top: clamp(3rem, 7vw, 5rem); }
+.keep-exploring .section-head { margin-bottom: 1.6rem; }
+.keep-elements-label { margin: 2rem 0 1rem; font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; color: var(--brand-light); }
 
 /* ---------- required-choice popup ---------- */
 .choice-popup {

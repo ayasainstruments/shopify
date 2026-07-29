@@ -459,6 +459,130 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   markWatched(model.videos[start].file);
 }
 
+// ---------- scale switcher (product pages) ----------
+function scaleItemHTML(s, currentHandle) {
+  const model = typeof MODELS !== "undefined" && MODELS.find(m => m.name === s.name && m.top);
+  const icon = model
+    ? noteMapSVG(model)
+    : `<span class="scale-badge">${(s.name.match(/^[A-G]#?\d?/) || ["·"])[0]}</span>`;
+  const active = s.handle === currentHandle;
+  return `
+    <a class="scale-item${active ? " active" : ""}" href="/products/${s.handle}"${active ? ' aria-current="page"' : ""}>
+      <span class="scale-icon">${icon}</span>
+      <strong>${s.name}</strong>
+      <span class="scale-price" data-handle="${s.handle}"></span>
+    </a>`;
+}
+const __priceCache = {};
+function fetchPrice(handle) {
+  if (!__priceCache[handle]) {
+    __priceCache[handle] = fetch(`/products/${handle}.js`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(p => (p ? `€${(p.price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })}` : ""))
+      .catch(() => "");
+  }
+  return __priceCache[handle];
+}
+function loadScalePrices(root) {
+  root.querySelectorAll(".scale-price[data-handle]").forEach(el => {
+    if (el.dataset.loaded) return;
+    el.dataset.loaded = "1";
+    fetchPrice(el.dataset.handle).then(t => { el.textContent = t; });
+  });
+}
+// in the switcher, range cards whisper their price instead of "View in shop"
+function swapLinkPrices(root) {
+  root.querySelectorAll(".scale-cards .model-link").forEach(link => {
+    if (link.dataset.priced) return;
+    link.dataset.priced = "1";
+    const handle = (link.getAttribute("href").match(/\/products\/([^/?#]+)/) || [])[1];
+    if (!handle) return;
+    link.classList.add("model-link-price");
+    link.textContent = "";
+    fetchPrice(handle).then(t => { link.textContent = t; });
+  });
+}
+function initScaleNav() {
+  const nav = document.getElementById("scaleNav");
+  if (!nav || typeof SCALES === "undefined" || typeof MODELS === "undefined") return;
+  const current = nav.dataset.current;
+  const premiumModels = MODELS.filter(m => m.range === "premium");
+  const elementsModels = MODELS.filter(m => m.range === "elements");
+  // hybrid: full range cards for modelled scales, medallions for the rest
+  const carded = new Set(premiumModels.map(m => m.name));
+  const rest = SCALES.filter(s => !carded.has(s.name));
+  const specialsHTML = rest.length ? `
+    <h3 class="more-scales-label">Find something special</h3>
+    <p class="more-scales-sub">One-offs, small batches and trade-ins</p>
+    <div class="scale-grid">${rest.map(s => scaleItemHTML(s, current)).join("")}</div>` : "";
+  const premiumHTML = `
+    <div class="range-grid scale-cards">${premiumModels.map(modelCard).join("")}</div>
+    ${specialsHTML}`;
+  const elementsHTML = `<div class="range-grid scale-cards">${elementsModels.map(modelCard).join("")}</div>`;
+  const markCurrent = root => {
+    const link = root.querySelector(`.model-link[href="/products/${current}"]`);
+    if (link) link.closest(".model-card").classList.add("scale-current");
+  };
+
+  // one merged panel: all cards (filterable) + specials medallions (always visible)
+  const ordered = [...premiumModels, ...elementsModels];
+  const CHIPS = [
+    { key: "all", label: "All" },
+    { key: "premium", label: "Premium" },
+    { key: "elements", label: "Elements" },
+    { key: "d-minor", label: "D minor" },
+    { key: "fis-minor", label: "F# minor" },
+    { key: "e-minor", label: "E minor" },
+    { key: "other", label: "Other" }
+  ];
+  document.getElementById("snCount").textContent = SCALES.length + elementsModels.length;
+  const panel = document.getElementById("snPanel");
+  const body = panel.querySelector(".scale-panel-body");
+  body.innerHTML = `<div class="range-grid scale-cards">${ordered.map(modelCard).join("")}</div>${specialsHTML}`;
+  body.querySelectorAll(".scale-cards .model-card").forEach((el, i) => {
+    el.dataset.range = ordered[i].range;
+    el.dataset.family = ordered[i].family || "other";
+  });
+  markCurrent(panel);
+
+  const filters = document.getElementById("snFilters");
+  filters.innerHTML = CHIPS.map(c =>
+    `<button type="button" class="filter-chip${c.key === "all" ? " on" : ""}" data-filter="${c.key}" aria-pressed="${c.key === "all"}">${c.label}</button>`
+  ).join("");
+  const chips = filters.querySelectorAll(".filter-chip");
+  chips.forEach(chip => chip.addEventListener("click", () => {
+    // radio-style; re-clicking the active chip falls back to All
+    const key = chip.classList.contains("on") ? "all" : chip.dataset.filter;
+    chips.forEach(c => {
+      const on = c.dataset.filter === key;
+      c.classList.toggle("on", on);
+      c.setAttribute("aria-pressed", on);
+    });
+    body.querySelectorAll(".scale-cards .model-card").forEach(el => {
+      const show = key === "all" || el.dataset.range === key || el.dataset.family === key;
+      el.hidden = !show;
+    });
+  }));
+
+  const btn = document.getElementById("snTrigger");
+  btn.addEventListener("click", () => {
+    const open = !panel.classList.contains("open");
+    panel.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open);
+    if (open) { loadScalePrices(panel); swapLinkPrices(panel); }
+  });
+
+  // keep exploring: the full range, always open, at the exit point
+  const keep = document.getElementById("keepExploring");
+  if (keep) {
+    keep.querySelector(".keep-premium").innerHTML = premiumHTML;
+    keep.querySelector(".keep-elements").innerHTML = elementsHTML;
+    markCurrent(keep);
+    loadScalePrices(keep);
+    swapLinkPrices(keep);
+  }
+}
+
 // ---------- artist page ----------
 // Instrument rail (minimal horizontal cards from the artist's curated `plays`
 // list, first N visible) + listening room (round-robin video strip: every
@@ -863,6 +987,7 @@ function initProductPage() {
 renderRange();
 renderPlayers();
 initArtistPage(); // before initReveal so the injected cards get observed
+initScaleNav();   // same — its range cards carry reveal classes too
 initDemoButtons();
 initReveal();
 initNav();

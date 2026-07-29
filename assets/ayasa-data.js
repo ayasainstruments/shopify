@@ -105,6 +105,7 @@ const MODELS = [
   // ---------- PREMIUM — made in Almere, NL ----------
   {
     range: "premium",
+    family: "fis-minor", // scale-family filter chip on product pages; will move to the per-model data sheet later
     name: "F# Low Pygmy 21",
     productHandle: "fis-low-pygmy-21-ember-steel",
     // TEMP: Aegean close-up as texture until the Pygmy gets its own shoot
@@ -119,6 +120,7 @@ const MODELS = [
   },
   {
     range: "premium",
+    family: "fis-minor", // the Aegean is the full extended F# minor scale (D ding)
     name: "D Aegean 18",
     productHandle: "d-aegean-18-ember-steel",
     cardPhoto: AYASA_ASSET("gal-test-1.jpg") + "?v=2", // masked card background (hands hero)
@@ -142,6 +144,7 @@ const MODELS = [
   },
   {
     range: "premium",
+    family: "fis-minor",
     name: "D Aegean 20",
     productHandle: "d-aegean-20-ember-steel",
     scale: "D Lydian · extended",
@@ -154,6 +157,7 @@ const MODELS = [
   },
   {
     range: "premium",
+    family: "other",
     name: "D Ashakiran 19",
     productHandle: "d-ashakiran-19-ember-steel-spotted",
     scale: "Extended major · “Ray of Hope”",
@@ -166,6 +170,7 @@ const MODELS = [
   },
   {
     range: "premium",
+    family: "e-minor",
     name: "E Amara 20",
     productHandle: "e-amara-20-ember-steel",
     scale: "E Celtic minor · fully extended",
@@ -178,6 +183,7 @@ const MODELS = [
   },
   {
     range: "premium",
+    family: "other",
     name: "B2 Aavartan 17",
     productHandle: "b2-aavartan-17-ember-steel",
     scale: "B major · low B2 ding",
@@ -190,6 +196,7 @@ const MODELS = [
   },
   {
     range: "premium",
+    family: "d-minor",
     name: "D Kurd 19",
     productHandle: "d-kurd-19-ember-steel",
     scale: "Full extended D minor · with Bb2",
@@ -202,6 +209,7 @@ const MODELS = [
   },
   {
     range: "premium",
+    family: "fis-minor",
     name: "F#2 Nordlys 16",
     productHandle: "fis2-nordlys-16-ember-steel",
     scale: "F# Lydian hexatonic · deep F#2 ding",
@@ -216,6 +224,7 @@ const MODELS = [
   // ---------- ELEMENTS — built in the UK ----------
   {
     range: "elements",
+    family: "d-minor",
     name: "Elements D Kurd 11",
     scale: "D minor · topside only",
     ding: "D3",
@@ -228,6 +237,7 @@ const MODELS = [
   },
   {
     range: "elements",
+    family: "d-minor",
     name: "Elements D Kurd 13",
     scale: "D minor + bottom notes",
     ding: "D3",
@@ -240,6 +250,7 @@ const MODELS = [
   },
   {
     range: "elements",
+    family: "e-minor",
     name: "Elements E Amara 13",
     scale: "E Celtic minor · topside only",
     ding: "E3",
@@ -250,6 +261,31 @@ const MODELS = [
     inStock: false,
     rrp: "£2,400 inc VAT"
   }
+];
+
+// ---------- Scale switcher (product pages) ----------
+// Every purchasable scale, homepage-range order first, then the rest of the
+// shop. Icons come from the matching MODELS entry's note map when one exists;
+// otherwise a ding badge parsed from the name. Prices are fetched live.
+const SCALES = [
+  { name: "F# Low Pygmy 21", handle: "fis-low-pygmy-21-ember-steel" },
+  { name: "D Aegean 18", handle: "d-aegean-18-ember-steel" },
+  { name: "D Aegean 20", handle: "d-aegean-20-ember-steel" },
+  { name: "D Ashakiran 19", handle: "d-ashakiran-19-ember-steel-spotted" },
+  { name: "E Amara 20", handle: "e-amara-20-ember-steel" },
+  { name: "B2 Aavartan 17", handle: "b2-aavartan-17-ember-steel" },
+  { name: "D Kurd 19", handle: "d-kurd-19-ember-steel" },
+  { name: "F# Kurd 22", handle: "fis-kurd-22-ember-steel" },
+  { name: "F# Kurd 20", handle: "fis-kurd-20-ember-steel" },
+  { name: "F#2 Nordlys 16", handle: "fis2-nordlys-16-ember-steel" },
+  { name: "C Ashakiran 17", handle: "c-ashakiran-17-ember-steel" },
+  { name: "B3 Pygmy 20", handle: "b3-pygmy-20-ember-steel" },
+  { name: "E Asha 20", handle: "e-asha-20-ember-steel" },
+  { name: "E Equinox 19", handle: "e-equinox-19-ember-steel" },
+  { name: "F# Low Pygmy 12", handle: "fis-low-pygmy-12-ember-steel" },
+  { name: "D Kurd 12", handle: "d-kurd-12-ember-steel" },
+  { name: "D Kurd 13", handle: "d-kurd-13-ember-steel" },
+  { name: "D Kurd 14", handle: "d-kurd-14-ember-steel" }
 ];
 
 // TEMP: placeholder card-photo backgrounds on every model (alternating two of

@@ -155,6 +155,22 @@
     </div>
   </div>
 
+  {%- if is_instrument -%}
+    {% comment %} Scale switcher — one drop-down door into the range, filter chips inside, rendered by ayasa.js {% endcomment %}
+    <div class="scale-nav" id="scaleNav" data-current="{{ product.handle }}">
+      <button type="button" class="scale-trigger" id="snTrigger" aria-expanded="false" aria-controls="snPanel">
+        <span>Explore the range · <span id="snCount"></span> scales</span>
+        <span class="scale-chev" aria-hidden="true">▾</span>
+      </button>
+      <div class="scale-panel-wrap" id="snPanel">
+        <div class="scale-panel">
+          <div class="scale-filters" id="snFilters" role="group" aria-label="Filter scales"></div>
+          <div class="scale-panel-body"></div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
   {% comment %}
     "Hear it played" — performance videos + artists, rendered by ayasa.js
     from the model data (ayasa-data.js) when this product has demo clips.
@@ -167,6 +183,19 @@
     </div>
     <div class="demo-strip" id="demoStrip"></div>
   </div>
+
+  {%- if is_instrument -%}
+    {% comment %} Keep exploring — the full range at the exit point, rendered by ayasa.js {% endcomment %}
+    <div class="keep-exploring" id="keepExploring">
+      <div class="section-head reveal">
+        <p class="kicker">Keep exploring</p>
+        <h2>Find your voice.</h2>
+      </div>
+      <div class="keep-premium"></div>
+      <h3 class="keep-elements-label">Ayasa Elements</h3>
+      <div class="keep-elements"></div>
+    </div>
+  {%- endif -%}
 </section>
 
 {% schema %}

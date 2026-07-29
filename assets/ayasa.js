@@ -124,17 +124,13 @@ function artistInfoHTML(label) {
   const avatar = a.img
     ? `<img class="demo-artist-avatar" src="${a.img}" alt="${base}">`
     : `<span class="demo-artist-avatar demo-artist-initial" aria-hidden="true">${base[0]}</span>`;
-  const links = Object.entries(a.links || {})
-    .map(([k, url]) => `<a href="${url}" target="_blank" rel="noopener" aria-label="${base} on ${SOCIAL_LABELS[k]}" title="${SOCIAL_LABELS[k]}">${SOCIAL_ICONS[k] || SOCIAL_LABELS[k]}</a>`)
-    .join("");
   return `
     ${avatar}
     <div class="demo-artist-text">
-      <strong>${base}</strong>
+      <strong>${a.page ? `<a href="${a.page}" title="Meet ${base}">${base} →</a>` : base}</strong>
       ${a.credential ? `<span class="demo-artist-cred">${a.credential}</span>` : ""}
       ${a.bio ? `<p class="demo-artist-bio">${a.bio}</p>` : ""}
-    </div>
-    <div class="demo-artist-links">${links}</div>`;
+    </div>`;
 }
 
 // small centered popup for missed required choices (case / t-shirt)
@@ -167,8 +163,10 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   const tabs = model.videos.map((v, i) =>
     `<button class="demo-tab${i === start ? " active" : ""}" data-i="${i}">${v.artist}</button>`).join("");
   // cta bar: fades in once the viewer is watching.
-  // product pages (buyCtx) get add-to-cart; the homepage gets a "View in shop"
-  // link when the model declares a videoShop target.
+  // product pages (buyCtx) get add-to-cart; elsewhere a "View in shop" link,
+  // derived from the model's product handle unless videoShop overrides it.
+  const shop = !buyCtx && (model.videoShop ||
+    (model.productHandle ? { name: `${model.name} — Ember Steel®`, url: `/products/${model.productHandle}` } : null));
   const ctaHTML = buyCtx && buyCtx.available ? `
       <div class="demo-cta">
         <div class="demo-cta-inner">
@@ -192,12 +190,12 @@ function openDemoLightbox(model, startIndex, buyCtx) {
           <button type="button" class="btn btn-primary demo-cta-add" hidden>Add to cart</button>` : ""}
           <p class="demo-cta-error" hidden></p>
         </div>
-      </div>` : !buyCtx && model.videoShop ? `
+      </div>` : shop ? `
       <div class="demo-cta">
         <div class="demo-cta-inner">
           <div class="demo-cta-row">
-            <p class="demo-cta-price"><strong>${model.videoShop.name}</strong></p>
-            <a class="btn btn-primary demo-cta-btn" href="${model.videoShop.url}">View in shop →</a>
+            <p class="demo-cta-price"><strong>${shop.name}</strong></p>
+            <a class="btn btn-primary demo-cta-btn" href="${shop.url}">View in shop →</a>
           </div>
         </div>
       </div>` : "";
@@ -385,6 +383,115 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   }
 
   video.play();
+}
+
+// ---------- artist page ----------
+// Instrument rail (minimal horizontal cards from the artist's curated `plays`
+// list, first N visible) + listening room (round-robin video strip: every
+// unique scale once, then the second videos, and so on). Also VideoObject LD.
+function initArtistPage() {
+  const rail = document.getElementById("artistPlays");
+  if (!rail || typeof ARTISTS === "undefined") return;
+  const artist = rail.dataset.artist;
+  const info = ARTISTS[artist] || {};
+  const plays = info.plays || [];
+  if (!plays.length) return;
+
+  // --- instrument rail ---
+  const visible = info.visiblePlays || 4;
+  rail.innerHTML = plays.map((p, i) => `
+    <a class="artist-card${i >= visible ? " artist-card-extra" : ""}" href="/products/${p.handle}"${i >= visible ? " hidden" : ""}>
+      <span class="artist-card-thumb" data-handle="${p.handle}"></span>
+      <span class="artist-card-text">
+        <strong>${p.name}</strong>
+        <span>${p.mode}</span>
+      </span>
+      <span class="artist-card-arrow" aria-hidden="true">View in shop →</span>
+    </a>`).join("");
+  rail.querySelectorAll(".artist-card-thumb").forEach(el => {
+    fetch(`/products/${el.dataset.handle}.js`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(p => {
+        if (!p || !p.featured_image) return;
+        const u = new URL(p.featured_image, location.href);
+        u.searchParams.set("width", "120");
+        el.innerHTML = `<img src="${u.href}" alt="" loading="lazy">`;
+      })
+      .catch(() => {});
+  });
+
+  const more = document.getElementById("artistMore");
+  const extra = plays.length - visible;
+  if (more && extra > 0) {
+    more.hidden = false;
+    more.textContent = `+ ${extra} more scale${extra === 1 ? "" : "s"}`;
+    more.addEventListener("click", () => {
+      rail.querySelectorAll(".artist-card-extra").forEach(c => { c.hidden = false; });
+      more.hidden = true;
+    }, { once: true });
+  }
+
+  // --- listening room ---
+  const strip = document.getElementById("artistVideos");
+  if (!strip) return;
+  const rounds = [];
+  plays.forEach(p => (p.videos || []).forEach((file, vi) => {
+    (rounds[vi] = rounds[vi] || []).push({ p, file, vi });
+  }));
+  const flat = rounds.flat();
+  strip.innerHTML = flat.map((e, i) => `
+    <article class="demo-card" data-i="${i}" tabindex="0" role="button" aria-label="Watch ${artist} play the ${e.p.name}">
+      <img src="${e.file.replace(/\.mp4$/, ".jpg")}" alt="" loading="lazy">
+      <span class="demo-card-play" aria-hidden="true">▶</span>
+      <div class="demo-card-info">
+        <strong>${e.p.name}</strong>
+        <span>${e.p.mode}</span>
+      </div>
+    </article>`).join("");
+  const numerals = ["", " — II", " — III", " — IV", " — V"];
+  const openAt = i => {
+    const e = flat[i];
+    // if the model exists in the range data, open with its FULL video list so
+    // other artists' takes (Immie, Roni, …) are right there as tabs
+    const model = typeof MODELS !== "undefined" &&
+      MODELS.find(m => m.name === e.p.name && m.videos && m.videos.length);
+    if (model) {
+      let idx = model.videos.findIndex(v => v.file === e.file && v.artist.split(" — ")[0] === artist);
+      if (idx < 0) idx = 0;
+      openDemoLightbox({ ...model, productHandle: model.productHandle || e.p.handle }, idx);
+      return;
+    }
+    openDemoLightbox({
+      name: e.p.name,
+      scale: e.p.mode,
+      productHandle: e.p.handle,
+      videos: e.p.videos.map((f, n) => ({ artist: `${artist}${numerals[n] || ""}`, file: f }))
+    }, e.vi);
+  };
+  strip.addEventListener("click", ev => {
+    const c = ev.target.closest(".demo-card");
+    if (c) openAt(+c.dataset.i);
+  });
+  strip.addEventListener("keydown", ev => {
+    const c = ev.target.closest(".demo-card");
+    if (c && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); openAt(+c.dataset.i); }
+  });
+
+  // --- VideoObject structured data ---
+  const ld = document.createElement("script");
+  ld.type = "application/ld+json";
+  ld.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": flat.map(e => ({
+      "@type": "VideoObject",
+      "name": `${artist} plays the Ayasa ${e.p.name}`,
+      "description": `${artist} performs on the Ayasa ${e.p.name} handpan (${e.p.mode}).`,
+      "thumbnailUrl": new URL(e.file.replace(/\.mp4$/, ".jpg"), location.href).href,
+      "contentUrl": new URL(e.file, location.href).href,
+      "uploadDate": rail.dataset.published || "2026-01-01"
+    }))
+  });
+  document.head.appendChild(ld);
 }
 
 // PROTOTYPE: resurrect the minimized player across page loads.
@@ -629,6 +736,7 @@ function initProductPage() {
 
 renderRange();
 renderPlayers();
+initArtistPage(); // before initReveal so the injected cards get observed
 initDemoButtons();
 initReveal();
 initNav();

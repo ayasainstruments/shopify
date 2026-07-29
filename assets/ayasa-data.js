@@ -20,9 +20,32 @@
 const ARTISTS = {
   "Malte Marten": {
     credential: "1.4M YouTube subscribers · plays mostly Ayasa",
-    bio: "Germany's most-watched handpan artist; his Ayasa meditations have been heard over 50 million times on YouTube.",
+    bio: "The world's most-listened handpan artist; his Ayasa meditations have been heard over 50 million times on YouTube.",
     img: AYASA_ASSET("player-malte.jpg"),
-    links: { youtube: "https://www.youtube.com/@MalteMarten", web: "https://www.maltemarten.com/" }
+    // artist page — lightbox names link here. ?view=artist-malte forces the
+    // template until the page's template is assigned in admin — drop it at live push
+    page: "/pages/malte-marten?view=artist-malte",
+    links: { youtube: "https://www.youtube.com/@MalteMarten", web: "https://www.maltemarten.com/" },
+    // artist page: curated instrument rail (editorial order, first `visiblePlays`
+    // shown before the expander) + listening-room videos per instrument.
+    // NOTE: all videos are the two D Aegean 18 clips as placeholders for now.
+    visiblePlays: 4,
+    plays: [
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
+        videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4"), AYASA_ASSET("d-aegean-18__malte-2.mp4")] },
+      { name: "E Amara 20", mode: "E Celtic minor", handle: "e-amara-20-ember-steel",
+        videos: [AYASA_ASSET("d-aegean-18__malte-2.mp4")] },
+      { name: "D Kurd 19", mode: "D minor", handle: "d-kurd-19-ember-steel",
+        videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4"), AYASA_ASSET("d-aegean-18__malte-2.mp4")] },
+      { name: "F# Kurd 22", mode: "F# minor · fully extended", handle: "fis-kurd-22-ember-steel",
+        videos: [AYASA_ASSET("d-aegean-18__malte-2.mp4"), AYASA_ASSET("d-aegean-18__malte-1.mp4")] },
+      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
+        videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4"), AYASA_ASSET("d-aegean-18__malte-2.mp4")] },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic", handle: "fis-low-pygmy-21-ember-steel",
+        videos: [AYASA_ASSET("d-aegean-18__malte-2.mp4"), AYASA_ASSET("d-aegean-18__malte-1.mp4")] },
+      { name: "F#2 Nordlys 16", mode: "F# minor · low F#2 ding", handle: "fis2-nordlys-16-ember-steel",
+        videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4")] }
+    ]
   },
   "Immie": {
     credential: "Ayasa artist",

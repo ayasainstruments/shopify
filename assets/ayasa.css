@@ -752,7 +752,9 @@ select:focus { outline: none; border-color: var(--slate); }
   border: 1px solid var(--line); background: var(--bg-2);
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
-.demo-card:hover, .demo-card:focus-visible { transform: translateY(-4px); border-color: rgba(101, 117, 153, 0.55); }
+/* no hover lift here — the inline preview is the hover response; a quiet
+   border glow is the only static cue */
+.demo-card:hover, .demo-card:focus-visible { border-color: rgba(101, 117, 153, 0.55); }
 .demo-card:focus-visible { outline: 1px solid var(--brand); outline-offset: 3px; }
 .demo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* label rides on top so a half-scrolled card already tells you its scale */
@@ -766,9 +768,26 @@ select:focus { outline: none; border-color: var(--slate); }
   background: var(--anneal); color: #14110c;
   display: grid; place-items: center; font-size: 0.85rem; padding-left: 4px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-  transition: transform 0.2s ease;
+  transition: opacity 0.4s ease;
 }
-.demo-card:hover .demo-card-play { transform: translate(-50%, -60%) scale(1.1); }
+/* while a preview is playing the badge whispers instead of blocking the view */
+.demo-card:has(.demo-preview.on) .demo-card-play { opacity: 0.4; }
+/* hover preview: a pure cross-fade — poster dissolves into the playing
+   video, nothing moves */
+.demo-preview {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.demo-preview.on { opacity: 1; }
+/* watched marker: quiet text on cards already opened this session */
+.demo-card.watched::before {
+  content: "watched"; position: absolute; bottom: 0.85rem; right: 1rem; z-index: 3;
+  font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(236, 233, 226, 0.78);
+  background: rgba(13, 14, 17, 0.6); border-radius: 999px; padding: 0.2rem 0.65rem;
+  backdrop-filter: blur(3px);
+}
 .demo-card-info { position: absolute; left: 1rem; right: 1rem; top: 0.9rem; z-index: 2; }
 .demo-card-info strong {
   display: block; font-family: var(--font-display); font-weight: 500;

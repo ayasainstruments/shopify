@@ -117,6 +117,77 @@ function renderRange() {
   elements.innerHTML = MODELS.filter(m => m.range === "elements").map(modelCard).join("");
 }
 
+// ---------- video card extras: hover previews + watched markers ----------
+// Desktop-only: hovering a video card starts a muted inline preview after a
+// beat. Works on every .demo-card (artist grids and product-page strips).
+function initHoverPreviews() {
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  let hoverCard = null;
+  let timer = 0;
+  document.addEventListener("mouseover", e => {
+    const card = e.target.closest(".demo-card");
+    if (!card || card === hoverCard) return;
+    hoverCard = card;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      let v = card.querySelector(".demo-preview");
+      if (v) { // warm from an earlier hover — already buffered, resume instantly
+        clearTimeout(v.__pauseT);
+        v.classList.add("on");
+        v.play().catch(() => {});
+        return;
+      }
+      const img = card.querySelector("img");
+      if (!img) return;
+      v = document.createElement("video");
+      v.className = "demo-preview";
+      v.muted = true;
+      v.loop = true;
+      v.playsInline = true;
+      v.preload = "auto";
+      v.src = img.src.replace(/\.jpg(\?.*)?$/, ".mp4$1");
+      card.appendChild(v);
+      // buffer fully behind the poster, then ease in — no first-frame stutter
+      const start = () => v.play().then(() => v.classList.add("on")).catch(() => v.remove());
+      if (v.readyState >= 4) start();
+      else v.addEventListener("canplaythrough", start, { once: true });
+    }, 120);
+  });
+  document.addEventListener("mouseout", e => {
+    const card = e.target.closest(".demo-card");
+    if (!card || card.contains(e.relatedTarget)) return;
+    clearTimeout(timer);
+    hoverCard = null;
+    const v = card.querySelector(".demo-preview");
+    if (v) { // fade back to the poster, then pause (stay warm for re-hovers)
+      v.classList.remove("on");
+      v.__pauseT = setTimeout(() => v.pause(), 750);
+    }
+  });
+}
+
+// A subtle dot on cards whose video was already opened this session.
+const WATCHED_KEY = "ayasaWatched";
+function getWatched() {
+  try { return new Set(JSON.parse(sessionStorage.getItem(WATCHED_KEY)) || []); }
+  catch (e) { return new Set(); }
+}
+function videoKey(url) {
+  return url.split("/").pop().split("?")[0].replace(/\.jpg$/, ".mp4");
+}
+function refreshWatchedDots() {
+  const seen = getWatched();
+  document.querySelectorAll(".demo-card img").forEach(img => {
+    img.closest(".demo-card").classList.toggle("watched", seen.has(videoKey(img.src)));
+  });
+}
+function markWatched(file) {
+  const seen = getWatched();
+  seen.add(videoKey(file));
+  sessionStorage.setItem(WATCHED_KEY, JSON.stringify([...seen]));
+  refreshWatchedDots();
+}
+
 // ---------- demo video lightbox ----------
 function artistInfoHTML(label) {
   const base = label.split(" — ")[0];
@@ -260,6 +331,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     video.poster = v.file.replace(/\.mp4$/, ".jpg");
     video.src = v.file;
     video.play();
+    markWatched(v.file);
     artistBox.innerHTML = artistInfoHTML(v.artist);
     updateFade();
   };
@@ -383,6 +455,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   }
 
   video.play();
+  markWatched(model.videos[start].file);
 }
 
 // ---------- artist page ----------
@@ -742,4 +815,6 @@ initReveal();
 initNav();
 initHeroMotion();
 initProductPage();
+initHoverPreviews();
+refreshWatchedDots();
 restoreMiniPlayer();

@@ -39,16 +39,17 @@
         {%- if product.featured_image -%}
           {{ product.featured_image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', alt: product.featured_image.alt | default: product.title }}
         {%- endif -%}
+        <button type="button" class="gal-nav gal-prev" id="galPrev" hidden aria-label="Previous image">‹</button>
+        <button type="button" class="gal-nav gal-next" id="galNext" hidden aria-label="Next image">›</button>
+        <button type="button" class="gal-video-cta" id="galVideoCta" hidden aria-label="Watch the video">▶</button>
       </div>
-      {%- if product.images.size > 1 -%}
-        <div class="product-thumbs" id="productThumbs">
-          {%- for image in product.images -%}
-            <button type="button" class="product-thumb{% if forloop.first %} active{% endif %}" data-src="{{ image | image_url: width: 1200 }}" aria-label="Photo {{ forloop.index }}">
-              {{ image | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', alt: '' }}
-            </button>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
+      <div class="product-thumbs" id="productThumbs">
+        {%- for image in product.images -%}
+          <button type="button" class="product-thumb{% if forloop.first %} active{% endif %}" data-src="{{ image | image_url: width: 1200 }}" aria-label="Photo {{ forloop.index }}">
+            {{ image | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', alt: '' }}
+          </button>
+        {%- endfor -%}
+      </div>
     </div>
 
     <div class="product-info">

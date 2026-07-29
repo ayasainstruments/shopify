@@ -12,6 +12,20 @@
 // (inc VAT) are public per the catalogue.
 // ============================================================
 
+// ---------- TEMP: photographer test (visual only) ----------
+// Dev-theme gallery override: these theme-asset crops replace the product's
+// gallery photos on the page for the listed handles. Live product data is
+// untouched. Remove after the test — approved photos go on the product in admin.
+const TEST_GALLERY = {
+  "d-aegean-18-ember-steel": [
+    AYASA_ASSET("gal-test-1.jpg") + "?v=2",
+    AYASA_ASSET("gal-test-2.jpg") + "?v=2",
+    AYASA_ASSET("gal-test-3.jpg") + "?v=2",
+    AYASA_ASSET("gal-test-4.jpg") + "?v=2",
+    AYASA_ASSET("gal-test-5.jpg") + "?v=2"
+  ]
+};
+
 // ---------- Artist registry ----------
 // Shared details for anyone appearing in demo videos or the carousel.
 // Keyed by base artist name (video labels like "Malte Marten — II" resolve

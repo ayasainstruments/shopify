@@ -658,20 +658,72 @@ function initProductPage() {
     document.getElementById("productNotes").hidden = false;
   }
 
-  // gallery thumbs
-  const photo = document.querySelector("#productPhoto img");
-  document.querySelectorAll(".product-thumb").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".product-thumb").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      photo.src = btn.dataset.src;
-      photo.removeAttribute("srcset");
-    });
-  });
-
-  // "Hear it played" — performance strip from the model data
+  // gallery carousel: product photos + (when the model has videos) a final
+  // video slide. Arrows + swipe navigate; the video thumb/slide open the lightbox.
   const demoModel = typeof MODELS !== "undefined" &&
     MODELS.find(m => m.productHandle === handle && m.videos && m.videos.length);
+  const photoBox = document.getElementById("productPhoto");
+  const photoImg = photoBox && photoBox.querySelector("img");
+  const thumbsBox = document.getElementById("productThumbs");
+  if (photoBox && photoImg && thumbsBox) {
+    // TEMP: photographer test — swap the gallery for theme-asset crops
+    const testGal = typeof TEST_GALLERY !== "undefined" && TEST_GALLERY[handle];
+    if (testGal) {
+      thumbsBox.innerHTML = testGal.map((src, n) => `
+        <button type="button" class="product-thumb${n === 0 ? " active" : ""}" data-src="${src}" aria-label="Photo ${n + 1}">
+          <img src="${src}" alt="" loading="lazy">
+        </button>`).join("");
+      photoImg.src = testGal[0];
+      photoImg.removeAttribute("srcset");
+    }
+    const slides = [...thumbsBox.querySelectorAll(".product-thumb")].map(t => ({ type: "photo", src: t.dataset.src }));
+    if (!slides.length) slides.push({ type: "photo", src: photoImg.currentSrc || photoImg.src });
+    if (demoModel) {
+      const poster = demoModel.videos[0].file.replace(/\.mp4$/, ".jpg");
+      slides.push({ type: "video", src: poster });
+      const vt = document.createElement("button");
+      vt.type = "button";
+      vt.className = "product-thumb product-thumb-video";
+      vt.setAttribute("aria-label", "Watch the video");
+      vt.innerHTML = `<img src="${poster}" alt="" loading="lazy"><span class="thumb-play" aria-hidden="true">▶</span>`;
+      thumbsBox.appendChild(vt);
+    }
+    const thumbEls = [...thumbsBox.querySelectorAll(".product-thumb")];
+    const prev = document.getElementById("galPrev");
+    const next = document.getElementById("galNext");
+    const videoCta = document.getElementById("galVideoCta");
+    const openVideo = () => demoModel && openDemoLightbox(demoModel, 0, buildBuyCtx());
+    let gi = 0;
+    const show = i => {
+      gi = (i + slides.length) % slides.length;
+      const s = slides[gi];
+      photoImg.src = s.src;
+      photoImg.removeAttribute("srcset");
+      photoBox.classList.toggle("gal-video-mode", s.type === "video");
+      videoCta.hidden = s.type !== "video";
+      thumbEls.forEach((t, n) => t.classList.toggle("active", n === gi));
+    };
+    if (slides.length > 1) {
+      prev.hidden = next.hidden = false;
+      prev.addEventListener("click", () => show(gi - 1));
+      next.addEventListener("click", () => show(gi + 1));
+    }
+    thumbEls.forEach((t, n) => t.addEventListener("click", () => {
+      show(n);
+      if (t.classList.contains("product-thumb-video")) openVideo();
+    }));
+    videoCta.addEventListener("click", openVideo);
+    let sx = 0, sy = 0;
+    photoBox.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    photoBox.addEventListener("touchend", e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      const dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.5) show(gi + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+
+  // "Hear it played" — performance strip from the model data (demoModel
+  // resolved above, shared with the gallery's video slide)
   if (demoModel) {
     const strip = document.getElementById("demoStrip");
     strip.innerHTML = demoModel.videos.map((v, i) => {

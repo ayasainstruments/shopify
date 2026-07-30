@@ -284,6 +284,9 @@ function openDemoLightbox(model, startIndex, buyCtx) {
           <button class="demo-close" aria-label="Close">✕</button>
         </div>
       </div>
+      ${model.videos.length > 1 ? `
+      <div class="demo-dots" aria-hidden="true">${model.videos.map((_, i) =>
+        `<span${i === start ? ' class="on"' : ""}></span>`).join("")}</div>` : ""}
       <video controls playsinline preload="metadata"
              poster="${model.videos[start].file.replace(/\.mp4$/, ".jpg")}"
              src="${model.videos[start].file}"></video>
@@ -324,10 +327,22 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     requestAnimationFrame(updateFade); // scroll geometry changes with the size
   });
   const tabEls = [...lb.querySelectorAll(".demo-tab")];
+  const dotEls = [...lb.querySelectorAll(".demo-dots span")];
+  // warm the neighbouring clips (metadata + poster) so a swipe starts fast
+  const warmed = new Set([start]);
+  const warmNeighbors = n => [n - 1, n + 1].forEach(i => {
+    if (i < 0 || i >= model.videos.length || warmed.has(i)) return;
+    warmed.add(i);
+    const w = document.createElement("video");
+    w.preload = "metadata";
+    w.src = model.videos[i].file;
+    new Image().src = model.videos[i].file.replace(/\.mp4$/, ".jpg");
+  });
   const select = i => {
     const n = (i + model.videos.length) % model.videos.length;
     tabEls.forEach(t => t.classList.remove("active"));
     tabEls[n].classList.add("active");
+    dotEls.forEach((d, di) => d.classList.toggle("on", di === n));
     const v = model.videos[n];
     video.poster = v.file.replace(/\.mp4$/, ".jpg");
     video.src = v.file;
@@ -335,6 +350,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     markWatched(v.file);
     artistBox.innerHTML = artistInfoHTML(v.artist);
     updateFade();
+    warmNeighbors(n);
   };
   const current = () => tabEls.findIndex(t => t.classList.contains("active"));
   const onKey = e => {
@@ -346,6 +362,69 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   lb.querySelector(".demo-backdrop").addEventListener("click", close);
   lb.querySelector(".demo-close").addEventListener("click", close);
   tabEls.forEach(tab => tab.addEventListener("click", () => select(+tab.dataset.i)));
+
+  // touch: swipe left/right on the video to move through the clips.
+  // The video follows the finger; past a quarter screen (or a flick) it
+  // commits, otherwise — and at either end — it springs back.
+  if (model.videos.length > 1) {
+    const max = model.videos.length - 1;
+    let sx = 0, sy = 0, lock = null, dx = 0, lastX = 0, lastT = 0, vx = 0;
+    const atEdge = d => (d > 0 && current() === 0) || (d < 0 && current() === max);
+    const springBack = () => {
+      video.style.transition = "transform 0.3s ease";
+      video.style.transform = "translateX(0)";
+    };
+    video.addEventListener("touchstart", e => {
+      lock = null;
+      if (lb.classList.contains("minimized") || e.touches.length !== 1) return;
+      const t = e.touches[0];
+      // the native control bar owns the bottom strip — scrubbing must keep working
+      if (t.clientY > video.getBoundingClientRect().bottom - 64) return;
+      sx = lastX = t.clientX; sy = t.clientY; dx = 0; vx = 0; lastT = e.timeStamp;
+      lock = "?";
+    }, { passive: true });
+    video.addEventListener("touchmove", e => {
+      if (lock === null) return;
+      const t = e.touches[0];
+      dx = t.clientX - sx;
+      const dy = t.clientY - sy;
+      if (lock === "?") {
+        if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
+        // only clearly horizontal drags are ours; vertical stays native
+        lock = Math.abs(dx) > Math.abs(dy) ? "h" : null;
+        if (lock === null) return;
+      }
+      e.preventDefault();
+      vx = (t.clientX - lastX) / Math.max(1, e.timeStamp - lastT);
+      lastX = t.clientX; lastT = e.timeStamp;
+      video.style.transition = "none";
+      video.style.transform = `translateX(${dx * (atEdge(dx) ? 0.25 : 0.9)}px)`; // rubber-band at the ends
+    }, { passive: false });
+    const onRelease = () => {
+      if (lock !== "h") { lock = null; return; }
+      lock = null;
+      const commit = !atEdge(dx) &&
+        (Math.abs(dx) > Math.min(innerWidth / 4, 140) || (Math.abs(vx) > 0.5 && Math.abs(dx) > 40));
+      if (!commit) return springBack();
+      const dir = dx < 0 ? 1 : -1;
+      video.style.transition = "transform 0.22s ease, opacity 0.22s ease";
+      video.style.transform = `translateX(${-dir * innerWidth * 0.6}px)`;
+      video.style.opacity = "0.2";
+      setTimeout(() => {
+        video.style.transition = "none";
+        video.style.transform = `translateX(${dir * innerWidth * 0.6}px)`;
+        select(current() + dir);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          video.style.transition = "transform 0.22s ease, opacity 0.22s ease";
+          video.style.transform = "translateX(0)";
+          video.style.opacity = "1";
+        }));
+      }, 220);
+    };
+    video.addEventListener("touchend", onRelease);
+    video.addEventListener("touchcancel", onRelease);
+    warmNeighbors(start);
+  }
 
   // cta bar: reveal after ~4s of watching; add-to-cart wiring is buy-bar only
   // (the homepage "View in shop" variant is a plain link and needs none)

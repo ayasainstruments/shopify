@@ -1059,8 +1059,24 @@ select:focus { outline: none; border-color: var(--slate); }
   .demo-lightbox.minimized .demo-cta-casewrap { max-height: 180px; }
 }
 
+/* stories-style position dots — the swipe affordance; mobile full-screen only */
+.demo-dots { display: none; }
+
 /* ---------- demo lightbox: mobile bottom sheet ---------- */
 @media (max-width: 640px) {
+  .demo-dots {
+    position: absolute; z-index: 3;
+    top: calc(max(1rem, env(safe-area-inset-top)) + 0.15rem);
+    left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px;
+  }
+  .demo-dots span {
+    width: 6px; height: 6px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.35);
+    transition: width 0.25s ease, background 0.25s ease;
+  }
+  .demo-dots span.on { width: 18px; background: rgba(255, 255, 255, 0.92); }
+  .demo-lightbox.minimized .demo-dots { display: none; }
   .gal-nav { display: none; } /* gallery arrows: swipe is the gesture on mobile */
   .demo-lightbox { place-items: end center; }
   .demo-panel {

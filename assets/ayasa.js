@@ -1264,6 +1264,20 @@ function initShortlist() {
   refreshShortlistUI();
 }
 
+// ---------- mobile scroll spotlight ----------
+// Touch screens have no hover, so the card crossing the middle of the
+// viewport carries the hover state instead (photo reveal, lift, border).
+// CSS applies .spot only under @media (hover: none) — desktop stays pure
+// hover. In two-column grids, side-by-side cards light up together (fine).
+function initScrollSpotlight() {
+  if (!matchMedia("(hover: none)").matches) return;
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => e.target.classList.toggle("spot", e.isIntersecting)),
+    { rootMargin: "-35% 0px -35% 0px" } // active band: the middle ~30% of the screen
+  );
+  document.querySelectorAll(".model-card, .shop-card").forEach(el => io.observe(el));
+}
+
 // ---------- scroll reveal ----------
 function initReveal() {
   const io = new IntersectionObserver(entries => {
@@ -1531,3 +1545,4 @@ initHoverPreviews();
 refreshWatchedDots();
 restoreMiniPlayer();
 initShortlist();  // after every render pass — hearts sync to localStorage state
+initScrollSpotlight(); // after every render pass — all cards exist by now

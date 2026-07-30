@@ -28,9 +28,9 @@ const TEST_GALLERY = {
 
 // ---------- Artist registry ----------
 // Shared details for anyone appearing in demo videos or the carousel.
-// Keyed by base artist name (video labels like "Malte Marten — II" resolve
+// Keyed by base artist name (video labels like "Malte Marten · II" resolve
 // to "Malte Marten"). img and links are optional.
-// TODO (Ralf): fill in Immie's and Roni's credential/bio + links + photo.
+// TODO (Ralf): fill in Immanuel's and Vybeshift's credential/bio + links + photo.
 const ARTISTS = {
   "Malte Marten": {
     credential: "1.4M YouTube subscribers · plays mostly Ayasa",
@@ -59,13 +59,13 @@ const ARTISTS = {
         videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4")] }
     ]
   },
-  "Immie": {
+  "Immanuel": {
     credential: "Ayasa artist",
     bio: "",           // TODO
     img: "",           // TODO — add portrait to site/assets/
     links: {}          // TODO
   },
-  "Roni": {
+  "Vybeshift": {
     credential: "Ayasa artist",
     bio: "",           // TODO
     img: "",           // TODO — add portrait to site/assets/
@@ -137,9 +137,9 @@ const MODELS = [
     // demo clips: one poster jpg per mp4 (same basename), served from theme assets
     videos: [
       { artist: "Malte Marten", file: AYASA_ASSET("d-aegean-18__malte-1.mp4") },
-      { artist: "Malte Marten — II", file: AYASA_ASSET("d-aegean-18__malte-2.mp4") },
-      { artist: "Immie", file: AYASA_ASSET("d-aegean-18__immie.mp4") },
-      { artist: "Roni", file: AYASA_ASSET("d-aegean-18__roni.mp4") }
+      { artist: "Malte Marten · II", file: AYASA_ASSET("d-aegean-18__malte-2.mp4") },
+      { artist: "Immanuel", file: AYASA_ASSET("d-aegean-18__immie.mp4") },
+      { artist: "Vybeshift", file: AYASA_ASSET("d-aegean-18__roni.mp4") }
     ]
   },
   {

@@ -39,7 +39,7 @@ function modelCard(m) {
   const hearIt = m.videos && m.videos.length
     ? `<button class="hear-btn" data-model="${idx}" aria-haspopup="dialog">
          <span class="hear-play" aria-hidden="true">▶</span>
-         Hear it played · ${new Set(m.videos.map(v => v.artist.split(" — ")[0])).size} artists
+         Hear it played · ${new Set(m.videos.map(v => v.artist.split(" · ")[0])).size} artists
        </button>`
     : "";
   const explore3d = m.detailPage
@@ -191,7 +191,7 @@ function markWatched(file) {
 
 // ---------- demo video lightbox ----------
 function artistInfoHTML(label) {
-  const base = label.split(" — ")[0];
+  const base = label.split(" · ")[0];
   const a = (typeof ARTISTS !== "undefined" && ARTISTS[base]) || {};
   const avatar = a.img
     ? `<img class="demo-artist-avatar" src="${a.img}" alt="${base}">`
@@ -225,7 +225,9 @@ function choiceMessage(needCase, needShirt) {
 }
 
 function openDemoLightbox(model, startIndex, buyCtx) {
-  // one player at a time — a lingering (possibly minimized) lightbox closes first
+  // one player at a time — a lingering (possibly minimized) lightbox closes first.
+  // A minimized one means the user is browsing: the new player opens minimized too.
+  const wasMin = !!document.querySelector(".demo-lightbox.minimized");
   document.querySelectorAll(".demo-lightbox").forEach(el => el.__close && el.__close());
   const start = startIndex || 0;
   const lb = document.createElement("div");
@@ -239,6 +241,9 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   // derived from the model's product handle unless videoShop overrides it.
   const shop = !buyCtx && (model.videoShop ||
     (model.productHandle ? { name: `${model.name} — Ember Steel®`, url: `/products/${model.productHandle}` } : null));
+  // the mobile footer's identity anchor — always the playing model's page
+  const shopUrl = (model.videoShop && model.videoShop.url) ||
+    (model.productHandle ? `/products/${model.productHandle}` : "/collections/instruments");
   const ctaHTML = buyCtx && buyCtx.available ? `
       <div class="demo-cta">
         <div class="demo-cta-inner">
@@ -291,6 +296,11 @@ function openDemoLightbox(model, startIndex, buyCtx) {
              poster="${model.videos[start].file.replace(/\.mp4$/, ".jpg")}"
              src="${model.videos[start].file}"></video>
       ${ctaHTML}
+      <div class="demo-mini-info">
+        <p class="demo-mini-name">${model.name}</p>
+        <p class="demo-mini-scale">${model.scale}</p>
+        <a class="btn btn-primary demo-mini-shop" href="${shopUrl}">View in shop →</a>
+      </div>
       <div class="demo-scroll">
         <div class="demo-tabs" role="tablist" aria-label="Choose artist">${tabs}</div>
         <div class="demo-artist">${artistInfoHTML(model.videos[start].artist)}</div>
@@ -317,14 +327,39 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   // state snapshot for cross-page resurrection of the minimized player
   lb.__state = () => ({ name: model.name, index: current(), time: video.currentTime });
 
-  // desktop: minimize to a corner mini-player so the page stays browsable
+  // minimize: desktop docks to a corner mini-player, mobile to a footer bar —
+  // either way the page stays browsable while the music keeps playing
+  const mq = matchMedia("(max-width: 640px)");
+  const panel = lb.querySelector(".demo-panel");
   const btnMin = lb.querySelector(".demo-min");
   btnMin.addEventListener("click", () => {
     const min = lb.classList.toggle("minimized");
     document.body.style.overflow = min ? "" : "hidden";
     btnMin.textContent = min ? "⤢" : "–";
     btnMin.setAttribute("aria-label", min ? "Expand" : "Minimize");
+    // the footer video is a thumbnail, not a player surface — taps maximize instead
+    if (mq.matches) {
+      video.controls = !min;
+      // the artist pills + linked artist line are the real, wired elements —
+      // they move between the sheet's scroll area and the footer's info column
+      const scroll = lb.querySelector(".demo-scroll");
+      const tabs = lb.querySelector(".demo-tabs");
+      const artist = lb.querySelector(".demo-artist");
+      if (min) {
+        const shopBtn = lb.querySelector(".demo-mini-shop");
+        shopBtn.before(tabs, artist);
+      } else {
+        scroll.append(tabs, artist);
+      }
+    }
     requestAnimationFrame(updateFade); // scroll geometry changes with the size
+  });
+  // footer: tapping the bar brings the player back — except on anything
+  // interactive (pills, artist link, shop button, the corner buttons)
+  panel.addEventListener("click", e => {
+    if (!mq.matches || !lb.classList.contains("minimized")) return;
+    if (e.target.closest("button, a")) return;
+    btnMin.click();
   });
   const tabEls = [...lb.querySelectorAll(".demo-tab")];
   const dotEls = [...lb.querySelectorAll(".demo-dots span")];
@@ -343,6 +378,13 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     const n = (i + model.videos.length) % model.videos.length;
     tabEls.forEach(t => t.classList.remove("active"));
     tabEls[n].classList.add("active");
+    // footer's 2-row pill strip: scroll a hidden row's pill into view (strip only, never the page)
+    const wrap = tabEls[n].parentElement;
+    if (wrap.scrollHeight > wrap.clientHeight + 2) {
+      const pr = tabEls[n].getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+      if (pr.top < wr.top) wrap.scrollBy({ top: pr.top - wr.top - 2, behavior: "smooth" });
+      else if (pr.bottom > wr.bottom) wrap.scrollBy({ top: pr.bottom - wr.bottom + 2, behavior: "smooth" });
+    }
     dotEls.forEach((d, di) => d.classList.toggle("on", di === n));
     const v = model.videos[n];
     video.poster = v.file.replace(/\.mp4$/, ".jpg");
@@ -384,12 +426,13 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   lb.querySelector(".demo-close").addEventListener("click", close);
   tabEls.forEach(tab => tab.addEventListener("click", () => select(+tab.dataset.i)));
 
-  // touch: swipe left/right on the video to move through the clips.
-  // The video follows the finger; past a quarter screen (or a flick) it
-  // commits, otherwise — and at either end — it springs back.
-  if (model.videos.length > 1) {
+  // touch, full player: ← → swipe changes clips (follows the finger, commits
+  // past a quarter screen or a flick, rubber-bands at the ends); on mobile a
+  // vertical drag moves the whole panel — ↓ tucks it into the footer,
+  // ↑ (a decisive pull) closes it, anything less springs back.
+  {
     const max = model.videos.length - 1;
-    let sx = 0, sy = 0, lock = null, dx = 0, lastX = 0, lastT = 0, vx = 0;
+    let sx = 0, sy = 0, lock = null, dx = 0, dy = 0, lastX = 0, lastY = 0, lastT = 0, vx = 0, vy = 0;
     const atEdge = d => (d > 0 && current() === 0) || (d < 0 && current() === max);
     const springBack = () => {
       video.style.transition = "transform 0.3s ease";
@@ -401,37 +444,103 @@ function openDemoLightbox(model, startIndex, buyCtx) {
       const t = e.touches[0];
       // the native control bar owns the bottom strip — scrubbing must keep working
       if (t.clientY > video.getBoundingClientRect().bottom - 64) return;
-      sx = lastX = t.clientX; sy = t.clientY; dx = 0; vx = 0; lastT = e.timeStamp;
+      sx = lastX = t.clientX; sy = lastY = t.clientY; dx = 0; dy = 0; vx = 0; vy = 0; lastT = e.timeStamp;
       lock = "?";
     }, { passive: true });
     video.addEventListener("touchmove", e => {
       if (lock === null) return;
       const t = e.touches[0];
       dx = t.clientX - sx;
-      const dy = t.clientY - sy;
+      dy = t.clientY - sy;
       if (lock === "?") {
         if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
-        // only clearly horizontal drags are ours; vertical stays native
-        lock = Math.abs(dx) > Math.abs(dy) ? "h" : null;
+        lock = Math.abs(dx) > Math.abs(dy)
+          ? (max > 0 ? "h" : null)          // single-clip players have nothing to swipe to
+          : (mq.matches ? "v" : null);      // vertical panel gestures are mobile-only
         if (lock === null) return;
       }
       e.preventDefault();
       vx = (t.clientX - lastX) / Math.max(1, e.timeStamp - lastT);
-      lastX = t.clientX; lastT = e.timeStamp;
-      video.style.transition = "none";
-      video.style.transform = `translateX(${dx * (atEdge(dx) ? 0.25 : 0.9)}px)`; // rubber-band at the ends
+      vy = (t.clientY - lastY) / Math.max(1, e.timeStamp - lastT);
+      lastX = t.clientX; lastY = t.clientY; lastT = e.timeStamp;
+      if (lock === "h") {
+        video.style.transition = "none";
+        video.style.transform = `translateX(${dx * (atEdge(dx) ? 0.25 : 0.9)}px)`; // rubber-band at the ends
+      } else {
+        panel.style.transition = "none";
+        panel.style.transform = `translateY(${dy * 0.9}px)`;
+        // pulling up previews the close — the panel starts letting go
+        panel.style.opacity = dy < 0 ? String(Math.max(0.35, 1 + dy / 450)) : "1";
+      }
     }, { passive: false });
     const onRelease = () => {
-      if (lock !== "h") { lock = null; return; }
+      const l = lock;
       lock = null;
-      const commit = !atEdge(dx) &&
-        (Math.abs(dx) > Math.min(innerWidth / 4, 140) || (Math.abs(vx) > 0.5 && Math.abs(dx) > 40));
-      if (!commit) return springBack();
-      slideTo(dx < 0 ? 1 : -1);
+      if (l === "h") {
+        const commit = !atEdge(dx) &&
+          (Math.abs(dx) > Math.min(innerWidth / 4, 140) || (Math.abs(vx) > 0.5 && Math.abs(dx) > 40));
+        if (!commit) return springBack();
+        slideTo(dx < 0 ? 1 : -1);
+      } else if (l === "v") {
+        const closeIt = dy < -160 || (vy < -0.8 && dy < -80);   // close needs a decisive pull
+        const minimizeIt = dy > 90 || (vy > 0.5 && dy > 50);
+        if (closeIt) {
+          panel.style.transition = "transform 0.22s ease, opacity 0.22s ease";
+          panel.style.transform = "translateY(-40vh)";
+          panel.style.opacity = "0";
+          setTimeout(close, 200);
+        } else if (minimizeIt) {
+          panel.style.transition = panel.style.transform = panel.style.opacity = "";
+          btnMin.click();
+        } else {
+          panel.style.transition = "transform 0.25s ease, opacity 0.25s ease";
+          panel.style.transform = "translateY(0)";
+          panel.style.opacity = "1";
+          setTimeout(() => { panel.style.transition = panel.style.transform = panel.style.opacity = ""; }, 280);
+        }
+      }
     };
     video.addEventListener("touchend", onRelease);
     video.addEventListener("touchcancel", onRelease);
-    warmNeighbors(start);
+    if (max > 0) warmNeighbors(start);
+  }
+
+  // touch, footer bar: dragging it down slides it off — dismissed
+  {
+    let fy = 0, fOn = false, fdy = 0, fLastY = 0, fLastT = 0, fvy = 0;
+    panel.addEventListener("touchstart", e => {
+      fOn = false;
+      if (!mq.matches || !lb.classList.contains("minimized") || e.touches.length !== 1) return;
+      fy = fLastY = e.touches[0].clientY; fdy = 0; fvy = 0; fLastT = e.timeStamp;
+      fOn = true;
+    }, { passive: true });
+    panel.addEventListener("touchmove", e => {
+      if (!fOn) return;
+      const t = e.touches[0];
+      fdy = t.clientY - fy;
+      if (fdy < 8) return; // only downward drags are the dismiss gesture
+      e.preventDefault();
+      fvy = (t.clientY - fLastY) / Math.max(1, e.timeStamp - fLastT);
+      fLastY = t.clientY; fLastT = e.timeStamp;
+      panel.style.transition = "none";
+      panel.style.transform = `translateY(${fdy * 0.9}px)`;
+    }, { passive: false });
+    const fRelease = () => {
+      if (!fOn) return;
+      fOn = false;
+      if (fdy > 60 || (fvy > 0.5 && fdy > 30)) {
+        panel.style.transition = "transform 0.2s ease, opacity 0.2s ease";
+        panel.style.transform = "translateY(110%)";
+        panel.style.opacity = "0";
+        setTimeout(close, 180);
+      } else {
+        panel.style.transition = "transform 0.25s ease";
+        panel.style.transform = "translateY(0)";
+        setTimeout(() => { panel.style.transition = panel.style.transform = ""; }, 280);
+      }
+    };
+    panel.addEventListener("touchend", fRelease);
+    panel.addEventListener("touchcancel", fRelease);
   }
 
   // cta bar: reveal after ~4s of watching; add-to-cart wiring is buy-bar only
@@ -544,6 +653,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
 
   video.play();
   markWatched(model.videos[start].file);
+  if (wasMin) btnMin.click(); // browse mode carries over — the new player starts minimized
 }
 
 // ---------- scale switcher (product pages) ----------
@@ -733,15 +843,15 @@ function initArtistPage() {
         <span>${e.p.mode}</span>
       </div>
     </article>`).join("");
-  const numerals = ["", " — II", " — III", " — IV", " — V"];
+  const numerals = ["", " · II", " · III", " · IV", " · V"];
   const openAt = i => {
     const e = flat[i];
     // if the model exists in the range data, open with its FULL video list so
-    // other artists' takes (Immie, Roni, …) are right there as tabs
+    // other artists' takes (Immanuel, Vybeshift, …) are right there as tabs
     const model = typeof MODELS !== "undefined" &&
       MODELS.find(m => m.name === e.p.name && m.videos && m.videos.length);
     if (model) {
-      let idx = model.videos.findIndex(v => v.file === e.file && v.artist.split(" — ")[0] === artist);
+      let idx = model.videos.findIndex(v => v.file === e.file && v.artist.split(" · ")[0] === artist);
       if (idx < 0) idx = 0;
       openDemoLightbox({ ...model, productHandle: model.productHandle || e.p.handle }, idx);
       return;
@@ -790,11 +900,10 @@ addEventListener("pagehide", () => {
   }
 });
 
-// On arrival: rebuild the mini player in the corner, seeked to where it was.
-// Chrome carries autoplay permission through same-site link clicks, so it
-// usually resumes with sound; stricter browsers show the paused player.
+// On arrival: rebuild the mini player (desktop corner / mobile footer), seeked
+// to where it was. Chrome carries autoplay permission through same-site link
+// clicks, so it usually resumes with sound; stricter browsers show it paused.
 function restoreMiniPlayer() {
-  if (matchMedia("(max-width: 640px)").matches) return; // mini player is desktop-only
   let saved = null;
   try { saved = JSON.parse(sessionStorage.getItem("ayasaMiniPlayer")); } catch (e) { /* corrupt state */ }
   if (!saved || typeof MODELS === "undefined") return;
@@ -939,7 +1048,7 @@ function initProductPage() {
   if (demoModel) {
     const strip = document.getElementById("demoStrip");
     strip.innerHTML = demoModel.videos.map((v, i) => {
-      const base = v.artist.split(" — ")[0];
+      const base = v.artist.split(" · ")[0];
       const a = (typeof ARTISTS !== "undefined" && ARTISTS[base]) || {};
       return `
       <article class="demo-card" data-i="${i}" tabindex="0" role="button" aria-label="Play performance by ${v.artist}">
@@ -951,7 +1060,7 @@ function initProductPage() {
         </div>
       </article>`;
     }).join("");
-    const artistCount = new Set(demoModel.videos.map(v => v.artist.split(" — ")[0])).size;
+    const artistCount = new Set(demoModel.videos.map(v => v.artist.split(" · ")[0])).size;
     document.getElementById("productDemosSub").textContent =
       `${demoModel.videos.length} performances by ${artistCount} artists — played on this model.`;
     document.getElementById("productDemos").hidden = false;

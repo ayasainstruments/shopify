@@ -1062,6 +1062,8 @@ select:focus { outline: none; border-color: var(--slate); }
 
 /* stories-style position dots — the swipe affordance; mobile full-screen only */
 .demo-dots { display: none; }
+/* mobile-footer info block — hidden everywhere else (desktop mini included) */
+.demo-mini-info { display: none; }
 
 /* ---------- demo lightbox: mobile bottom sheet ---------- */
 @media (max-width: 640px) {
@@ -1094,7 +1096,6 @@ select:focus { outline: none; border-color: var(--slate); }
   }
   /* slim black bar above the full-bleed video */
   .demo-panel video { max-height: 62svh; border-radius: 0; border-top: 14px solid #000; }
-  .demo-min { display: none; } /* minimize is desktop-only */
   .demo-cta-casewrap { max-height: 26svh; } /* keep the video the hero on the sheet */
   .demo-scroll { padding: 0 1.1rem; }
   .demo-cta { margin-left: 1.1rem; margin-right: 1.1rem; }
@@ -1111,6 +1112,83 @@ select:focus { outline: none; border-color: var(--slate); }
   .demo-scroll.scroll-fade {
     -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 32px), transparent);
     mask-image: linear-gradient(180deg, #000 calc(100% - 32px), transparent);
+  }
+
+  /* ---- minimized: a full-width footer bar — info left, cropped video right ---- */
+  .demo-lightbox.minimized { inset: auto 0 0 0; place-items: stretch; }
+  .demo-lightbox.minimized .demo-backdrop { display: none; }
+  .demo-lightbox.minimized .demo-panel {
+    flex-direction: row; align-items: center; gap: 0;
+    /* 100% of the fixed container, NOT 100vw — real phones clip 100vw at the
+       right edge (browser UI, cutouts); safe-area padding for notched glass */
+    width: 100%; height: auto; max-height: none;
+    padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    border-top: 1px solid var(--line); border-radius: 0;
+    animation: none;
+    box-shadow: 0 -10px 34px rgba(0, 0, 0, 0.5);
+  }
+  .demo-lightbox.minimized .demo-panel video {
+    flex: 0 0 112px; width: 112px; height: 200px; max-height: none;
+    object-fit: cover; /* full portrait frame — 112px wide at 9:16 is barely cropped */
+    border: 0; border-radius: 0;
+    order: 2; /* DOM has video before the info block — the footer wants info left, video right */
+  }
+  .demo-lightbox.minimized .demo-scroll,
+  .demo-lightbox.minimized .demo-cta,
+  .demo-lightbox.minimized .demo-dots { display: none; }
+  /* artist pills, moved in from the sheet: 2 wrapped rows, then the strip
+     scrolls — select() auto-scrolls the active pill into view */
+  .demo-lightbox.minimized .demo-mini-info .demo-tabs {
+    gap: 0.28rem;
+    margin-left: -0.3rem; /* nudged left so both Malte pills share row one */
+    max-height: 54px; overflow-y: auto; scrollbar-width: none;
+    overscroll-behavior: contain;
+  }
+  .demo-lightbox.minimized .demo-mini-info .demo-tabs::-webkit-scrollbar { display: none; }
+  .demo-lightbox.minimized .demo-tab {
+    flex: 0 0 auto; font-size: 0.64rem; padding: 0.28rem 0.5rem; letter-spacing: 0.05em;
+  }
+  /* the linked artist line, compact: name + credential on one truncated line */
+  .demo-lightbox.minimized .demo-artist { border: 0; padding: 0; margin: 0; }
+  .demo-lightbox.minimized .demo-artist-avatar,
+  .demo-lightbox.minimized .demo-artist-bio { display: none; }
+  .demo-lightbox.minimized .demo-artist-text {
+    display: flex; align-items: baseline; gap: 0.45rem;
+    min-width: 0; white-space: nowrap; overflow: hidden;
+  }
+  .demo-lightbox.minimized .demo-artist-text strong { font-size: 0.8rem; flex: 0 0 auto; }
+  /* the cred keeps its maximized styling (brand blue, small caps) — just truncated */
+  .demo-lightbox.minimized .demo-artist-cred {
+    min-width: 0; overflow: hidden; text-overflow: ellipsis; margin-top: 0;
+  }
+  /* the top scrim collapses to two tiny buttons over the video's corner */
+  .demo-lightbox.minimized .demo-top {
+    position: absolute; inset: auto; top: 5px; right: 5px; left: auto;
+    padding: 0; background: none; z-index: 3;
+  }
+  .demo-lightbox.minimized .demo-top > div:first-child { display: none; } /* title lives in the info block */
+  .demo-lightbox.minimized .demo-top-btns { gap: 0.35rem; }
+  .demo-lightbox.minimized .demo-min, .demo-lightbox.minimized .demo-close {
+    width: 26px; height: 26px; font-size: 0.7rem; color: #fff;
+    background: rgba(8, 9, 11, 0.55); border-color: rgba(255, 255, 255, 0.18);
+  }
+  .demo-lightbox.minimized .demo-mini-info {
+    display: flex; flex-direction: column; justify-content: space-between; gap: 4px;
+    flex: 1; min-width: 0;
+    height: 200px; overflow: hidden; /* the bar is exactly the video's height */
+    padding: 0.7rem 0.7rem 0.8rem 1.1rem;
+  }
+  .demo-mini-name {
+    font-family: var(--font-display); font-size: 1.25rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .demo-mini-scale {
+    font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .demo-mini-shop {
+    align-self: flex-start; margin-top: 3px;
+    padding: 0.5rem 1.2rem; font-size: 0.72rem;
   }
 }
 @keyframes demo-sheet-up { from { transform: translateY(28px); opacity: 0; } }

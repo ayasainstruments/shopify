@@ -344,6 +344,7 @@ strong { font-weight: 600; }
 .demo-panel {
   position: relative; background: var(--bg-2); border: 1px solid var(--line); border-radius: 18px;
   padding: 1.1rem 1.1rem 1rem; width: min(400px, 92vw); max-height: 92svh; display: flex; flex-direction: column; gap: 0.9rem;
+  overflow: hidden; /* clips the sliding video during swipe / autoplay-next transitions */
 }
 .demo-top { display: flex; justify-content: space-between; align-items: start; gap: 1rem; }
 .demo-title { font-family: var(--font-display); font-size: 1.25rem; }

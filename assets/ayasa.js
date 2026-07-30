@@ -331,12 +331,13 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   // warm the neighbouring clips (metadata + poster) so a swipe starts fast
   const warmed = new Set([start]);
   const warmNeighbors = n => [n - 1, n + 1].forEach(i => {
-    if (i < 0 || i >= model.videos.length || warmed.has(i)) return;
-    warmed.add(i);
+    const k = (i + model.videos.length) % model.videos.length; // wraps — autoplay flows last → first
+    if (warmed.has(k)) return;
+    warmed.add(k);
     const w = document.createElement("video");
     w.preload = "metadata";
-    w.src = model.videos[i].file;
-    new Image().src = model.videos[i].file.replace(/\.mp4$/, ".jpg");
+    w.src = model.videos[k].file;
+    new Image().src = model.videos[k].file.replace(/\.mp4$/, ".jpg");
   });
   const select = i => {
     const n = (i + model.videos.length) % model.videos.length;
@@ -346,13 +347,33 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     const v = model.videos[n];
     video.poster = v.file.replace(/\.mp4$/, ".jpg");
     video.src = v.file;
-    video.play();
+    // autoplay refused (un-gestured after src swap, e.g. iOS): rest on the poster, one tap resumes
+    video.play().catch(() => {});
     markWatched(v.file);
     artistBox.innerHTML = artistInfoHTML(v.artist);
     updateFade();
     warmNeighbors(n);
   };
   const current = () => tabEls.findIndex(t => t.classList.contains("active"));
+  // slide the next clip in — shared by swipe commits and end-of-clip autoplay
+  const slideTo = dir => {
+    const w = video.getBoundingClientRect().width * 0.6;
+    video.style.transition = "transform 0.22s ease, opacity 0.22s ease";
+    video.style.transform = `translateX(${-dir * w}px)`;
+    video.style.opacity = "0.2";
+    setTimeout(() => {
+      video.style.transition = "none";
+      video.style.transform = `translateX(${dir * w}px)`;
+      select(current() + dir);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        video.style.transition = "transform 0.22s ease, opacity 0.22s ease";
+        video.style.transform = "translateX(0)";
+        video.style.opacity = "1";
+      }));
+    }, 220);
+  };
+  // every clip flows into the next; the last wraps back to the first
+  if (model.videos.length > 1) video.addEventListener("ended", () => slideTo(1));
   const onKey = e => {
     if (e.key === "Escape") close();
     else if (e.key === "ArrowRight") select(current() + 1);
@@ -406,20 +427,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
       const commit = !atEdge(dx) &&
         (Math.abs(dx) > Math.min(innerWidth / 4, 140) || (Math.abs(vx) > 0.5 && Math.abs(dx) > 40));
       if (!commit) return springBack();
-      const dir = dx < 0 ? 1 : -1;
-      video.style.transition = "transform 0.22s ease, opacity 0.22s ease";
-      video.style.transform = `translateX(${-dir * innerWidth * 0.6}px)`;
-      video.style.opacity = "0.2";
-      setTimeout(() => {
-        video.style.transition = "none";
-        video.style.transform = `translateX(${dir * innerWidth * 0.6}px)`;
-        select(current() + dir);
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          video.style.transition = "transform 0.22s ease, opacity 0.22s ease";
-          video.style.transform = "translateX(0)";
-          video.style.opacity = "1";
-        }));
-      }, 220);
+      slideTo(dx < 0 ? 1 : -1);
     };
     video.addEventListener("touchend", onRelease);
     video.addEventListener("touchcancel", onRelease);

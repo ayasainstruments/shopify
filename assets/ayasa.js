@@ -1265,17 +1265,45 @@ function initShortlist() {
 }
 
 // ---------- mobile scroll spotlight ----------
-// Touch screens have no hover, so the card crossing the middle of the
-// viewport carries the hover state instead (photo reveal, lift, border).
-// CSS applies .spot only under @media (hover: none) — desktop stays pure
-// hover. In two-column grids, side-by-side cards light up together (fine).
+// Touch screens have no hover, so cards light up by scroll position instead —
+// a continuous dimmer, not a switch. Full effect on the focus line (centre of
+// the unobstructed viewport; the docked mini player shrinks it), a small
+// plateau so the featured card holds its moment, then a smoothstep fade to
+// zero toward the screen edges. No floor: edge cards rest fully dark.
+// CSS reads --spot only under @media (hover: none) — desktop stays pure hover.
 function initScrollSpotlight() {
   if (!matchMedia("(hover: none)").matches) return;
-  const io = new IntersectionObserver(
-    entries => entries.forEach(e => e.target.classList.toggle("spot", e.isIntersecting)),
-    { rootMargin: "-35% 0px -35% 0px" } // active band: the middle ~30% of the screen
-  );
-  document.querySelectorAll(".model-card, .shop-card").forEach(el => io.observe(el));
+  const cards = document.querySelectorAll(".model-card, .shop-card");
+  if (!cards.length) return;
+  const PLATEAU = 0.10, FALLOFF = 0.45; // viewport-height fractions
+  const onScreen = new Set();
+  const reset = c => { c.classList.remove("spot"); c.style.removeProperty("--spot"); };
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const vh = innerHeight;
+    // focus line: centre of what's actually visible above the docked player
+    const player = document.querySelector(".demo-lightbox.minimized .demo-panel");
+    const focus = (vh - (player ? player.offsetHeight : 0)) / 2;
+    onScreen.forEach(c => {
+      const r = c.getBoundingClientRect();
+      const d = Math.abs(r.top + r.height / 2 - focus) / vh;
+      let t = d <= PLATEAU ? 1 : Math.max(0, 1 - (d - PLATEAU) / FALLOFF);
+      t *= t * (3 - 2 * t); // smoothstep — eases both the rise and the fade
+      if (t > 0.001) {
+        c.classList.add("spot");
+        c.style.setProperty("--spot", t.toFixed(3));
+      } else reset(c);
+    });
+  };
+  const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => (e.isIntersecting ? onScreen.add(e.target) : (onScreen.delete(e.target), reset(e.target))));
+    schedule();
+  }, { rootMargin: "20% 0px 20% 0px" });
+  cards.forEach(c => io.observe(c));
+  addEventListener("scroll", schedule, { passive: true, capture: true });
+  addEventListener("resize", schedule, { passive: true });
 }
 
 // ---------- scroll reveal ----------

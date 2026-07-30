@@ -1336,14 +1336,25 @@ select:focus { outline: none; border-color: var(--slate); }
 .sl-fine { font-size: 0.74rem; color: var(--muted); line-height: 1.55; }
 
 /* ---------- mobile scroll spotlight (see initScrollSpotlight) ----------
-   Mirrors the card hover rules; .spot is only ever set on touch screens,
-   and the media query keeps desktop pure hover even if it were. */
+   Continuous dimmer: JS writes --spot (0 → 1) per scroll frame; photo,
+   lift and border all scale with it in lockstep. .spot is only ever set
+   on touch screens, and the media query keeps desktop pure hover. */
 @media (hover: none) {
-  .model-card.spot { transform: translateY(-4px); border-color: rgba(101, 117, 153, 0.55); }
+  /* the finger drives the values — a transition would trail a frame behind */
+  .model-card.spot, .shop-card.spot { transition-duration: 0s; }
+  .model-card.spot, .shop-card.spot { transform: translateY(calc(var(--spot, 0) * -4px)); }
   /* unlinked cards (Coming soon) match their desktop hover: photo yes, lift no */
-  .model-card:not(.model-card-linked).spot { transform: none; border-color: var(--line); }
-  .model-card-photo.spot .model-card-bg { opacity: 0.9; --mask-solid: 85%; --mask-fade: 200%; }
-  .model-card-linked.spot .model-link { color: var(--ink); }
-  .model-card-linked.spot .model-link .arrow { transform: translateX(4px); }
-  .shop-card.spot { transform: translateY(-4px); border-color: rgba(101, 117, 153, 0.55); }
+  .model-card.spot:not(.model-card-linked) { transform: none; }
+  .model-card-photo.spot .model-card-bg {
+    transition-duration: 0s;
+    opacity: calc(0.72 + var(--spot, 0) * 0.18);
+    --mask-solid: calc(20% + var(--spot, 0) * 65%);
+    --mask-fade: calc(50% + var(--spot, 0) * 150%);
+  }
+  @supports (border-color: color-mix(in srgb, red 50%, blue)) {
+    .model-card.spot, .shop-card.spot {
+      border-color: color-mix(in srgb, rgba(101, 117, 153, 0.55) calc(var(--spot, 0) * 100%), var(--line));
+    }
+    .model-card.spot:not(.model-card-linked) { border-color: var(--line); }
+  }
 }

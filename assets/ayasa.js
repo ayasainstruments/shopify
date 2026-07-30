@@ -651,7 +651,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     }
   }
 
-  video.play();
+  video.play().catch(() => {}); // restore/iOS may refuse — restoreMiniPlayer escalates from here
   markWatched(model.videos[start].file);
   if (wasMin) btnMin.click(); // browse mode carries over — the new player starts minimized
 }
@@ -901,8 +901,9 @@ addEventListener("pagehide", () => {
 });
 
 // On arrival: rebuild the mini player (desktop corner / mobile footer), seeked
-// to where it was. Chrome carries autoplay permission through same-site link
-// clicks, so it usually resumes with sound; stricter browsers show it paused.
+// to where it was, and resume by escalation: unmuted (Chrome carries the tap
+// through same-site navigation) → muted with an unmute chip (WebKit/iOS allows
+// silent autoplay only) → paused with native controls as the last resort.
 function restoreMiniPlayer() {
   let saved = null;
   try { saved = JSON.parse(sessionStorage.getItem("ayasaMiniPlayer")); } catch (e) { /* corrupt state */ }
@@ -912,11 +913,23 @@ function restoreMiniPlayer() {
   openDemoLightbox(model, saved.index || 0);
   const lb = document.querySelector(".demo-lightbox");
   if (!lb) return;
-  lb.querySelector(".demo-min").click(); // dock straight into the corner
+  lb.querySelector(".demo-min").click(); // dock straight into the corner/footer
   const v = lb.querySelector("video");
   const seek = () => { v.currentTime = saved.time || 0; };
   if (v.readyState >= 1) seek();
   else v.addEventListener("loadedmetadata", seek, { once: true });
+  v.play().catch(() => {
+    v.muted = true;
+    v.play().then(() => {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "demo-unmute";
+      chip.textContent = "🔇 Tap for sound";
+      lb.querySelector(".demo-panel").appendChild(chip);
+      chip.addEventListener("click", () => { v.muted = false; }); // a tap is a gesture — sound allowed
+      v.addEventListener("volumechange", () => { if (!v.muted) chip.remove(); }); // native unmute counts too
+    }).catch(() => { v.muted = false; }); // even muted refused: rest on the poster, controls resume
+  });
 }
 
 function initDemoButtons() {

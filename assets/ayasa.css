@@ -1060,6 +1060,16 @@ select:focus { outline: none; border-color: var(--slate); }
   .demo-lightbox.minimized .demo-cta-casewrap { max-height: 180px; }
 }
 
+/* unmute chip — a restored player that could only resume muted (WebKit/iOS) */
+.demo-unmute {
+  position: absolute; z-index: 4; right: 0.6rem; top: 3.2rem;
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  background: rgba(8, 9, 11, 0.72); border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px; color: #fff; font-family: var(--font-body);
+  font-size: 0.68rem; letter-spacing: 0.04em; padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+
 /* stories-style position dots — the swipe affordance; mobile full-screen only */
 .demo-dots { display: none; }
 /* mobile-footer info block — hidden everywhere else (desktop mini included) */
@@ -1189,6 +1199,11 @@ select:focus { outline: none; border-color: var(--slate); }
   .demo-mini-shop {
     align-self: flex-start; margin-top: 3px;
     padding: 0.5rem 1.2rem; font-size: 0.72rem;
+  }
+  /* footer: the unmute chip sits over the video's bottom corner */
+  .demo-lightbox.minimized .demo-unmute {
+    top: auto; right: 8px;
+    bottom: calc(env(safe-area-inset-bottom) + 8px);
   }
 }
 @keyframes demo-sheet-up { from { transform: translateY(28px); opacity: 0; } }

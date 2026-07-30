@@ -7,9 +7,15 @@
 // catalogue before launch. Known draft inconsistencies are marked
 // with "VERIFY:" comments.
 //
-// Premium prices are intentionally NOT shown on the site —
-// purchase happens at shop.ayasainstruments.com. Elements RRPs
-// (inc VAT) are public per the catalogue.
+// This is the EU + worldwide store: Premium AND Elements are sold
+// direct. All prices live in Shopify only (fetched live from
+// /products/{handle}.js — never hardcode them here). The UK gets
+// its own version with dealer RRPs; `rrp` is a UK-only concept now.
+//
+// Availability is two states, derived live from the product's
+// `ships:` tag + stock (see snippets/availability-badge.liquid and
+// docs/SHORTLIST-PLAN.md §2.3). The `availability`/`inStock` fields
+// below are only the first-paint fallback until the fetch lands.
 // ============================================================
 
 // ---------- TEMP: photographer test (visual only) ----------
@@ -115,7 +121,7 @@ const MODELS = [
     top: ["G#3", "A3", "C#4", "E4", "F#4", "G#4", "A4", "C#5", "E5", "F#5", "G#5"],
     bottom: ["D3", "E3", "B3", "D4", "B4", "D5", "A5", "B5", "C#6"],
     desc: "The deep one. Ethereal and comforting at once — and its bottom side opens a second, A-major voice from the same instrument.",
-    availability: "In stock — ships in 1–2 working days",
+    availability: "In stock. Ships in 1–2 working days",
     inStock: true
   },
   {
@@ -129,7 +135,7 @@ const MODELS = [
     top: ["F#3", "A3", "C#4", "D4", "F#4", "G#4", "A4", "C#5", "D5", "F#5"],
     bottom: ["B2", "E3", "G#3", "B3", "E4", "B4", "E5"],
     desc: "Ayasa's spacious signature. Quietly mysterious, moving from deep meditative moods to bright melodic exploration without losing its calm.",
-    availability: "In stock — ships in 1–2 working days",
+    availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     // detailPage: re-enable when the D Aegean 18 product page (with 3D viewer) exists on Shopify
     // homepage lightbox: delayed "View in shop" for this model's product page
@@ -152,7 +158,7 @@ const MODELS = [
     top: ["F#3", "A3", "C#4", "D4", "F#4", "G#4", "A4", "C#5", "D5", "F#5", "G#5", "A5"],
     bottom: ["B2", "E3", "G#3", "B3", "E4", "B4", "E5"],
     desc: "The Aegean's reach, extended — two more voices in the upper register for players who want the full canvas.",
-    availability: "In stock — ships in 1–2 working days",
+    availability: "In stock. Ships in 1–2 working days",
     inStock: true
   },
   {
@@ -165,7 +171,7 @@ const MODELS = [
     top: ["G3", "A3", "B3", "C#4", "D4", "E4", "F#4", "A4", "B4", "F#5"], // VERIFY: catalogue card partly illegible in draft
     bottom: ["E3", "F#3", "G4", "C#5", "D5", "E5", "G5", "A5"],
     desc: "The extended major scale co-created with Malte Marten in 2017 — uplifting and easy to love, with just enough melancholy to keep it honest.",
-    availability: "In stock — ships in 1–2 working days",
+    availability: "In stock. Ships in 1–2 working days",
     inStock: true
   },
   {
@@ -178,7 +184,7 @@ const MODELS = [
     top: ["B3", "D4", "E4", "F#4", "G4", "A4", "B4", "D5", "E5", "F#5", "G5", "A5"], // VERIFY against final catalogue
     bottom: ["C3", "D3", "F#3", "G3", "A3", "C4", "C5"],
     desc: "Celtic minor across twenty notes, lighter and more ethereal than the Kurd family. The meditative player's scale, and a Malte Marten staple.",
-    availability: "In stock — ships in 1–2 working days",
+    availability: "In stock. Ships in 1–2 working days",
     inStock: true
   },
   {
@@ -191,7 +197,7 @@ const MODELS = [
     top: ["D#3", "F#3", "G#3", "A#3", "B3", "C#4", "D#4", "F#4"],
     bottom: ["C#3", "E3", "E4", "G#4", "B4", "C#5", "D#5", "E5"],
     desc: "A low B2 ding under a B major scale — warm, enveloping, unhurried. An uncommon voice in any collection.",
-    availability: "Built to order — approx. 2 months", // VERIFY: draft catalogue card says in stock, pricing table says 2 months
+    availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load. VERIFY: draft catalogue card says in stock, pricing table says 2 months
     inStock: false
   },
   {
@@ -204,7 +210,7 @@ const MODELS = [
     top: ["A3", "Bb3", "C4", "D4", "E4", "F4", "G4", "A4", "C5", "D5", "E5", "F5"],
     bottom: ["Bb2", "F3", "G3", "B3", "E4", "B4", "E5"], // VERIFY: draft bottom row appears mis-copied in catalogue; must include Bb2
     desc: "The world's most-played scale at its fullest expression — and the Bb2 gives it a floor smaller Kurds can't reach.",
-    availability: "Built to order — approx. 6 months",
+    availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load
     inStock: false
   },
   {
@@ -217,49 +223,52 @@ const MODELS = [
     top: ["F#3", "G#3", "A#3", "C4", "C#4", "F4", "G#4", "C5"],
     bottom: ["A#2", "C#3", "F3", "F#4", "C#5", "F5", "G#5"],
     desc: "“Northern lights.” A rare Lydian voicing over one of the deepest dings in the range. Bright, mysterious, unlike anything else here.",
-    availability: "Built to order — approx. 8 months",
+    availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load
     inStock: false
   },
 
-  // ---------- ELEMENTS — built in the UK ----------
-  {
-    range: "elements",
-    family: "d-minor",
-    name: "Elements D Kurd 11",
-    scale: "D minor · topside only",
-    ding: "D3",
-    top: ["A3", "Bb3", "C4", "D4", "E4", "F4", "G4", "A4", "C5", "D5"],
-    bottom: [],
-    desc: "The essential D minor, properly made — everything you need for your first year of playing.",
-    availability: "Launching 2026 — register interest",
-    inStock: false,
-    rrp: "£2,160 inc VAT"
-  },
+  // ---------- ELEMENTS — EU lineup, sold direct ----------
+  // (The UK catalogue differs: D Kurd 11 and E Amara 13 are UK-only,
+  //  where dealers sell them at RRP. No `rrp` here — EU prices come
+  //  live from Shopify like every Premium model.)
   {
     range: "elements",
     family: "d-minor",
     name: "Elements D Kurd 13",
+    // productHandle: "elements-d-kurd-13", // PARKED — re-enable when the product (with photos) exists in Shopify
     scale: "D minor + bottom notes",
     ding: "D3",
     top: ["A3", "Bb3", "C4", "D4", "E4", "F4", "G4", "A4", "C5", "D5"],
     bottom: ["F3", "G3"],
-    desc: "The same warm minor, deepened with two bottom notes to give you a floor to grow into.",
-    availability: "Launching 2026 — register interest",
-    inStock: false,
-    rrp: "£2,400 inc VAT"
+    desc: "The essential D minor, properly made — deepened with two bottom notes to give you a floor to grow into.",
+    availability: "Made for you. Ships 1 December 2026", // fallback; the live ships: date replaces this on load
+    inStock: false
+  },
+  {
+    range: "elements",
+    family: "d-minor",
+    name: "Elements D Kurd 15",
+    // productHandle: "elements-d-kurd-15", // PARKED — re-enable when the product (with photos) exists in Shopify
+    scale: "D minor + bottom notes · extended top",
+    ding: "D3",
+    top: ["A3", "Bb3", "C4", "D4", "E4", "F4", "G4", "A4", "C5", "D5", "E5", "F5"],
+    bottom: ["F3", "G3"],
+    desc: "The same warm minor, opened upward — E5 and F5 extend your melodies to the top while the bottom notes keep the floor.",
+    availability: "Made for you. Ships 1 December 2026", // fallback; the live ships: date replaces this on load
+    inStock: false
   },
   {
     range: "elements",
     family: "e-minor",
-    name: "Elements E Amara 13",
-    scale: "E Celtic minor · topside only",
+    name: "Elements E Amara 15",
+    // productHandle: "elements-e-amara-15", // PARKED — re-enable when the product (with photos) exists in Shopify
+    scale: "E Celtic minor + low bottom notes",
     ding: "E3",
-    top: ["G3", "A3", "B3", "D4", "E4", "F#4", "G4", "A4", "B4", "D5", "E5", "G5"], // VERIFY: exact 13-note Amara layout with final catalogue
-    bottom: [],
-    desc: "Lighter, higher and distinctly meditative — the natural second voice, or a brighter way in.",
-    availability: "Launching 2026 — register interest",
-    inStock: false,
-    rrp: "£2,400 inc VAT"
+    top: ["G3", "A3", "B3", "D4", "E4", "F#4", "G4", "A4", "B4", "D5", "E5", "G5"], // VERIFY: exact Amara topside layout with final catalogue (inherited from the 13)
+    bottom: ["C3", "D3"],
+    desc: "Lighter, higher and distinctly meditative — and C3 and D3 beneath the ding add real depth and open chords the topside alone can't reach.",
+    availability: "Made for you. Ships 1 December 2026", // fallback; the live ships: date replaces this on load
+    inStock: false
   }
 ];
 

@@ -1210,3 +1210,127 @@ select:focus { outline: none; border-color: var(--slate); }
 @media (prefers-reduced-motion: reduce) {
   .demo-panel { animation: none; }
 }
+
+/* ============================================================
+   Shortlist — Phase 0 (docs/SHORTLIST-PLAN.md §3)
+   ============================================================ */
+
+/* hearts on cards — quiet by default, never competing with a buy button */
+.shortlist-heart {
+  position: absolute; top: 1.05rem; right: 1.05rem; z-index: 3;
+  width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+  border-radius: 999px; border: 1px solid var(--line);
+  background: rgba(13, 14, 17, 0.55); backdrop-filter: blur(6px);
+  color: var(--muted); cursor: pointer; padding: 0;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.shortlist-heart:hover { color: var(--ink); border-color: var(--brand-light); }
+.shortlist-heart svg path { transition: fill 0.2s ease; }
+.shortlist-heart.on { color: #d99a8f; border-color: rgba(200, 90, 80, 0.5); }
+.shortlist-heart.on svg path { fill: currentColor; }
+.shortlist-heart.pop { animation: sl-pop 0.35s ease; }
+@keyframes sl-pop { 40% { transform: scale(1.22); } }
+/* model cards: keep long names clear of the heart */
+.model-card .model-head { padding-right: 2.6rem; }
+/* shop grid: heart floats on the (white) photo */
+.shop-card-photo { position: relative; }
+.shop-card .shortlist-heart { top: 0.7rem; right: 0.7rem; background: rgba(13, 14, 17, 0.35); }
+
+/* product page: full text button under price */
+.shortlist-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  margin-top: 0.9rem; padding: 0.45rem 0.9rem;
+  background: none; border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); font-family: var(--font-body); font-size: 0.8rem;
+  letter-spacing: 0.05em; cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.shortlist-btn:hover { color: var(--ink); border-color: var(--brand-light); }
+.shortlist-btn svg path { transition: fill 0.2s ease; }
+.shortlist-btn.on { color: #d99a8f; border-color: rgba(200, 90, 80, 0.5); }
+.shortlist-btn.on svg path { fill: currentColor; }
+
+/* header dropdown panel */
+.shortlist-panel {
+  position: absolute; top: calc(100% + 10px); right: 1.2rem; z-index: 90;
+  width: min(340px, calc(100vw - 2rem));
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px;
+  padding: 1.1rem 1.2rem; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+.sl-panel-head { font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 0.4rem; }
+.sl-panel-list { list-style: none; margin: 0.3rem 0 0.6rem; }
+.sl-panel-list li {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+  padding: 0.42rem 0; border-bottom: 1px solid var(--line);
+}
+.sl-panel-list li:last-child { border-bottom: 0; }
+.sl-panel-list a { color: var(--ink); font-size: 0.92rem; }
+.sl-panel-list a:hover { color: var(--brand-light); }
+.sl-panel-remove {
+  background: none; border: 0; color: var(--muted); font-size: 1rem;
+  cursor: pointer; padding: 0 0.2rem; line-height: 1;
+}
+.sl-panel-remove:hover { color: #d99a8f; }
+.sl-panel-note { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+/* waitlist popup */
+.shortlist-popup {
+  position: fixed; inset: 0; z-index: 650;
+  display: flex; align-items: center; justify-content: center; padding: 1.2rem;
+}
+.shortlist-popup[hidden] { display: none; }
+.shortlist-popup-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(8, 9, 12, 0.72); backdrop-filter: blur(4px);
+}
+.shortlist-popup-card {
+  position: relative; max-width: 520px; width: 100%;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 18px;
+  padding: 2rem 2rem 1.8rem; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  animation: sl-card-up 0.3s ease;
+}
+@keyframes sl-card-up { from { transform: translateY(14px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .shortlist-popup-card { animation: none; } }
+.shortlist-popup-close {
+  position: absolute; top: 0.9rem; right: 1rem;
+  background: none; border: 0; color: var(--muted); font-size: 1.5rem;
+  cursor: pointer; line-height: 1; padding: 0.2rem;
+}
+.shortlist-popup-close:hover { color: var(--ink); }
+.shortlist-popup-card h3 { font-size: 1.55rem; margin: 0.3rem 0 0.8rem; }
+.sl-copy { font-size: 0.92rem; color: var(--muted); margin-bottom: 0.8rem; }
+.sl-copy strong { color: var(--ink); font-weight: 500; }
+.shortlist-popup-card .newsletter-row { display: flex; gap: 0.6rem; margin: 1.1rem 0 0.9rem; }
+.shortlist-popup-card .newsletter-row input[type="email"] {
+  flex: 1; min-width: 0; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 10px; color: var(--ink); padding: 0.65rem 0.9rem;
+  font-family: var(--font-body); font-size: 0.9rem;
+}
+.shortlist-popup-card .newsletter-row input[type="email"]:focus { outline: none; border-color: var(--brand); }
+.sl-check {
+  display: flex; gap: 0.55rem; align-items: flex-start;
+  font-size: 0.78rem; color: var(--muted); line-height: 1.5; cursor: pointer;
+}
+.sl-check input { margin-top: 0.22rem; accent-color: var(--brand); }
+.sl-error { color: #d99a8f; font-size: 0.8rem; margin-top: 0.6rem; }
+.sl-success { color: #9fce9f; font-size: 0.92rem; margin-top: 0.9rem; }
+
+/* shortlist panel v2: close button, notify opt-in, signup entry */
+.shortlist-panel { padding-right: 2.4rem; }
+.sl-panel-close {
+  position: absolute; top: 0.55rem; right: 0.6rem;
+  background: none; border: 0; color: var(--muted); font-size: 1.25rem;
+  cursor: pointer; line-height: 1; padding: 0.25rem;
+}
+.sl-panel-close:hover { color: var(--ink); }
+.sl-notify { margin: 0.7rem 0 0.8rem; }
+.sl-notify[hidden] { display: none; }
+.sl-panel-signup {
+  display: block; width: 100%; margin-top: 0.8rem; padding: 0.55rem 0.9rem;
+  background: var(--brand-fill); border: 1px solid var(--brand-deep); border-radius: 999px;
+  color: var(--ink); font-family: var(--font-body); font-size: 0.8rem;
+  letter-spacing: 0.05em; cursor: pointer; transition: border-color 0.2s ease;
+}
+.sl-panel-signup:hover { border-color: var(--brand-light); }
+/* popup consent small print */
+.sl-fine { font-size: 0.74rem; color: var(--muted); line-height: 1.55; }

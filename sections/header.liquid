@@ -16,6 +16,11 @@
       <a href="/pages/maker-shop">Maker Shop</a>
     {%- endif -%}
     <a class="nav-cta" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label | default: 'Shop' }}</a>
+    {%- comment -%} shortlist heart — hidden until something is saved; dropdown panel is built by ayasa.js {%- endcomment -%}
+    <button type="button" class="nav-shortlist" id="navShortlist" aria-label="Your shortlist" aria-expanded="false" hidden>
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 20.3C7.2 16.6 3.5 13.5 3.5 9.9 3.5 7.2 5.6 5 8.2 5c1.5 0 3 .7 3.8 1.9C12.8 5.7 14.3 5 15.8 5c2.6 0 4.7 2.2 4.7 4.9 0 3.6-3.7 6.7-8.5 10.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <sup id="navShortlistCount"></sup>
+    </button>
     <a class="nav-cart" href="{{ routes.cart_url }}" aria-label="Cart">
       {{ 'icon-cart.svg' | inline_asset_content }}
       {%- if cart.item_count > 0 -%}<sup>{{ cart.item_count }}</sup>{%- endif -%}
@@ -35,6 +40,30 @@
   }
   .nav-cart svg { width: 20px; height: 20px; }
   .nav-cart sup {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    font-size: 0.62rem;
+    color: var(--ink);
+    background: var(--brand-deep);
+    border-radius: 999px;
+    padding: 1px 5px;
+  }
+  .nav-shortlist {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: var(--muted);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  .nav-shortlist[hidden] { display: none; } /* display:inline-flex would defeat [hidden] */
+  .nav-shortlist:hover { color: var(--ink); }
+  .nav-shortlist svg path { fill: currentColor; fill-opacity: 0.25; }
+  .nav-shortlist sup {
     position: absolute;
     top: -6px;
     right: -10px;

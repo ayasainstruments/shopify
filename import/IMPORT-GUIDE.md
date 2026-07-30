@@ -54,8 +54,16 @@ The CSV uses safe placeholder stock levels — please correct them in the admin:
 
 - `instrument` / `accessory` — drives the two collections.
 - `case-option` — product appears in the case picker on instrument pages.
-- `ships:YYYY-MM-DD` — shown as the "Ships on" availability date; product is
-  treated as a pre-order.
+- `ships:YYYY-MM-DD` — the availability DATE SOURCE (see
+  docs/SHORTLIST-PLAN.md §2.3). Only a **future** date means pre-order
+  ("Made for you — ships 1 December 2026"); once the date passes the badge
+  flips to "In stock — ships in 1–2 working days" on its own. Range
+  instruments keep this tag permanently — update it per production batch
+  (standing rule: stock sold out → new batch of 8, date ~6 months out,
+  shortened manually when production allows).
+- `one-off` — finite instrument (scratched / spotted / prototype / trade-in),
+  policy `deny`: when it sells out it disappears from the shop grid, search
+  and the scale-switcher medallions (direct links still show "Sold out").
 - `free-tshirt` — instrument page shows the free t-shirt size/color choice.
 
 ## Not imported (by design)

@@ -1,6 +1,17 @@
 {% comment %}
-  Availability badge for a product.
-  Made-to-order items carry a `ships:YYYY-MM-DD` tag (see import/IMPORT-GUIDE.md).
+  Availability badge — two states (see docs/SHORTLIST-PLAN.md §2.3).
+
+  The ships:YYYY-MM-DD tag is the DATE SOURCE only, never a state switch:
+  every range instrument carries one permanently (it's also readable from
+  /products/{handle}.js for the JS-rendered cards, which a metafield is not).
+  · ships date in the future  → "Made for you — ships 1 December 2026"
+  · otherwise, stock on hand  → "In stock — ships in 1–2 working days"
+  When a batch lands the date passes and the badge flips itself — no admin
+  action. Range instruments use inventory policy `continue` so they never go
+  unavailable; the gap between selling out and entering the next batch shows
+  "in production". A sold-out one-off (`one-off` tag, policy `deny`) is hidden
+  from grids/search and only renders its "Sold out" badge on a direct link.
+
   Usage: {% render 'availability-badge', product: product %}
 {% endcomment %}
 {%- liquid
@@ -10,11 +21,19 @@
       assign ship_date = t | remove: 'ships:'
     endif
   endfor
+  assign now_s = 'now' | date: '%s' | plus: 0
+  assign ship_s = -1
+  if ship_date != blank
+    assign ship_s = ship_date | date: '%s' | plus: 0
+  endif
+  assign variant = product.selected_or_first_available_variant | default: product.variants.first
 -%}
-{%- if ship_date != blank -%}
-  <span class="badge badge-order">Ships on {{ ship_date | date: '%d-%m-%Y' }}</span>
-{%- elsif product.available -%}
-  <span class="badge badge-stock">Directly available</span>
-{%- else -%}
+{%- if ship_s > now_s -%}
+  <span class="badge badge-order">Made for you. Ships {{ ship_date | date: '%-d %B %Y' }}</span>
+{%- elsif product.available == false -%}
   <span class="badge badge-soldout">Sold out</span>
+{%- elsif variant.inventory_management == blank or variant.inventory_quantity > 0 -%}
+  <span class="badge badge-stock">In stock. Ships in 1–2 working days</span>
+{%- else -%}
+  <span class="badge badge-order">Made for you. In production</span>
 {%- endif -%}

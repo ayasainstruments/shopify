@@ -43,8 +43,21 @@
   {% paginate collection.products by 50 %}
     <div class="shop-grid">
       {%- for product in collection.products -%}
+        {%- comment -%} sold-out one-offs disappear from the site (they can't be remade);
+            range instruments use policy `continue` and never trip this {%- endcomment -%}
+        {%- if product.available == false and product.tags contains 'one-off' -%}
+          {%- continue -%}
+        {%- endif -%}
         <a class="shop-card" href="{{ product.url }}" data-type="{{ product.type | handleize }}"{% if default_type != blank and product.type != default_type %} style="display: none"{% endif %}>
           <div class="shop-card-photo">
+            {%- if product.type == 'Handpan' -%}
+              {%- comment -%} span, not button: nested interactive content inside the card <a> is invalid HTML.
+                  ayasa.js handles click + Enter/Space and stops the link navigation. {%- endcomment -%}
+              <span class="shortlist-heart" role="button" tabindex="0" aria-pressed="false" aria-label="Add {{ product.title | escape }} to shortlist"
+                data-handle="{{ product.handle }}" data-name="{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' | remove: ' - Ember Steel' | escape }}">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20.3C7.2 16.6 3.5 13.5 3.5 9.9 3.5 7.2 5.6 5 8.2 5c1.5 0 3 .7 3.8 1.9C12.8 5.7 14.3 5 15.8 5c2.6 0 4.7 2.2 4.7 4.9 0 3.6-3.7 6.7-8.5 10.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              </span>
+            {%- endif -%}
             {%- if product.handle == 'd-aegean-18-ember-steel' -%}
               {%- comment -%} TEMP: photographer test — matches the product page's TEST_GALLERY hero {%- endcomment -%}
               <img src="{{ 'gal-test-1.jpg' | asset_url }}" alt="{{ product.title }}" loading="lazy" width="800" height="800">

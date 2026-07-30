@@ -30,11 +30,13 @@ function modelCard(m) {
     ? `<b>+${m.bottom.length} bottom:</b> ${m.bottom.join(" ")}`
     : "Topside only";
   // cards with a shop destination are fully clickable (stretched link);
-  // RRP-only cards (Elements) get no link and no clickable affordance
-  const linked = !m.rrp;
+  // RRP-only (UK dealer) and parked (no product yet) cards get neither
+  const linked = !m.rrp && m.productHandle;
   const priceOrLink = m.rrp
     ? `<span class="model-price">RRP ${m.rrp}</span>`
-    : `<a class="model-link" href="${m.productHandle ? `/products/${m.productHandle}` : "/collections/instruments"}" aria-label="View ${m.name} in the shop">View in shop <span class="arrow">→</span></a>`;
+    : m.productHandle
+      ? `<a class="model-link" href="/products/${m.productHandle}" aria-label="View ${m.name} in the shop">View in shop <span class="arrow">→</span></a>`
+      : `<span class="model-price">Coming soon</span>`;
   const idx = MODELS.indexOf(m);
   const hearIt = m.videos && m.videos.length
     ? `<button class="hear-btn" data-model="${idx}" aria-haspopup="dialog">
@@ -48,9 +50,14 @@ function modelCard(m) {
          Explore in 3D · play it
        </a>`
     : "";
+  // Phase 0 shortlist — every purchasable scale gets a heart (top-right)
+  const heart = m.productHandle
+    ? `<button type="button" class="shortlist-heart" data-handle="${m.productHandle}" data-name="${m.name}" aria-label="Add ${m.name} to shortlist" aria-pressed="false">${HEART_SVG}</button>`
+    : "";
   return `
   <article class="model-card reveal${linked ? " model-card-linked" : ""}${m.cardPhoto ? " model-card-photo" : ""}">
     ${m.cardPhoto ? `<div class="model-card-bg" style="background-image: url('${m.cardPhoto}')" aria-hidden="true"></div>` : ""}
+    ${heart}
     <div class="model-head">
       <h3>${m.name}</h3>
     </div>
@@ -62,7 +69,7 @@ function modelCard(m) {
     <p class="model-desc">${m.desc}</p>
     <div class="model-actions">${hearIt}${explore3d}</div>
     <div class="model-foot">
-      <span class="badge ${badgeClass}">${m.availability}</span>
+      <span class="badge ${badgeClass}"${m.productHandle ? ` data-handle="${m.productHandle}"` : ""}>${m.availability}</span>
       ${priceOrLink}
     </div>
   </article>`;
@@ -116,6 +123,8 @@ function renderRange() {
   if (!premium || !elements || typeof MODELS === "undefined") return;
   premium.innerHTML = MODELS.filter(m => m.range === "premium").map(modelCard).join("");
   elements.innerHTML = MODELS.filter(m => m.range === "elements").map(modelCard).join("");
+  loadCardAvailability(premium);
+  loadCardAvailability(elements);
 }
 
 // ---------- video card extras: hover previews + watched markers ----------
@@ -670,21 +679,60 @@ function scaleItemHTML(s, currentHandle) {
       <span class="scale-price" data-handle="${s.handle}"></span>
     </a>`;
 }
-const __priceCache = {};
-function fetchPrice(handle) {
-  if (!__priceCache[handle]) {
-    __priceCache[handle] = fetch(`/products/${handle}.js`)
+const __productCache = {};
+function fetchProduct(handle) {
+  if (!__productCache[handle]) {
+    __productCache[handle] = fetch(`/products/${handle}.js`)
       .then(r => (r.ok ? r.json() : null))
-      .then(p => (p ? `€${(p.price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })}` : ""))
-      .catch(() => "");
+      .catch(() => null);
   }
-  return __priceCache[handle];
+  return __productCache[handle];
 }
+function fetchPrice(handle) {
+  return fetchProduct(handle).then(p =>
+    (p ? `€${(p.price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })}` : ""));
+}
+
+// ---------- live availability (two states — mirrors availability-badge.liquid) ----------
+// The ships: tag is a date SOURCE, not a state switch: a FUTURE date wins,
+// otherwise the shelf. (/products/{handle}.js exposes tags but not inventory
+// quantity, so the brief sold-out-awaiting-restock gap renders as in stock
+// here; the server-rendered product-page badge is exact.)
+function availabilityFromProduct(p) {
+  const tag = (p.tags || []).find(t => t.startsWith("ships:"));
+  const ship = tag ? new Date(tag.slice(6)) : null;
+  if (ship && !isNaN(ship) && ship > new Date()) {
+    const nice = ship.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+    return { cls: "badge-order", text: `Made for you. Ships ${nice}` };
+  }
+  if (!p.available) return { cls: "badge-soldout", text: "Sold out" };
+  return { cls: "badge-stock", text: "In stock. Ships in 1–2 working days" };
+}
+function loadCardAvailability(root) {
+  root.querySelectorAll(".badge[data-handle]").forEach(el => {
+    if (el.dataset.loaded) return;
+    el.dataset.loaded = "1";
+    fetchProduct(el.dataset.handle).then(p => {
+      if (!p) return; // fetch failed — keep the data-file fallback text
+      const a = availabilityFromProduct(p);
+      el.classList.remove("badge-stock", "badge-order", "badge-soldout");
+      el.classList.add(a.cls);
+      el.textContent = a.text;
+    });
+  });
+}
+
 function loadScalePrices(root) {
   root.querySelectorAll(".scale-price[data-handle]").forEach(el => {
     if (el.dataset.loaded) return;
     el.dataset.loaded = "1";
-    fetchPrice(el.dataset.handle).then(t => { el.textContent = t; });
+    fetchProduct(el.dataset.handle).then(p => {
+      el.textContent = p ? `€${(p.price / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })}` : "";
+      // sold-out one-offs disappear site-wide — the specials medallions too.
+      // The current page's own medallion stays so the switcher keeps context.
+      const item = el.closest(".scale-item");
+      if (p && !p.available && item && !item.classList.contains("active")) item.remove();
+    });
   });
 }
 // in the switcher, range cards whisper their price instead of "View in shop"
@@ -766,7 +814,7 @@ function initScaleNav() {
     const open = !panel.classList.contains("open");
     panel.classList.toggle("open", open);
     btn.setAttribute("aria-expanded", open);
-    if (open) { loadScalePrices(panel); swapLinkPrices(panel); }
+    if (open) { loadScalePrices(panel); swapLinkPrices(panel); loadCardAvailability(panel); }
   });
 
   // keep exploring: the full range, always open, at the exit point
@@ -777,6 +825,7 @@ function initScaleNav() {
     markCurrent(keep);
     loadScalePrices(keep);
     swapLinkPrices(keep);
+    loadCardAvailability(keep);
   }
 }
 
@@ -937,6 +986,282 @@ function initDemoButtons() {
     const btn = e.target.closest(".hear-btn");
     if (btn) openDemoLightbox(MODELS[+btn.dataset.model]);
   });
+}
+
+// ============================================================
+// Shortlist — Phase 0 (docs/SHORTLIST-PLAN.md §3)
+// Hearts write to localStorage so launch-day shortlists arrive
+// pre-populated; the popup collects the waitlist email; every
+// click pushes a dataLayer event for the pixel/audience work.
+// ============================================================
+const SHORTLIST_KEY = "ayasa:shortlist";
+const HEART_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20.3C7.2 16.6 3.5 13.5 3.5 9.9 3.5 7.2 5.6 5 8.2 5c1.5 0 3 .7 3.8 1.9C12.8 5.7 14.3 5 15.8 5c2.6 0 4.7 2.2 4.7 4.9 0 3.6-3.7 6.7-8.5 10.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+
+function getShortlist() {
+  try { return JSON.parse(localStorage.getItem(SHORTLIST_KEY)) || []; } catch { return []; }
+}
+function trackShortlist(event, handle) {
+  (window.dataLayer = window.dataLayer || []).push({ event: `shortlist_${event}`, scale: handle || "" });
+}
+function toggleShortlist(handle, name) {
+  let list = getShortlist();
+  const added = !list.some(i => i.handle === handle);
+  if (added) list.push({ handle, name, added: Date.now() });
+  else list = list.filter(i => i.handle !== handle);
+  try { localStorage.setItem(SHORTLIST_KEY, JSON.stringify(list)); } catch { /* private mode — session-only */ }
+  trackShortlist(added ? "add" : "remove", handle);
+  refreshShortlistUI();
+  return added;
+}
+function refreshShortlistUI() {
+  const list = getShortlist();
+  const has = handle => list.some(i => i.handle === handle);
+  document.querySelectorAll(".shortlist-heart[data-handle]").forEach(h => {
+    const on = has(h.dataset.handle);
+    h.classList.toggle("on", on);
+    h.setAttribute("aria-pressed", on);
+  });
+  document.querySelectorAll(".shortlist-btn[data-handle]").forEach(b => {
+    const on = has(b.dataset.handle);
+    b.classList.toggle("on", on);
+    b.setAttribute("aria-pressed", on);
+    const label = b.querySelector(".sl-label");
+    if (label) label.textContent = on ? "On your shortlist" : "Add to shortlist";
+  });
+  const navBtn = document.getElementById("navShortlist");
+  const panel = document.querySelector(".shortlist-panel");
+  if (navBtn) {
+    // while the panel is open, keep its anchor — removing the last scale
+    // shows the empty state instead of yanking both away mid-interaction
+    navBtn.hidden = list.length === 0 && (!panel || panel.hidden);
+    const count = document.getElementById("navShortlistCount");
+    if (count) count.textContent = list.length;
+  }
+  if (panel && !panel.hidden) renderShortlistPanel(panel);
+}
+function shortlistToast(msg) {
+  document.querySelector(".shortlist-toast")?.remove();
+  const t = document.createElement("div");
+  t.className = "choice-popup shortlist-toast";
+  t.setAttribute("role", "status");
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.classList.add("out"); setTimeout(() => t.remove(), 400); }, 2200);
+}
+function renderShortlistPanel(panel) {
+  const list = getShortlist();
+  const signed = localStorage.getItem("ayasa:shortlist:signed");
+  const close = `<button type="button" class="sl-panel-close" aria-label="Close shortlist">×</button>`;
+  panel.innerHTML = list.length ? `
+    ${close}
+    <p class="sl-panel-head">Your shortlist</p>
+    <ul class="sl-panel-list">
+      ${list.map(i => `
+        <li>
+          <a href="/products/${i.handle}">${i.name}</a>
+          <button type="button" class="sl-panel-remove" data-handle="${i.handle}" data-name="${i.name}" aria-label="Remove ${i.name} from shortlist">×</button>
+        </li>`).join("")}
+    </ul>
+    <label class="sl-check sl-notify" id="slNotifyRow" hidden>
+      <input type="checkbox" id="slNotifyBox"${localStorage.getItem("ayasa:notify-availability") ? " checked" : ""}>
+      <span>Email me when one of my scales becomes available sooner</span>
+    </label>
+    <p class="sl-panel-note">Side-by-side compare arrives with the full launch. Your scales are saved in this browser.</p>
+    ${signed ? "" : `<button type="button" class="sl-panel-signup" id="slPanelSignup">Get notified at launch</button>`}`
+    : `${close}
+       <p class="sl-panel-head">Your shortlist is empty</p>
+       <p class="sl-panel-note">Tap the ♡ on any scale to save it here.</p>`;
+  // the notify opt-in only makes sense when something on the list isn't on the shelf
+  if (list.length) {
+    Promise.all(list.map(i => fetchProduct(i.handle))).then(ps => {
+      const someWait = ps.filter(Boolean).some(p => availabilityFromProduct(p).cls !== "badge-stock");
+      const row = panel.querySelector("#slNotifyRow");
+      if (row && someWait) row.hidden = false;
+    });
+  }
+}
+// silently add tags to an already-signed-up customer (Shopify appends tags on
+// repeat customer-form posts). Returns false on failure or a bot challenge.
+function postCustomerTags(email, tags) {
+  const form = document.getElementById("shortlistForm");
+  if (!form || !email) return Promise.resolve(false);
+  const fd = new FormData();
+  fd.append("form_type", "customer");
+  fd.append("utf8", "✓");
+  fd.append("contact[email]", email);
+  fd.append("contact[tags]", tags.join(", "));
+  return fetch(form.action, { method: "POST", body: fd, headers: { Accept: "text/html" } })
+    .then(r => r.ok && !(r.url || "").includes("challenge"))
+    .catch(() => false);
+}
+function openShortlistPopup(name) {
+  const pop = document.getElementById("shortlistPopup");
+  if (!pop) return false;
+  const scaleEl = document.getElementById("slPopupScale");
+  if (scaleEl) scaleEl.textContent = name;
+  pop.hidden = false;
+  document.getElementById("slEmail")?.focus();
+  return true;
+}
+function initShortlist() {
+  // one delegated handler: cards re-render (scale switcher, keep-exploring),
+  // so per-element listeners would leak or miss
+  const heartAction = el => {
+    const { handle, name } = el.dataset;
+    if (!handle) return;
+    const added = toggleShortlist(handle, name || handle);
+    if (el.classList.contains("shortlist-heart")) {
+      el.classList.remove("pop");
+      void el.offsetWidth; // restart the animation
+      if (added) el.classList.add("pop");
+    }
+    if (!added) return shortlistToast("Removed from your shortlist");
+    // full popup once per session, and never again after an email is left
+    if (!localStorage.getItem("ayasa:shortlist:signed") && !sessionStorage.getItem("ayasa:shortlist:popup")) {
+      sessionStorage.setItem("ayasa:shortlist:popup", "1");
+      if (openShortlistPopup(name || handle)) return;
+    }
+    const n = getShortlist().length;
+    shortlistToast(`Noted ♡. ${n} scale${n === 1 ? "" : "s"} on your shortlist`);
+  };
+  document.addEventListener("click", e => {
+    const remove = e.target.closest(".sl-panel-remove");
+    if (remove) { toggleShortlist(remove.dataset.handle, remove.dataset.name); return; }
+    const el = e.target.closest(".shortlist-heart, .shortlist-btn");
+    if (!el) return;
+    e.preventDefault(); // hearts sit inside/over card links — never navigate
+    e.stopPropagation();
+    heartAction(el);
+  });
+  // shop-grid hearts are spans (a <button> inside the card <a> is invalid HTML)
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const el = e.target.closest?.('.shortlist-heart[role="button"]');
+    if (!el) return;
+    e.preventDefault();
+    heartAction(el);
+  });
+
+  // header heart → dropdown panel
+  const navBtn = document.getElementById("navShortlist");
+  const nav = document.getElementById("nav");
+  if (navBtn && nav) {
+    const panel = document.createElement("div");
+    panel.className = "shortlist-panel";
+    panel.hidden = true;
+    nav.appendChild(panel);
+    const closePanel = () => {
+      panel.hidden = true;
+      navBtn.setAttribute("aria-expanded", "false");
+      refreshShortlistUI(); // re-evaluate the heart's visibility (list may be empty now)
+    };
+    navBtn.addEventListener("click", () => {
+      if (panel.hidden) {
+        panel.hidden = false;
+        navBtn.setAttribute("aria-expanded", "true");
+        renderShortlistPanel(panel);
+      } else closePanel();
+    });
+    document.addEventListener("click", e => {
+      // removing an item re-renders the panel and detaches the clicked × —
+      // a detached target is not "outside", so don't let it close the panel
+      if (!document.body.contains(e.target)) return;
+      if (!panel.hidden && !panel.contains(e.target) && !navBtn.contains(e.target)) closePanel();
+    });
+    // panel controls (delegated — the panel re-renders on every list change)
+    panel.addEventListener("click", e => {
+      if (e.target.closest(".sl-panel-close")) return closePanel();
+      if (e.target.closest("#slPanelSignup")) {
+        closePanel();
+        openShortlistPopup(getShortlist()[0]?.name || "Your shortlist");
+      }
+    });
+    panel.addEventListener("change", e => {
+      const box = e.target.closest("#slNotifyBox");
+      if (!box) return;
+      if (!box.checked) { localStorage.removeItem("ayasa:notify-availability"); return; } // local only — see plan doc
+      localStorage.setItem("ayasa:notify-availability", "1");
+      const email = localStorage.getItem("ayasa:shortlist:email");
+      if (!email) {
+        // no email on record yet — the signup popup carries the tag from here
+        closePanel();
+        openShortlistPopup(getShortlist()[0]?.name || "Your shortlist");
+        return;
+      }
+      postCustomerTags(email, ["shortlist-waitlist", "notify-availability", ...getShortlist().map(i => `wants:${i.handle}`)])
+        .then(ok => {
+          if (ok) { trackShortlist("notify_optin"); shortlistToast("Noted ♡. We'll email you when availability improves"); }
+          else { box.checked = false; localStorage.removeItem("ayasa:notify-availability"); shortlistToast("Something went wrong. Please try again."); }
+        });
+    });
+  }
+
+  // return trip from a native full-page POST (bot-challenge path): Shopify
+  // redirects back with ?customer_posted=true — promote the stashed email
+  // to the signed state. The footer newsletter form never stashes one, so
+  // its posts are ignored here.
+  if (location.search.includes("customer_posted=true")) {
+    const pending = localStorage.getItem("ayasa:shortlist:pending-email");
+    if (pending) {
+      localStorage.setItem("ayasa:shortlist:signed", "1");
+      localStorage.setItem("ayasa:shortlist:email", pending);
+      localStorage.removeItem("ayasa:shortlist:pending-email");
+      trackShortlist("waitlist_signup");
+      shortlistToast("You're on the list ✓. We'll email you the moment shortlists go live.");
+      const url = new URL(location);
+      url.searchParams.delete("customer_posted");
+      history.replaceState(null, "", url);
+    }
+  }
+
+  // waitlist popup: close + AJAX submit (native-POST fallback for the bot challenge)
+  const pop = document.getElementById("shortlistPopup");
+  if (pop) {
+    pop.querySelectorAll("[data-sl-close]").forEach(el => el.addEventListener("click", () => { pop.hidden = true; }));
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && !pop.hidden) pop.hidden = true; });
+    const form = document.getElementById("shortlistForm");
+    if (form) form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const err = document.getElementById("slError");
+      err.hidden = true;
+      // tag the signup with every scale saved so far → who-wants-what in admin.
+      // The disclosure under the button names the newsletter, so the tag is
+      // unconditional; notify-availability rides along when the panel box asked.
+      const tags = ["shortlist-waitlist", "newsletter", ...getShortlist().map(i => `wants:${i.handle}`)];
+      if (localStorage.getItem("ayasa:notify-availability")) tags.push("notify-availability");
+      document.getElementById("slTags").value = tags.join(", ");
+      const btn = form.querySelector('[type="submit"]');
+      btn.disabled = true;
+      const email = (document.getElementById("slEmail")?.value || "").trim();
+      // stash the email before submitting: if the bot challenge forces a
+      // full-page POST, the ?customer_posted=true return trip (handled below)
+      // promotes it to the signed state
+      localStorage.setItem("ayasa:shortlist:pending-email", email);
+      const succeed = () => {
+        localStorage.setItem("ayasa:shortlist:signed", "1");
+        // kept in the shopper's own browser so the notify box can tag them later without re-asking
+        localStorage.setItem("ayasa:shortlist:email", email);
+        localStorage.removeItem("ayasa:shortlist:pending-email");
+        trackShortlist("waitlist_signup");
+        form.hidden = true;
+        document.getElementById("slSuccess").hidden = false;
+      };
+      try {
+        const r = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "text/html" } });
+        // Shopify's bot check ("Verifying your connection…") comes back as an
+        // inline 403 or a /challenge redirect — either way only a real
+        // navigation can pass it, so hand over to a native full-page POST
+        if (r.status === 403 || (r.url && r.url.includes("challenge"))) { form.submit(); return; }
+        if (!r.ok) throw new Error();
+        succeed();
+      } catch {
+        // network error mid-redirect etc. — the native post is the reliable path
+        form.submit();
+      }
+    });
+  }
+
+  refreshShortlistUI();
 }
 
 // ---------- scroll reveal ----------
@@ -1205,3 +1530,4 @@ initProductPage();
 initHoverPreviews();
 refreshWatchedDots();
 restoreMiniPlayer();
+initShortlist();  // after every render pass — hearts sync to localStorage state

@@ -1,0 +1,39 @@
+{% comment %}
+  Shortlist waitlist popup (Phase 0 — docs/SHORTLIST-PLAN.md §3).
+  Shown once per session on the first heart click, never again after an
+  email is left. The customer form tags the signup `shortlist-waitlist`
+  plus a `wants:{handle}` tag per saved scale (JS fills #slTags on submit),
+  so the coming-soon phase already builds a who-wants-what table in admin.
+  Opened/closed and submitted (AJAX, with a native-POST fallback for the
+  bot challenge) by the shortlist module in ayasa.js.
+{% endcomment %}
+<div class="shortlist-popup" id="shortlistPopup" hidden>
+  <div class="shortlist-popup-backdrop" data-sl-close></div>
+  <div class="shortlist-popup-card" role="dialog" aria-modal="true" aria-labelledby="slPopupTitle">
+    <button type="button" class="shortlist-popup-close" data-sl-close aria-label="Close">×</button>
+    <p class="kicker">Coming with the full launch</p>
+    <h3 id="slPopupTitle">Save this one for later</h3>
+    <p class="sl-copy">
+      Shortlists arrive with the full site launch. Collect the scales you love,
+      hear them side by side, and pick your instrument properly.
+    </p>
+    <p class="sl-copy">
+      Want to be first in? Leave your email and we'll tell you the moment it's live.
+      <strong id="slPopupScale"></strong> is already noted down for you.
+    </p>
+    {%- form 'customer', id: 'shortlistForm' -%}
+      <input type="hidden" name="contact[tags]" value="shortlist-waitlist" id="slTags">
+      <div class="newsletter-row">
+        <input type="email" name="contact[email]" id="slEmail" placeholder="you@example.com" required aria-label="Email address">
+        <button type="submit" class="btn btn-primary">Notify me</button>
+      </div>
+      <p class="sl-fine">
+        Signing up adds you to the Ayasa newsletter: launch news, updates and playing
+        inspiration for your shortlisted scales, and the occasional note from the
+        workshop. We'd rather send too few emails than too many. Unsubscribe anytime.
+      </p>
+      <p class="sl-error" id="slError" hidden>Something went wrong. Please try again.</p>
+    {%- endform -%}
+    <p class="sl-success" id="slSuccess" hidden>You're on the list ✓. We'll email you the moment shortlists go live.</p>
+  </div>
+</div>

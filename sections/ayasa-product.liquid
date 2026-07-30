@@ -13,6 +13,18 @@
       assign ship_date = t | remove: 'ships:'
     endif
   endfor
+  comment
+    ships: is a permanent date source, not a state switch — only a FUTURE
+    date means pre-order; a passed date means the batch has landed.
+  endcomment
+  assign ship_future = false
+  if ship_date != blank
+    assign now_s = 'now' | date: '%s' | plus: 0
+    assign ship_s = ship_date | date: '%s' | plus: 0
+    if ship_s > now_s
+      assign ship_future = true
+    endif
+  endif
   assign variant = product.selected_or_first_available_variant | default: product.variants.first
   assign cases = collections['cases'].products
 -%}
@@ -63,6 +75,15 @@
           {{ product.price | money }}
         </p>
       </div>
+
+      {%- if is_instrument -%}
+        {%- comment -%} Phase 0 shortlist — full text button here; icon-only hearts live on cards. Wired by ayasa.js. {%- endcomment -%}
+        <button type="button" class="shortlist-btn" data-handle="{{ product.handle }}"
+          data-name="{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' | remove: ' - Ember Steel' | escape }}" aria-pressed="false">
+          <span class="sl-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M12 20.3C7.2 16.6 3.5 13.5 3.5 9.9 3.5 7.2 5.6 5 8.2 5c1.5 0 3 .7 3.8 1.9C12.8 5.7 14.3 5 15.8 5c2.6 0 4.7 2.2 4.7 4.9 0 3.6-3.7 6.7-8.5 10.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+          <span class="sl-label">Add to shortlist</span>
+        </button>
+      {%- endif -%}
 
       <div class="product-notes" id="productNotes" hidden>
         <div class="notemap">
@@ -146,7 +167,7 @@
 
         {%- if product.available -%}
           <button type="submit" class="btn btn-primary product-buy">
-            {%- if ship_date != blank -%}Pre-order — ships {{ ship_date | date: '%d-%m-%Y' }}{%- else -%}Add to cart{%- endif -%}
+            {%- if ship_future -%}Pre-order. Ships {{ ship_date | date: '%-d %B %Y' }}{%- else -%}Add to cart{%- endif -%}
           </button>
         {%- else -%}
           <button type="button" class="btn btn-ghost product-buy" disabled>Sold out</button>

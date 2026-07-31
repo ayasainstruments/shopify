@@ -1543,6 +1543,16 @@ function initProductPage() {
       buyOptions.classList.add("open");
       buyBtn.textContent = finalLabel;
       updateTotal();
+      // once unfolded, park Add to cart at the bottom edge — the case and
+      // t-shirt choices frame themselves in the view above it
+      let scrolled = false;
+      const frame = () => {
+        if (scrolled) return;
+        scrolled = true;
+        buyBtn.closest(".buy-row").scrollIntoView({ block: "end", behavior: "smooth" });
+      };
+      buyOptions.addEventListener("transitionend", frame, { once: true });
+      setTimeout(frame, 450); // fallback if the transition event never lands
     });
   }
 

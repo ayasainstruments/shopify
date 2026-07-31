@@ -848,6 +848,9 @@ select:focus { outline: none; border-color: var(--slate); }
   }
   .buy-options.collapsible.open { grid-template-rows: 1fr; }
   .buy-options.collapsible .buy-options-inner { overflow: hidden; min-height: 0; }
+  /* the post-reveal scroll parks Add to cart at the screen's bottom edge —
+     with a little air beneath it */
+  .buy-row { scroll-margin-bottom: 12px; }
   /* clips keep their desktop size and scroll sideways — the cut-off card is
      the affordance. Full-bleed to the screen edge; the first card still lines
      up with the photo thanks to the matching padding. */

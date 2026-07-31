@@ -803,8 +803,13 @@ function initScaleNav() {
   rows.forEach(r => r.addEventListener("click", e => {
     const chip = e.target.closest(".filter-chip");
     if (!chip) return;
+    // hiding cards collapses the grid, which yanks everything below it up the
+    // screen — pin the row you clicked so only the cards appear to move
+    const anchor = r.getBoundingClientRect().top;
     // radio-style; re-clicking the active chip falls back to All
     applyFilter(chip.classList.contains("on") ? "all" : chip.dataset.filter);
+    // instant, not the page's smooth default — a smooth correction *is* the jump
+    scrollBy({ top: r.getBoundingClientRect().top - anchor, behavior: "instant" });
   }));
 
   loadScalePrices(nav);

@@ -503,9 +503,13 @@ select:focus { outline: none; border-color: var(--slate); }
 .gal-nav:hover { border-color: var(--slate); background: rgba(13, 14, 17, 0.78); }
 .gal-prev { left: 0.8rem; }
 .gal-next { right: 0.8rem; }
-.product-thumbs { display: flex; gap: 0.6rem; margin-top: 0.8rem; flex-wrap: wrap; }
+/* the thumbnail row and the video strip below it share one width:
+   6 thumbs + their gaps === 4 video cards + theirs */
+.product-section { --strip-gap: 0.6rem; --demo-card-w: 118px; }
+.product-thumbs { display: flex; gap: var(--strip-gap); margin-top: 0.8rem; flex-wrap: wrap; }
 .product-thumb {
-  width: 72px; height: 72px; border-radius: 10px; overflow: hidden; cursor: pointer;
+  width: calc((4 * var(--demo-card-w) - 2 * var(--strip-gap)) / 6); aspect-ratio: 1;
+  border-radius: 10px; overflow: hidden; cursor: pointer;
   border: 1px solid var(--line); background: #fff; padding: 0; opacity: 0.65; transition: 0.2s;
 }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
@@ -772,9 +776,9 @@ select:focus { outline: none; border-color: var(--slate); }
    fold. On mobile the grid is one column and it lands after the buy button. */
 .product-demos { margin-top: 0.8rem; } /* same gap the thumbnails keep from the photo */
 .product-demos[hidden] { display: none; }
-.product-demos .demo-strip { gap: 0.6rem; padding-bottom: 0.3rem; }
+.product-demos .demo-strip { gap: var(--strip-gap); padding-bottom: 0.3rem; }
 /* full portrait frame, uncropped — only the width is scaled down */
-.product-demos .demo-card { flex: 0 0 118px; border-radius: 12px; }
+.product-demos .demo-card { flex: 0 0 var(--demo-card-w); border-radius: 12px; }
 .product-demos .demo-card-play { width: 43px; height: 43px; font-size: 0.68rem; padding-left: 3px; }
 .product-demos .demo-card-info { left: 0.55rem; right: 0.55rem; bottom: 0.5rem; }
 .product-demos .demo-card-info strong { font-size: 0.8rem; }

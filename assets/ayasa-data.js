@@ -28,7 +28,8 @@ const TEST_GALLERY = {
     AYASA_ASSET("gal-test-2.jpg") + "?v=2",
     AYASA_ASSET("gal-test-3.jpg") + "?v=2",
     AYASA_ASSET("gal-test-4.jpg") + "?v=2",
-    AYASA_ASSET("gal-test-5.jpg") + "?v=2"
+    AYASA_ASSET("gal-test-5.jpg") + "?v=2",
+    AYASA_ASSET("gal-test-3.jpg") + "?v=2" // repeat: six thumbs line up with the four video cards
   ]
 };
 

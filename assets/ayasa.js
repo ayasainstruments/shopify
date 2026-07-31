@@ -760,16 +760,8 @@ function initScaleNav() {
     <h3 class="more-scales-label">Find something special</h3>
     <p class="more-scales-sub">One-offs, small batches and trade-ins</p>
     <div class="scale-grid">${rest.map(s => scaleItemHTML(s, current)).join("")}</div>` : "";
-  const premiumHTML = `
-    <div class="range-grid scale-cards">${premiumModels.map(modelCard).join("")}</div>
-    ${specialsHTML}`;
-  const elementsHTML = `<div class="range-grid scale-cards">${elementsModels.map(modelCard).join("")}</div>`;
-  const markCurrent = root => {
-    const link = root.querySelector(`.model-link[href="/products/${current}"]`);
-    if (link) link.closest(".model-card").classList.add("scale-current");
-  };
-
-  // one merged panel: all cards (filterable) + specials medallions (always visible)
+  // one always-open range: every card (filterable) + specials medallions,
+  // with a pill row above and below sharing a single filter state
   const ordered = [...premiumModels, ...elementsModels];
   const CHIPS = [
     { key: "all", label: "All" },
@@ -780,53 +772,44 @@ function initScaleNav() {
     { key: "e-minor", label: "E minor" },
     { key: "other", label: "Other" }
   ];
-  document.getElementById("snCount").textContent = SCALES.length + elementsModels.length;
-  const panel = document.getElementById("snPanel");
-  const body = panel.querySelector(".scale-panel-body");
-  body.innerHTML = `<div class="range-grid scale-cards">${ordered.map(modelCard).join("")}</div>${specialsHTML}`;
-  body.querySelectorAll(".scale-cards .model-card").forEach((el, i) => {
+  const body = nav.querySelector(".scale-panel-body");
+  // the second pill row sits where the cards end, before the specials
+  body.innerHTML = `<div class="range-grid scale-cards">${ordered.map(modelCard).join("")}</div>
+    <div class="scale-filters scale-filters-bottom" role="group" aria-label="Filter scales"></div>
+    ${specialsHTML}`;
+  const cards = [...body.querySelectorAll(".scale-cards .model-card")];
+  cards.forEach((el, i) => {
     el.dataset.range = ordered[i].range;
     el.dataset.family = ordered[i].family || "other";
   });
-  markCurrent(panel);
+  const link = body.querySelector(`.model-link[href="/products/${current}"]`);
+  if (link) link.closest(".model-card").classList.add("scale-current");
 
-  const filters = document.getElementById("snFilters");
-  filters.innerHTML = CHIPS.map(c =>
+  const rows = [...nav.querySelectorAll(".scale-filters")];
+  const chipHTML = CHIPS.map(c =>
     `<button type="button" class="filter-chip${c.key === "all" ? " on" : ""}" data-filter="${c.key}" aria-pressed="${c.key === "all"}">${c.label}</button>`
   ).join("");
-  const chips = filters.querySelectorAll(".filter-chip");
-  chips.forEach(chip => chip.addEventListener("click", () => {
-    // radio-style; re-clicking the active chip falls back to All
-    const key = chip.classList.contains("on") ? "all" : chip.dataset.filter;
-    chips.forEach(c => {
+  rows.forEach(r => { r.innerHTML = chipHTML; });
+  const applyFilter = key => {
+    rows.forEach(r => r.querySelectorAll(".filter-chip").forEach(c => {
       const on = c.dataset.filter === key;
       c.classList.toggle("on", on);
       c.setAttribute("aria-pressed", on);
+    }));
+    cards.forEach(el => {
+      el.hidden = !(key === "all" || el.dataset.range === key || el.dataset.family === key);
     });
-    body.querySelectorAll(".scale-cards .model-card").forEach(el => {
-      const show = key === "all" || el.dataset.range === key || el.dataset.family === key;
-      el.hidden = !show;
-    });
+  };
+  rows.forEach(r => r.addEventListener("click", e => {
+    const chip = e.target.closest(".filter-chip");
+    if (!chip) return;
+    // radio-style; re-clicking the active chip falls back to All
+    applyFilter(chip.classList.contains("on") ? "all" : chip.dataset.filter);
   }));
 
-  const btn = document.getElementById("snTrigger");
-  btn.addEventListener("click", () => {
-    const open = !panel.classList.contains("open");
-    panel.classList.toggle("open", open);
-    btn.setAttribute("aria-expanded", open);
-    if (open) { loadScalePrices(panel); swapLinkPrices(panel); loadCardAvailability(panel); }
-  });
-
-  // keep exploring: the full range, always open, at the exit point
-  const keep = document.getElementById("keepExploring");
-  if (keep) {
-    keep.querySelector(".keep-premium").innerHTML = premiumHTML;
-    keep.querySelector(".keep-elements").innerHTML = elementsHTML;
-    markCurrent(keep);
-    loadScalePrices(keep);
-    swapLinkPrices(keep);
-    loadCardAvailability(keep);
-  }
+  loadScalePrices(nav);
+  swapLinkPrices(nav);
+  loadCardAvailability(nav);
 }
 
 // ---------- artist page ----------
@@ -1016,17 +999,14 @@ function toggleShortlist(handle, name) {
 function refreshShortlistUI() {
   const list = getShortlist();
   const has = handle => list.some(i => i.handle === handle);
-  document.querySelectorAll(".shortlist-heart[data-handle]").forEach(h => {
-    const on = has(h.dataset.handle);
-    h.classList.toggle("on", on);
-    h.setAttribute("aria-pressed", on);
-  });
-  document.querySelectorAll(".shortlist-btn[data-handle]").forEach(b => {
+  document.querySelectorAll(".shortlist-heart[data-handle], .shortlist-btn[data-handle]").forEach(b => {
     const on = has(b.dataset.handle);
     b.classList.toggle("on", on);
     b.setAttribute("aria-pressed", on);
     const label = b.querySelector(".sl-label");
     if (label) label.textContent = on ? "On your shortlist" : "Add to shortlist";
+    // icon-only buttons explain themselves through the hover tooltip
+    if (b.title) b.title = on ? "On your shortlist" : "Add to shortlist";
   });
   const navBtn = document.getElementById("navShortlist");
   const panel = document.querySelector(".shortlist-panel");
@@ -1116,12 +1096,19 @@ function initShortlist() {
       if (added) el.classList.add("pop");
     }
     if (!added) return shortlistToast("Removed from your shortlist");
-    // full popup once per session, and never again after an email is left
-    if (!localStorage.getItem("ayasa:shortlist:signed") && !sessionStorage.getItem("ayasa:shortlist:popup")) {
-      sessionStorage.setItem("ayasa:shortlist:popup", "1");
-      if (openShortlistPopup(name || handle)) return;
-    }
     const n = getShortlist().length;
+    // two asks maximum, ever: the first save (once per session) and the third
+    // saved scale (once, flagged so remove/re-add can't re-fire it). Signing up
+    // silences both.
+    if (!localStorage.getItem("ayasa:shortlist:signed")) {
+      if (!sessionStorage.getItem("ayasa:shortlist:popup")) {
+        sessionStorage.setItem("ayasa:shortlist:popup", "1");
+        if (openShortlistPopup(name || handle)) return;
+      } else if (n >= 3 && !localStorage.getItem("ayasa:shortlist:popup3")) {
+        localStorage.setItem("ayasa:shortlist:popup3", "1");
+        if (openShortlistPopup(name || handle)) return;
+      }
+    }
     shortlistToast(`Noted ♡. ${n} scale${n === 1 ? "" : "s"} on your shortlist`);
   };
   document.addEventListener("click", e => {
@@ -1377,31 +1364,17 @@ function initProductPage() {
       photoImg.src = testGal[0];
       photoImg.removeAttribute("srcset");
     }
-    const slides = [...thumbsBox.querySelectorAll(".product-thumb")].map(t => ({ type: "photo", src: t.dataset.src }));
-    if (!slides.length) slides.push({ type: "photo", src: photoImg.currentSrc || photoImg.src });
-    if (demoModel) {
-      const poster = demoModel.videos[0].file.replace(/\.mp4$/, ".jpg");
-      slides.push({ type: "video", src: poster });
-      const vt = document.createElement("button");
-      vt.type = "button";
-      vt.className = "product-thumb product-thumb-video";
-      vt.setAttribute("aria-label", "Watch the video");
-      vt.innerHTML = `<img src="${poster}" alt="" loading="lazy"><span class="thumb-play" aria-hidden="true">▶</span>`;
-      thumbsBox.appendChild(vt);
-    }
+    // photos only — the performances live in their own strip under the thumbs
+    const slides = [...thumbsBox.querySelectorAll(".product-thumb")].map(t => ({ src: t.dataset.src }));
+    if (!slides.length) slides.push({ src: photoImg.currentSrc || photoImg.src });
     const thumbEls = [...thumbsBox.querySelectorAll(".product-thumb")];
     const prev = document.getElementById("galPrev");
     const next = document.getElementById("galNext");
-    const videoCta = document.getElementById("galVideoCta");
-    const openVideo = () => demoModel && openDemoLightbox(demoModel, 0, buildBuyCtx());
     let gi = 0;
     const show = i => {
       gi = (i + slides.length) % slides.length;
-      const s = slides[gi];
-      photoImg.src = s.src;
+      photoImg.src = slides[gi].src;
       photoImg.removeAttribute("srcset");
-      photoBox.classList.toggle("gal-video-mode", s.type === "video");
-      videoCta.hidden = s.type !== "video";
       thumbEls.forEach((t, n) => t.classList.toggle("active", n === gi));
     };
     if (slides.length > 1) {
@@ -1409,11 +1382,7 @@ function initProductPage() {
       prev.addEventListener("click", () => show(gi - 1));
       next.addEventListener("click", () => show(gi + 1));
     }
-    thumbEls.forEach((t, n) => t.addEventListener("click", () => {
-      show(n);
-      if (t.classList.contains("product-thumb-video")) openVideo();
-    }));
-    videoCta.addEventListener("click", openVideo);
+    thumbEls.forEach((t, n) => t.addEventListener("click", () => show(n)));
     let sx = 0, sy = 0;
     photoBox.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
     photoBox.addEventListener("touchend", e => {
@@ -1440,9 +1409,13 @@ function initProductPage() {
         </div>
       </article>`;
     }).join("");
-    const artistCount = new Set(demoModel.videos.map(v => v.artist.split(" · ")[0])).size;
-    document.getElementById("productDemosSub").textContent =
-      `${demoModel.videos.length} performances by ${artistCount} artists — played on this model.`;
+    // the compact strip in the gallery column carries only the "The sound"
+    // kicker; the summary line survives for any layout that still shows one
+    const sub = document.getElementById("productDemosSub");
+    if (sub) {
+      const artistCount = new Set(demoModel.videos.map(v => v.artist.split(" · ")[0])).size;
+      sub.textContent = `${demoModel.videos.length} performances by ${artistCount} artists — played on this model.`;
+    }
     document.getElementById("productDemos").hidden = false;
     const open = card => openDemoLightbox(demoModel, +card.dataset.i, buildBuyCtx());
     strip.addEventListener("click", e => {

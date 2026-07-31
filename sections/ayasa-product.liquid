@@ -27,7 +27,15 @@
   endif
   assign variant = product.selected_or_first_available_variant | default: product.variants.first
   assign cases = collections['cases'].products
+  assign sl_name = product.title | remove: ' - 440Hz' | remove: '- 440Hz' | remove: ' - Ember Steel' | escape
 -%}
+
+{%- comment -%} Phase 0 shortlist heart, used twice: over the gallery photo and
+    beside Add to cart. Icon-only both times — a text row under the price cost
+    ~70px of column height, which pushed the videos and scale switcher down. {%- endcomment -%}
+{%- capture shortlist_heart_svg -%}
+<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 20.3C7.2 16.6 3.5 13.5 3.5 9.9 3.5 7.2 5.6 5 8.2 5c1.5 0 3 .7 3.8 1.9C12.8 5.7 14.3 5 15.8 5c2.6 0 4.7 2.2 4.7 4.9 0 3.6-3.7 6.7-8.5 10.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+{%- endcapture -%}
 
 <section
   class="section product-section full-width"
@@ -53,7 +61,10 @@
         {%- endif -%}
         <button type="button" class="gal-nav gal-prev" id="galPrev" hidden aria-label="Previous image">‹</button>
         <button type="button" class="gal-nav gal-next" id="galNext" hidden aria-label="Next image">›</button>
-        <button type="button" class="gal-video-cta" id="galVideoCta" hidden aria-label="Watch the video">▶</button>
+        {%- if is_instrument -%}
+          <button type="button" class="shortlist-heart" data-handle="{{ product.handle }}" data-name="{{ sl_name }}"
+            aria-label="Add {{ sl_name }} to shortlist" title="Add to shortlist" aria-pressed="false">{{ shortlist_heart_svg }}</button>
+        {%- endif -%}
       </div>
       <div class="product-thumbs" id="productThumbs">
         {%- for image in product.images -%}
@@ -75,15 +86,6 @@
           {{ product.price | money }}
         </p>
       </div>
-
-      {%- if is_instrument -%}
-        {%- comment -%} Phase 0 shortlist — full text button here; icon-only hearts live on cards. Wired by ayasa.js. {%- endcomment -%}
-        <button type="button" class="shortlist-btn" data-handle="{{ product.handle }}"
-          data-name="{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' | remove: ' - Ember Steel' | escape }}" aria-pressed="false">
-          <span class="sl-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17"><path d="M12 20.3C7.2 16.6 3.5 13.5 3.5 9.9 3.5 7.2 5.6 5 8.2 5c1.5 0 3 .7 3.8 1.9C12.8 5.7 14.3 5 15.8 5c2.6 0 4.7 2.2 4.7 4.9 0 3.6-3.7 6.7-8.5 10.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
-          <span class="sl-label">Add to shortlist</span>
-        </button>
-      {%- endif -%}
 
       <div class="product-notes" id="productNotes" hidden>
         <div class="notemap">
@@ -165,56 +167,47 @@
 
         <p class="option-error" id="buyError" hidden></p>
 
-        {%- if product.available -%}
-          <button type="submit" class="btn btn-primary product-buy">
-            {%- if ship_future -%}Pre-order. Ships {{ ship_date | date: '%-d %B %Y' }}{%- else -%}Add to cart{%- endif -%}
-          </button>
-        {%- else -%}
-          <button type="button" class="btn btn-ghost product-buy" disabled>Sold out</button>
-        {%- endif -%}
+        <div class="buy-row">
+          {%- if product.available -%}
+            <button type="submit" class="btn btn-primary product-buy">
+              {%- if ship_future -%}Pre-order. Ships {{ ship_date | date: '%-d %B %Y' }}{%- else -%}Add to cart{%- endif -%}
+            </button>
+          {%- else -%}
+            <button type="button" class="btn btn-ghost product-buy" disabled>Sold out</button>
+          {%- endif -%}
+          {%- if is_instrument -%}
+            <button type="button" class="shortlist-btn shortlist-btn-icon" data-handle="{{ product.handle }}" data-name="{{ sl_name }}"
+              aria-label="Add {{ sl_name }} to shortlist" title="Add to shortlist" aria-pressed="false">{{ shortlist_heart_svg }}</button>
+          {%- endif -%}
+        </div>
       </form>
     </div>
+
+    {% comment %}
+      "The sound" — performance videos, rendered by ayasa.js from the model
+      data (ayasa-data.js) when this product has demo clips. A grid child, not
+      a gallery child: on desktop it fills the dead space under the thumbnails
+      beside the buy area; on mobile the column stacks it below the buy button.
+    {% endcomment %}
+    <div class="product-demos" id="productDemos" hidden>
+      <div class="demo-strip" id="demoStrip"></div>
+    </div>
   </div>
 
   {%- if is_instrument -%}
-    {% comment %} Scale switcher — one drop-down door into the range, filter chips inside, rendered by ayasa.js {% endcomment %}
-    <div class="scale-nav" id="scaleNav" data-current="{{ product.handle }}">
-      <button type="button" class="scale-trigger" id="snTrigger" aria-expanded="false" aria-controls="snPanel">
-        <span>Explore the range · <span id="snCount"></span> scales</span>
-        <span class="scale-chev" aria-hidden="true">▾</span>
-      </button>
-      <div class="scale-panel-wrap" id="snPanel">
-        <div class="scale-panel">
-          <div class="scale-filters" id="snFilters" role="group" aria-label="Filter scales"></div>
-          <div class="scale-panel-body"></div>
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {% comment %}
-    "Hear it played" — performance videos + artists, rendered by ayasa.js
-    from the model data (ayasa-data.js) when this product has demo clips.
-  {% endcomment %}
-  <div class="product-demos" id="productDemos" hidden>
-    <div class="section-head">
-      <p class="kicker">The sound</p>
-      <h2>Hear it played.</h2>
-      <p class="section-sub" id="productDemosSub"></p>
-    </div>
-    <div class="demo-strip" id="demoStrip"></div>
-  </div>
-
-  {%- if is_instrument -%}
-    {% comment %} Keep exploring — the full range at the exit point, rendered by ayasa.js {% endcomment %}
-    <div class="keep-exploring" id="keepExploring">
+    {% comment %}
+      Keep exploring — the whole range, always open, rendered by ayasa.js.
+      Filter pills top and bottom (one shared state) so a long grid can be
+      re-filtered without scrolling back up.
+    {% endcomment %}
+    <div class="keep-exploring" id="scaleNav" data-current="{{ product.handle }}">
       <div class="section-head reveal">
         <p class="kicker">Keep exploring</p>
-        <h2>Find your voice.</h2>
       </div>
-      <div class="keep-premium"></div>
-      <h3 class="keep-elements-label">Ayasa Elements</h3>
-      <div class="keep-elements"></div>
+      {%- comment -%} second pill row is injected mid-body, between the cards and
+          "Find something special" — see initScaleNav {%- endcomment -%}
+      <div class="scale-filters" role="group" aria-label="Filter scales"></div>
+      <div class="scale-panel-body"></div>
     </div>
   {%- endif -%}
 </section>

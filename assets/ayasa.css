@@ -87,8 +87,12 @@ strong { font-weight: 600; }
 .nav-burger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: 0.25s; }
 
 /* ---------- buttons ---------- */
+/* de-nativised so <button class="btn"> looks identical to <a class="btn">:
+   without this, form buttons keep the UA's 2px outset bevel and Arial */
 .btn {
   display: inline-block; border-radius: 999px; padding: 0.75rem 1.7rem;
+  appearance: none; -webkit-appearance: none; border: 0; cursor: pointer;
+  font-family: var(--font-body);
   font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500;
   transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
@@ -488,7 +492,7 @@ select:focus { outline: none; border-color: var(--slate); }
 .product-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
 .product-photo { background: #fff; border-radius: 16px; overflow: hidden; position: relative; }
 .product-photo img { width: 100%; height: auto; display: block; }
-/* gallery carousel: arrows, video slide + play badges */
+/* gallery carousel: photos only — performances live in their own strip below */
 .gal-nav {
   position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
   width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
@@ -499,23 +503,6 @@ select:focus { outline: none; border-color: var(--slate); }
 .gal-nav:hover { border-color: var(--slate); background: rgba(13, 14, 17, 0.78); }
 .gal-prev { left: 0.8rem; }
 .gal-next { right: 0.8rem; }
-.gal-video-mode { background: #000; }
-.gal-video-mode img { aspect-ratio: 1; object-fit: cover; }
-.gal-video-cta {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;
-  width: 64px; height: 64px; border-radius: 50%; border: 0;
-  background: var(--anneal); color: #14110c; cursor: pointer;
-  display: grid; place-items: center; font-size: 1rem; padding-left: 5px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-.gal-video-cta[hidden] { display: none; }
-.product-thumb-video { position: relative; }
-.thumb-play {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--anneal); color: #14110c;
-  display: grid; place-items: center; font-size: 0.55rem; padding-left: 2px;
-}
 .product-thumbs { display: flex; gap: 0.6rem; margin-top: 0.8rem; flex-wrap: wrap; }
 .product-thumb {
   width: 72px; height: 72px; border-radius: 10px; overflow: hidden; cursor: pointer;
@@ -780,12 +767,26 @@ select:focus { outline: none; border-color: var(--slate); }
 }
 
 /* ---------- product page: "Hear it played" performance strip ---------- */
-.product-demos {
-  margin-top: clamp(1.8rem, 4vw, 2.6rem);
-  border-top: 1px solid var(--line);
-  padding-top: clamp(1.6rem, 3vw, 2.4rem);
+/* compact video strip: a third grid child that fills the dead space under the
+   thumbnails, so the performances sit beside the buy area instead of below the
+   fold. On mobile the grid is one column and it lands after the buy button. */
+.product-demos { margin-top: 0.8rem; } /* same gap the thumbnails keep from the photo */
+.product-demos[hidden] { display: none; }
+.product-demos .demo-strip { gap: 0.6rem; padding-bottom: 0.3rem; }
+/* full portrait frame, uncropped — only the width is scaled down */
+.product-demos .demo-card { flex: 0 0 118px; border-radius: 12px; }
+.product-demos .demo-card-play { width: 43px; height: 43px; font-size: 0.68rem; padding-left: 3px; }
+.product-demos .demo-card-info { left: 0.55rem; right: 0.55rem; bottom: 0.5rem; }
+.product-demos .demo-card-info strong { font-size: 0.8rem; }
+.product-demos .demo-card-info span { display: none; } /* credential is unreadable this small */
+@media (min-width: 901px) {
+  /* row-gap would wedge a full column-gap between the thumbnails and the strip;
+     the block's own margin sets that distance instead */
+  .product-grid { row-gap: 0; }
+  .product-gallery { grid-column: 1; grid-row: 1; }
+  .product-info { grid-column: 2; grid-row: 1 / span 2; }
+  .product-demos { grid-column: 1; grid-row: 2; }
 }
-.product-demos .section-head { margin-bottom: 1.8rem; }
 .demo-strip {
   display: flex; gap: 1rem;
   overflow-x: auto; scroll-snap-type: x mandatory;
@@ -920,27 +921,12 @@ select:focus { outline: none; border-color: var(--slate); }
 .demo-cta-casewrap:not([hidden]), .demo-cta-add:not([hidden]) { animation: demo-fade-in 0.45s ease; }
 .demo-cta-error { color: #d99a8f; font-size: 0.8rem; margin: 0.5rem 0 0; }
 
-/* ---------- scale switcher (product pages) ---------- */
-.scale-nav { margin-top: 1.6rem; }
-.scale-trigger {
-  width: 100%;
-  display: flex; justify-content: space-between; align-items: center; gap: 0.6rem;
-  background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px;
-  color: var(--ink); font-family: var(--font-body); font-size: 0.9rem;
-  letter-spacing: 0.03em;
-  padding: 0.85rem 1.2rem; cursor: pointer; transition: border-color 0.2s ease;
-}
-.scale-trigger:hover, .scale-trigger[aria-expanded="true"] { border-color: var(--slate); }
-.scale-chev { color: var(--muted); transition: transform 0.25s ease; }
-/* filter chips inside the panel — same chips as the shop page */
+/* ---------- range on product pages (always open, filtered by pills) ---------- */
+/* filter chips — same chips as the shop page; a row above and below the grid */
 .scale-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.2rem 0 1.4rem; }
+.scale-filters-bottom { margin: 1.6rem 0 0; } /* injected between the cards and the specials */
 /* .model-card is display:flex — without this, filtered-out cards ignore [hidden] */
 .scale-cards .model-card[hidden] { display: none; }
-.scale-trigger[aria-expanded="true"] .scale-chev { transform: rotate(180deg); }
-.scale-panel-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s ease; }
-.scale-panel-wrap.open { grid-template-rows: 1fr; }
-.scale-panel { overflow: hidden; min-height: 0; }
-.scale-panel .scale-grid { margin-top: 1rem; }
 .scale-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 0.7rem; }
 .scale-item {
   display: flex; flex-direction: column; align-items: center; gap: 0.35rem; text-align: center;
@@ -978,8 +964,8 @@ select:focus { outline: none; border-color: var(--slate); }
   letter-spacing: 0.34em; text-transform: uppercase;
 }
 .more-scales-sub { margin: 0 0 1rem; font-size: 0.88rem; color: var(--muted); }
-.keep-exploring { margin-top: clamp(3rem, 7vw, 5rem); }
-.keep-exploring .section-head { margin-bottom: 1.6rem; }
+.keep-exploring { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
+.keep-exploring .section-head { margin-bottom: 0.2rem; }
 .keep-elements-label { margin: 2rem 0 1rem; font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; color: var(--brand-light); }
 
 /* ---------- required-choice popup ---------- */
@@ -1236,7 +1222,7 @@ select:focus { outline: none; border-color: var(--slate); }
 .shop-card-photo { position: relative; }
 .shop-card .shortlist-heart { top: 0.7rem; right: 0.7rem; background: rgba(13, 14, 17, 0.35); }
 
-/* product page: full text button under price */
+/* product page: shortlist button (text variant kept for any other placement) */
 .shortlist-btn {
   display: inline-flex; align-items: center; gap: 0.45rem;
   margin-top: 0.9rem; padding: 0.45rem 0.9rem;
@@ -1244,6 +1230,13 @@ select:focus { outline: none; border-color: var(--slate); }
   color: var(--muted); font-family: var(--font-body); font-size: 0.8rem;
   letter-spacing: 0.05em; cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease;
+}
+/* buy row: Add to cart takes the space, the heart sits beside it at equal height */
+.buy-row { display: flex; align-items: stretch; gap: 0.6rem; }
+.buy-row .product-buy { flex: 1; width: auto; }
+.shortlist-btn-icon {
+  flex: 0 0 auto; margin-top: 0; padding: 0; width: 52px;
+  justify-content: center;
 }
 .shortlist-btn:hover { color: var(--ink); border-color: var(--brand-light); }
 .shortlist-btn svg path { transition: fill 0.2s ease; }
@@ -1301,9 +1294,10 @@ select:focus { outline: none; border-color: var(--slate); }
 .sl-copy { font-size: 0.92rem; color: var(--muted); margin-bottom: 0.8rem; }
 .sl-copy strong { color: var(--ink); font-weight: 500; }
 .shortlist-popup-card .newsletter-row { display: flex; gap: 0.6rem; margin: 1.1rem 0 0.9rem; }
+/* pill radius + roomier sides to match the button beside it (as in the footer) */
 .shortlist-popup-card .newsletter-row input[type="email"] {
   flex: 1; min-width: 0; background: var(--bg); border: 1px solid var(--line);
-  border-radius: 10px; color: var(--ink); padding: 0.65rem 0.9rem;
+  border-radius: 999px; color: var(--ink); padding: 0.65rem 1.1rem;
   font-family: var(--font-body); font-size: 0.9rem;
 }
 .shortlist-popup-card .newsletter-row input[type="email"]:focus { outline: none; border-color: var(--brand); }

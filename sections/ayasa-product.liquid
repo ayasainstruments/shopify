@@ -42,6 +42,7 @@
   data-handle="{{ product.handle }}"
   data-variant="{{ variant.id }}"
   data-price="{{ product.price | money }}"
+  data-cents="{{ product.price }}"
   data-compare="{% if product.compare_at_price > product.price %}{{ product.compare_at_price | money }}{% endif %}"
   data-available="{{ product.available }}"
 >
@@ -108,6 +109,9 @@
         <input type="hidden" name="id" value="{{ variant.id }}">
         <input type="hidden" name="quantity" value="1">
 
+        {%- comment -%} on mobile the choices stay folded behind an "Order now"
+            step (wired in ayasa.js); desktop shows them as before {%- endcomment -%}
+        <div class="buy-options" id="buyOptions"><div class="buy-options-inner">
         {%- if is_instrument -%}
           <div class="product-option">
             <label for="caseSelect">Handpan case <span class="option-required">required — we pack every instrument in a proper case so it arrives safely</span></label>
@@ -119,7 +123,7 @@
               <option value="" selected disabled>Please choose a case…</option>
               {%- for c in cases -%}
                 {%- assign cv = c.selected_or_first_available_variant | default: c.variants.first -%}
-                <option value="{{ cv.id }}" {% unless c.available %}disabled{% endunless %}>
+                <option value="{{ cv.id }}" data-price="{{ c.price }}" {% unless c.available %}disabled{% endunless %}>
                   {{ c.title }} — {{ c.price | money }}{% unless c.available %} (out of stock){% endunless %}
                 </option>
               {%- endfor -%}
@@ -172,8 +176,13 @@
             </div>
           </div>
         {%- endif -%}
+        </div></div>
 
         <p class="option-error" id="buyError" hidden></p>
+
+        {%- comment -%} live total (handpan + chosen case) — appears once a case
+            is picked; on mobile also during the Order-now step as "+ case" {%- endcomment -%}
+        <p class="buy-total" id="buyTotal" hidden></p>
 
         <div class="buy-row">
           {%- if product.available -%}

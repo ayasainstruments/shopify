@@ -1501,6 +1501,51 @@ function initProductPage() {
     caseSelect.addEventListener("change", syncPicker);
   }
 
+  // live total: handpan + chosen case, shown just above the buy button.
+  // Desktop: appears once a case is picked. Mobile: also during the
+  // Order-now step, as "€… + case", so the number is honest before choosing.
+  const totalEl = document.getElementById("buyTotal");
+  const baseCents = +section.dataset.cents || 0;
+  const fmtEur = c => `€${(c / 100).toLocaleString("nl-NL", { minimumFractionDigits: 2 })}`;
+  let optionsRevealed = false;
+  const updateTotal = () => {
+    if (!totalEl || !caseSelect) return;
+    const opt = caseSelect.selectedOptions[0];
+    if (opt && opt.value) {
+      totalEl.textContent = `Total: ${fmtEur(baseCents + (+opt.dataset.price || 0))}`;
+      totalEl.hidden = false;
+    } else if (optionsRevealed) {
+      totalEl.textContent = `Total: ${fmtEur(baseCents)} + case`;
+      totalEl.hidden = false;
+    } else {
+      totalEl.hidden = true;
+    }
+  };
+  if (caseSelect) caseSelect.addEventListener("change", updateTotal);
+  updateTotal();
+
+  // mobile two-step buy: the choices stay folded and the button reads
+  // "Order now"; the first tap unfolds them in place (everything above stays
+  // put — the expansion is below the reading position) and the button becomes
+  // the real Add to cart, which then validates and submits as always.
+  const buyOptions = document.getElementById("buyOptions");
+  const buyBtn = form?.querySelector(".product-buy");
+  if (matchMedia("(max-width: 900px)").matches &&
+      buyOptions && buyOptions.querySelector(".product-option") &&
+      buyBtn && buyBtn.type === "submit") {
+    buyOptions.classList.add("collapsible");
+    const finalLabel = buyBtn.textContent.trim();
+    buyBtn.textContent = "Order now";
+    buyBtn.addEventListener("click", e => {
+      if (optionsRevealed) return; // second tap onward: the normal submit path
+      e.preventDefault();
+      optionsRevealed = true;
+      buyOptions.classList.add("open");
+      buyBtn.textContent = finalLabel;
+      updateTotal();
+    });
+  }
+
   // product context for the lightbox buy bar (built lazily at click time)
   function buildBuyCtx() {
     return {

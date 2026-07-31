@@ -486,9 +486,6 @@ select:focus { outline: none; border-color: var(--slate); }
 
 /* ---------- product page ---------- */
 .product-section { padding-top: clamp(6.5rem, 10vw, 9rem); }
-.product-crumb { margin-bottom: 1.6rem; }
-.product-crumb a { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-.product-crumb a:hover { color: var(--ink); }
 .product-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
 .product-photo { background: #fff; border-radius: 16px; overflow: hidden; position: relative; }
 .product-photo img { width: 100%; height: auto; display: block; }

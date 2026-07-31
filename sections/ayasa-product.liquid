@@ -45,14 +45,12 @@
   data-compare="{% if product.compare_at_price > product.price %}{{ product.compare_at_price | money }}{% endif %}"
   data-available="{{ product.available }}"
 >
-  <nav class="product-crumb">
-    {%- for collection in product.collections limit: 1 -%}
-      <a href="{{ collection.url }}">← {{ collection.title }}</a>
-    {%- else -%}
-      <a href="{{ routes.all_products_collection_url }}">← Shop</a>
-    {%- endfor -%}
-  </nav>
-
+  {%- comment -%}
+    No visual breadcrumb: the fixed header keeps the range one click away and
+    the whole range sits at the foot of the page. The hierarchy lives in
+    BreadcrumbList JSON-LD (snippets/meta-tags.liquid) instead, which is what
+    search results actually read.
+  {%- endcomment -%}
   <div class="product-grid">
     <div class="product-gallery">
       <div class="product-photo" id="productPhoto">

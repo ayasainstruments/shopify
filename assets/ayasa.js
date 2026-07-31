@@ -41,7 +41,7 @@ function modelCard(m) {
   const hearIt = m.videos && m.videos.length
     ? `<button class="hear-btn" data-model="${idx}" aria-haspopup="dialog">
          <span class="hear-play" aria-hidden="true">▶</span>
-         Hear it played · ${new Set(m.videos.map(v => v.artist.split(" · ")[0])).size} artists
+         Listen
        </button>`
     : "";
   const explore3d = m.detailPage
@@ -1349,6 +1349,31 @@ function initProductPage() {
       ? `<b>+${notes.bottom.length} bottom:</b> ${notes.bottom.join(" ")}`
       : "Topside only";
     document.getElementById("productNotes").hidden = false;
+  }
+
+  // description: two lines on a phone, the rest behind "Read more". Clamp only
+  // when the text really overflows, so short descriptions get no button.
+  const desc = document.getElementById("productDesc");
+  const descMore = document.getElementById("descMore");
+  if (desc && descMore) {
+    const phone = matchMedia("(max-width: 900px)");
+    const sync = () => {
+      if (!phone.matches) { // desktop shows it whole
+        desc.classList.remove("clamped");
+        descMore.hidden = true;
+        return;
+      }
+      if (desc.dataset.open) return; // already expanded by the reader
+      desc.classList.add("clamped");
+      descMore.hidden = desc.scrollHeight <= desc.clientHeight + 1;
+    };
+    descMore.addEventListener("click", () => {
+      desc.dataset.open = "1";
+      desc.classList.remove("clamped");
+      descMore.hidden = true;
+    });
+    sync();
+    phone.addEventListener("change", sync);
   }
 
   // gallery carousel: product photos + (when the model has videos) a final

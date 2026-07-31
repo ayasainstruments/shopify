@@ -486,7 +486,17 @@ select:focus { outline: none; border-color: var(--slate); }
 
 /* ---------- product page ---------- */
 .product-section { padding-top: clamp(6.5rem, 10vw, 9rem); }
-.product-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+/* four children, one grid. Desktop: gallery left with the video strip beneath
+   it, head + info stacked on the right. Mobile (below): one column, reordered
+   so the name and price come before the photo and the clips before the buy. */
+.product-grid {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  grid-template-areas:
+    "gallery head"
+    "gallery info"
+    "demos   info";
+  gap: clamp(2rem, 5vw, 4.5rem); align-items: start;
+}
 .product-photo { background: #fff; border-radius: 16px; overflow: hidden; position: relative; }
 .product-photo img { width: 100%; height: auto; display: block; }
 /* gallery carousel: photos only — performances live in their own strip below */
@@ -502,7 +512,9 @@ select:focus { outline: none; border-color: var(--slate); }
 .gal-next { right: 0.8rem; }
 /* the thumbnail row and the video strip below it share one width:
    6 thumbs + their gaps === 4 video cards + theirs */
-.product-section { --strip-gap: 0.6rem; --demo-card-w: 118px; }
+/* --page-pad mirrors .section's horizontal padding so the mobile clip strip
+   can break out of it and run to the screen edge */
+.product-section { --strip-gap: 0.6rem; --demo-card-w: 118px; --page-pad: clamp(1.2rem, 6vw, 6rem); }
 .product-thumbs { display: flex; gap: var(--strip-gap); margin-top: 0.8rem; flex-wrap: wrap; }
 .product-thumb {
   width: calc((4 * var(--demo-card-w) - 2 * var(--strip-gap)) / 6); aspect-ratio: 1;
@@ -511,13 +523,14 @@ select:focus { outline: none; border-color: var(--slate); }
 }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .product-thumb:hover, .product-thumb.active { opacity: 1; border-color: var(--slate); }
-.product-info h1 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin-bottom: 0.9rem; }
+.product-head h1 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin-bottom: 0.9rem; }
 .product-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
 .product-price { font-family: var(--font-display); font-size: 1.5rem; }
 .product-price s { color: var(--muted); font-size: 1.1rem; margin-right: 0.6rem; }
 .product-notes { background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.4rem; }
 .product-desc { color: #c9c6be; margin-bottom: 1.8rem; }
 .product-desc p { margin-bottom: 1rem; }
+.desc-more { display: none; }
 .product-option { margin-bottom: 1.3rem; }
 .product-option label { display: block; font-size: 0.85rem; letter-spacing: 0.06em; margin-bottom: 0.5rem; color: var(--ink); }
 .option-required { display: block; color: var(--muted); font-size: 0.78rem; letter-spacing: 0; margin-top: 0.15rem; }
@@ -556,7 +569,25 @@ select:focus { outline: none; border-color: var(--slate); }
 .cart-actions .btn-ghost { background: none; }
 
 @media (max-width: 900px) {
-  .product-grid { grid-template-columns: 1fr; }
+  /* one column, resequenced: name and price answer "what and how much" before
+     the photo, and the performances come before the buy decision — on a scale
+     bought for its sound, hearing it has to precede Add to cart */
+  /* row-gap off: each block sets its own, so the clips can sit 0.8rem under
+     the thumbnails exactly as they do on desktop */
+  .product-grid { grid-template-columns: 1fr; grid-template-areas: none; row-gap: 0; }
+  /* gallery, then what it is and what it costs, then the performances */
+  .product-gallery { order: 1; }
+  .product-head { order: 2; margin-top: 1.4rem; }
+  /* the price is the last line of the head here — its own bottom margin would
+     stack with the strip's, leaving a 45px trench */
+  .product-head .product-meta { margin-bottom: 0; }
+  /* .product-grid prefix: the base .product-demos margin sits later in the file */
+  .product-grid .product-demos { order: 3; margin-top: 1.1rem; }
+  .product-info { order: 4; margin-top: 1.6rem; }
+  /* both rows fill the column, so photo, thumbnails and clips share their edges */
+  .product-thumb { width: calc((100% - 5 * var(--strip-gap)) / 6); }
+  /* the clip sizing lives next to the .product-demos block below — same
+     specificity, so it has to come later in the file to win */
   .cart-line { grid-template-columns: 64px 1fr; grid-template-rows: auto auto; }
   .cart-line-qty { grid-column: 1; }
   .cart-line-price { grid-column: 2; text-align: left; }
@@ -743,10 +774,10 @@ select:focus { outline: none; border-color: var(--slate); }
 
   /* product page */
   .product-section { padding-top: 5.6rem; }
-  .product-info h1 { font-size: 1.7rem; }
+  .product-head h1 { font-size: 1.7rem; }
   .product-price { font-size: 1.3rem; }
   .option-row { flex-direction: column; gap: 0.5rem; }
-  .product-thumb { width: 60px; height: 60px; }
+  /* width comes from the column (see the 900px block) — height follows aspect-ratio */
 
   /* collection toolbar wraps cleanly */
   .shop-toolbar { flex-wrap: wrap; }
@@ -784,9 +815,36 @@ select:focus { outline: none; border-color: var(--slate); }
   /* row-gap would wedge a full column-gap between the thumbnails and the strip;
      the block's own margin sets that distance instead */
   .product-grid { row-gap: 0; }
-  .product-gallery { grid-column: 1; grid-row: 1; }
-  .product-info { grid-column: 2; grid-row: 1 / span 2; }
-  .product-demos { grid-column: 1; grid-row: 2; }
+  .product-head { grid-area: head; }
+  .product-gallery { grid-area: gallery; }
+  .product-info { grid-area: info; }
+  .product-demos { grid-area: demos; }
+}
+@media (max-width: 900px) {
+  /* the description opens to two lines; the rest is a tap away, so the buy
+     form stays within reach on a phone */
+  .product-desc.clamped {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+    overflow: hidden; margin-bottom: 0.6rem;
+  }
+  .product-desc.clamped p { margin-bottom: 0; }
+  .desc-more {
+    display: inline-block; margin-bottom: 1.6rem; padding: 0;
+    background: none; border: 0; cursor: pointer;
+    color: var(--brand-light); font-family: var(--font-body);
+    font-size: 0.8rem; letter-spacing: 0.06em;
+  }
+  .desc-more[hidden] { display: none; }
+  /* clips keep their desktop size and scroll sideways — the cut-off card is
+     the affordance. Full-bleed to the screen edge; the first card still lines
+     up with the photo thanks to the matching padding. */
+  .product-demos { min-width: 0; }
+  .product-demos .demo-strip {
+    width: auto; min-width: 0;
+    margin-left: calc(-1 * var(--page-pad)); margin-right: calc(-1 * var(--page-pad));
+    padding-left: var(--page-pad); padding-right: var(--page-pad);
+    scroll-padding-left: var(--page-pad);
+  }
 }
 .demo-strip {
   display: flex; gap: 1rem;

@@ -303,3 +303,18 @@ const SCALES = [
 MODELS.forEach((m, i) => {
   if (!m.cardPhoto) m.cardPhoto = AYASA_ASSET(i % 2 ? "gal-test-3.jpg" : "gal-test-2.jpg") + "?v=2";
 });
+
+// TEMP: every model gets a Listen button by borrowing the D Aegean 18 clips.
+// NOTE these carry the D Aegean artists' names, so each card currently claims
+// those players performed on that scale — replace per model as real footage
+// lands (give the model its own `videos:` array and this loop skips it).
+MODELS.forEach(m => {
+  if (!m.videos || !m.videos.length) {
+    m.videos = [
+      { artist: "Malte Marten", file: AYASA_ASSET("d-aegean-18__malte-1.mp4") },
+      { artist: "Malte Marten · II", file: AYASA_ASSET("d-aegean-18__malte-2.mp4") },
+      { artist: "Immanuel", file: AYASA_ASSET("d-aegean-18__immie.mp4") },
+      { artist: "Vybeshift", file: AYASA_ASSET("d-aegean-18__roni.mp4") }
+    ];
+  }
+});

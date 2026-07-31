@@ -51,7 +51,25 @@
     BreadcrumbList JSON-LD (snippets/meta-tags.liquid) instead, which is what
     search results actually read.
   {%- endcomment -%}
+  {%- comment -%}
+    Four grid children, placed by named areas (see .product-grid). The head is
+    its own block rather than living inside .product-info so mobile can lift
+    the name and price above the photo — you cannot reorder across parents.
+  {%- endcomment -%}
   <div class="product-grid">
+    <div class="product-head">
+      <h1>{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' | replace: 'Ember Steel', 'Ember Steel®' }}</h1>
+      <div class="product-meta">
+        {% render 'availability-badge', product: product %}
+        <p class="product-price">
+          {%- if product.compare_at_price > product.price -%}
+            <s>{{ product.compare_at_price | money }}</s>
+          {%- endif -%}
+          {{ product.price | money }}
+        </p>
+      </div>
+    </div>
+
     <div class="product-gallery">
       <div class="product-photo" id="productPhoto">
         {%- if product.featured_image -%}
@@ -74,17 +92,6 @@
     </div>
 
     <div class="product-info">
-      <h1>{{ product.title | remove: ' - 440Hz' | remove: '- 440Hz' | replace: 'Ember Steel', 'Ember Steel®' }}</h1>
-      <div class="product-meta">
-        {% render 'availability-badge', product: product %}
-        <p class="product-price">
-          {%- if product.compare_at_price > product.price -%}
-            <s>{{ product.compare_at_price | money }}</s>
-          {%- endif -%}
-          {{ product.price | money }}
-        </p>
-      </div>
-
       <div class="product-notes" id="productNotes" hidden>
         <div class="notemap">
           <span id="productNoteMap"></span>
@@ -92,7 +99,10 @@
         </div>
       </div>
 
-      <div class="product-desc">{{ product.description }}</div>
+      {%- comment -%} clamped to two lines on mobile; the button is revealed by
+          ayasa.js only when the text actually overflows {%- endcomment -%}
+      <div class="product-desc" id="productDesc">{{ product.description }}</div>
+      <button type="button" class="desc-more" id="descMore" hidden>Read more</button>
 
       <form id="buyForm" action="{{ routes.cart_add_url }}" method="post">
         <input type="hidden" name="id" value="{{ variant.id }}">

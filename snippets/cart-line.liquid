@@ -1,0 +1,31 @@
+{%- comment -%}
+  One cart row. Rendered twice by sections/cart.liquid — instruments first,
+  everything else after — so the markup lives in one place.
+
+  The quantity field is keyed by line item (updates[{{ item.key }}]) rather
+  than the positional updates[] array: display order no longer matches the
+  cart's internal order, and a positional array would apply edits to the
+  wrong line.
+
+  Accepts: item (a cart line item)
+{%- endcomment -%}
+<div class="cart-line">
+  <a class="cart-line-photo" href="{{ item.url }}">
+    {%- if item.image -%}
+      {{ item.image | image_url: width: 240, height: 240, crop: 'center' | image_tag: loading: 'lazy', alt: item.title }}
+    {%- endif -%}
+  </a>
+  <div class="cart-line-info">
+    <a class="cart-line-title" href="{{ item.url }}">{{ item.product.title | remove: ' - 440Hz' | remove: '- 440Hz' | replace: 'Ember Steel', 'Ember Steel®' }}</a>
+    {%- for p in item.properties -%}
+      {%- unless p.last == blank or p.last == 'No free t-shirt' -%}
+        <p class="cart-line-prop">{{ p.first }}: {{ p.last }}</p>
+      {%- endunless -%}
+    {%- endfor -%}
+    <a class="cart-line-remove" href="{{ item.url_to_remove }}">Remove</a>
+  </div>
+  <div class="cart-line-qty">
+    <input type="number" name="updates[{{ item.key }}]" value="{{ item.quantity }}" min="0" aria-label="Quantity of {{ item.title }}">
+  </div>
+  <p class="cart-line-price">{{ item.final_line_price | money }}</p>
+</div>

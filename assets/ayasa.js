@@ -1712,13 +1712,14 @@ function initProductPage() {
           </button>`;
       }).join("");
 
-    const nudge = el => {
-      if (!el || !matchMedia("(max-width: 900px)").matches) return; // phones only
-      const r = el.getBoundingClientRect();
-      // only move if the next step isn't already in view — four guided scrolls
-      // in a row would feel like the page is steering
-      if (r.top >= 60 && r.bottom <= innerHeight) return;
-      el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    // phone: once the t-shirt is answered, park Add to cart at the bottom edge
+    // — the size chips sit right above it, so the next step frames itself
+    const parkBuyRow = () => {
+      if (!matchMedia("(max-width: 900px)").matches) return;
+      const row = document.querySelector(".buy-row");
+      if (!row) return;
+      const target = row.getBoundingClientRect().bottom + scrollY - innerHeight + 12;
+      scrollTo({ top: Math.max(0, target), behavior: "smooth" });
     };
     const openShirt = (open, scroll = true) => {
       if (!shirtWrap || !shirtTrigger) return;
@@ -1771,12 +1772,15 @@ function initProductPage() {
         shirtColor.dataset.chosen = "";
         shirtSize.value = "No free t-shirt";
         syncShirt();
-        nudge(document.querySelector(".buy-row")); // nothing left to choose
+        // the size block collapses away first — its height changes where the
+        // button ends up, so let that settle before measuring
+        setTimeout(parkBuyRow, 60);
       } else {
         shirtColor.value = card.dataset.color;
         shirtColor.dataset.chosen = card.dataset.color;
         if (shirtSize.value === "No free t-shirt") shirtSize.value = "";
         syncShirt();
+        parkBuyRow();
       }
       // desktop folds the tiles away once you've chosen — the trigger carries
       // the answer. On a phone they stay open so the whole decision is one view.
@@ -1790,7 +1794,7 @@ function initProductPage() {
       shirtSize.value = chip.dataset.value;
       syncShirt();
       if (error) error.hidden = true;
-      nudge(document.querySelector(".buy-row"));
+      // no scroll here: the button was parked when the colour was chosen
     });
     syncShirt();
   }

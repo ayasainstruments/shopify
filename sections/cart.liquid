@@ -4,44 +4,100 @@
     <h2>Cart</h2>
   </div>
 
+  {%- comment -%}
+    Every instrument ships in a case, so the cart must hold at least as many
+    cases as instruments. Checkout is blocked below until it does.
+
+    Front-end guard by choice: someone who removed a case and then went to
+    /checkout directly would still get through. Deliberate — the airtight fix
+    is a Shopify checkout-validation function, which needs its own app, and
+    such an order would be caught by hand at packing instead.
+  {%- endcomment -%}
+  {%- assign instrument_count = 0 -%}
+  {%- assign case_count = 0 -%}
+  {%- for item in cart.items -%}
+    {%- if item.product.tags contains 'instrument' -%}
+      {%- assign instrument_count = instrument_count | plus: item.quantity -%}
+    {%- endif -%}
+    {%- for c in item.product.collections -%}
+      {%- if c.handle == 'cases' -%}
+        {%- assign case_count = case_count | plus: item.quantity -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+  {%- assign cases_missing = instrument_count | minus: case_count -%}
+
   {%- if cart.item_count == 0 -%}
     <p class="section-sub">Your cart is empty. <a href="{{ routes.all_products_collection_url }}">Browse the shop →</a></p>
   {%- else -%}
     <form action="{{ routes.cart_url }}" method="post" class="cart-form">
+      {%- comment -%} instruments lead, their cases and extras follow {%- endcomment -%}
       <div class="cart-lines">
         {%- for item in cart.items -%}
-          <div class="cart-line">
-            <a class="cart-line-photo" href="{{ item.url }}">
-              {%- if item.image -%}
-                {{ item.image | image_url: width: 240, height: 240, crop: 'center' | image_tag: loading: 'lazy', alt: item.title }}
-              {%- endif -%}
-            </a>
-            <div class="cart-line-info">
-              <a class="cart-line-title" href="{{ item.url }}">{{ item.product.title | remove: ' - 440Hz' | remove: '- 440Hz' | replace: 'Ember Steel', 'Ember Steel®' }}</a>
-              {%- for p in item.properties -%}
-                {%- unless p.last == blank or p.last == 'No free t-shirt' -%}
-                  <p class="cart-line-prop">{{ p.first }}: {{ p.last }}</p>
-                {%- endunless -%}
-              {%- endfor -%}
-              <a class="cart-line-remove" href="{{ item.url_to_remove }}">Remove</a>
-            </div>
-            <div class="cart-line-qty">
-              <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity of {{ item.title }}">
-            </div>
-            <p class="cart-line-price">{{ item.final_line_price | money }}</p>
-          </div>
+          {%- if item.product.tags contains 'instrument' -%}
+            {% render 'cart-line', item: item %}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- for item in cart.items -%}
+          {%- unless item.product.tags contains 'instrument' -%}
+            {% render 'cart-line', item: item %}
+          {%- endunless -%}
         {%- endfor -%}
       </div>
 
       <div class="cart-summary">
+        {%- comment -%} the guard leads: while a case is owed the subtotal isn't
+            the final number, so it reads under the explanation {%- endcomment -%}
+        {%- if cases_missing > 0 -%}
+          <div class="cart-blocked" role="alert">
+            <p class="cart-blocked-title">
+              {%- if cases_missing == 1 -%}
+                Your instrument needs a case
+              {%- else -%}
+                {{ cases_missing }} of your instruments still need a case
+              {%- endif -%}
+            </p>
+            <p class="cart-blocked-note" id="cartBlockedNote">
+              We pack every instrument in a proper case so it survives the journey — we can't
+              ship one without. Add {% if cases_missing == 1 %}a case{% else %}{{ cases_missing }} cases{% endif %}
+              to continue.
+            </p>
+            <div class="cart-blocked-cases">
+              {%- comment -%} formaction sends these to /cart/add — the form's own
+                  action is the update endpoint, which can't add a new line {%- endcomment -%}
+              <input type="hidden" name="quantity" value="{{ cases_missing }}">
+              <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+              {%- for c in collections['cases'].products -%}
+                {%- assign cv = c.selected_or_first_available_variant | default: c.variants.first -%}
+                <button type="submit" formaction="{{ routes.cart_add_url }}" name="id" value="{{ cv.id }}"
+                  class="case-card" {% unless c.available %}disabled{% endunless %}>
+                  <span class="case-thumb">
+                    {%- if c.featured_image -%}
+                      {{ c.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: c.title }}
+                    {%- endif -%}
+                  </span>
+                  <span class="case-name">{{ c.title | remove: 'Evatek 2.0 ' }}</span>
+                  <span class="case-price">{{ c.price | money }}{% unless c.available %} · out of stock{% endunless %}</span>
+                </button>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
         <div class="cart-summary-row">
           <span>Subtotal</span>
           <strong>{{ cart.total_price | money }}</strong>
         </div>
         <p class="cart-summary-note">Shipping calculated at checkout. Instruments ship fully insured.</p>
+
         <div class="cart-actions">
           <button type="submit" class="btn btn-ghost">Update cart</button>
-          <button type="submit" name="checkout" class="btn btn-primary">Checkout</button>
+          {%- if cases_missing > 0 -%}
+            <button type="button" class="btn btn-primary" disabled aria-describedby="cartBlockedNote">Checkout</button>
+          {%- else -%}
+            <button type="submit" name="checkout" class="btn btn-primary">Checkout</button>
+          {%- endif -%}
         </div>
       </div>
     </form>

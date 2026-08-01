@@ -162,9 +162,11 @@
         {%- endif -%}
 
         {%- if has_tshirt -%}
-          <div class="product-option">
+          <div class="product-option" id="shirtOption">
             <label for="shirtSize">Free Ayasa t-shirt</label>
-            <div class="option-row">
+            {%- comment -%} the selects stay as the source of truth for the cart
+                (and for the lightbox buy bar); the visual picker drives them {%- endcomment -%}
+            <div class="option-row" hidden>
               <select id="shirtSize" name="properties[Free t-shirt size]">
                 <option value="" selected disabled>Please choose a t-shirt…</option>
                 <option value="No free t-shirt">No free t-shirt</option>
@@ -180,6 +182,40 @@
                 <option>Off-white</option>
                 <option>Khaki</option>
               </select>
+            </div>
+
+            {%- comment -%} same trigger + drop-down pattern as the case picker {%- endcomment -%}
+            <button type="button" class="case-trigger" id="shirtTrigger" aria-expanded="false" aria-controls="shirtPickerWrap">
+              <span class="case-trigger-label" id="shirtTriggerLabel">Please choose a t-shirt…</span>
+              <span class="case-trigger-chev" aria-hidden="true">▾</span>
+            </button>
+            {%- comment -%} TEMP: case product photos stand in until the three
+                t-shirt shots land (then swap to tshirt-black/-offwhite/-khaki) {%- endcomment -%}
+            <div class="case-picker-wrap" id="shirtPickerWrap">
+            <div class="shirt-picker" id="shirtPicker">
+              {%- assign shirt_colors = 'Black,Off-white,Khaki' | split: ',' -%}
+              {%- for color in shirt_colors -%}
+                {%- assign placeholder = cases[forloop.index0] -%}
+                <button type="button" class="shirt-card" data-color="{{ color }}" aria-pressed="false">
+                  <span class="shirt-thumb">
+                    {%- if placeholder.featured_image -%}
+                      {{ placeholder.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: color }}
+                    {%- endif -%}
+                  </span>
+                  <span class="shirt-name">{{ color }}</span>
+                </button>
+              {%- endfor -%}
+              <button type="button" class="shirt-card shirt-none" data-color="" aria-pressed="false">
+                <span class="shirt-none-text">No t-shirt,<br>thanks</span>
+              </button>
+            </div>
+            </div>
+
+            {%- comment -%} chips are built by ayasa.js from the select's own
+                options, so the sizes live in exactly one place {%- endcomment -%}
+            <div class="shirt-sizes" id="shirtSizes" hidden>
+              <p class="shirt-sizes-label">Your size</p>
+              <div class="size-chips" id="sizeChips"></div>
             </div>
           </div>
         {%- endif -%}

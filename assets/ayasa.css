@@ -1135,7 +1135,9 @@ select:focus { outline: none; border-color: var(--slate); }
   cursor: pointer; text-align: left;
 }
 .case-trigger:hover, .case-trigger[aria-expanded="true"] { border-color: var(--slate); }
-.case-trigger-label { display: flex; align-items: center; gap: 0.55rem; min-width: 0; }
+/* min-height reserves the chosen item's thumbnail, so the trigger doesn't grow
+   by 8px the first time you pick something and shove the page down */
+.case-trigger-label { display: flex; align-items: center; gap: 0.55rem; min-width: 0; min-height: 26px; }
 .case-trigger-label img { width: 26px; height: 26px; border-radius: 6px; background: #fff; object-fit: contain; flex: 0 0 auto; }
 .case-trigger-chev { color: var(--muted); transition: transform 0.25s ease; }
 .case-trigger[aria-expanded="true"] .case-trigger-chev { transform: rotate(180deg); }
@@ -1156,6 +1158,46 @@ select:focus { outline: none; border-color: var(--slate); }
 .case-name { font-size: 0.7rem; line-height: 1.25; }
 .case-price { font-size: 0.7rem; color: var(--brand-light); }
 .case-card[disabled] { opacity: 0.45; cursor: default; }
+
+/* free t-shirt: colour tiles, then size chips (the selects are the source of
+   truth; these drive them). Two columns so the four tiles read as a block. */
+.option-row[hidden] { display: none; } /* the row is flex, which defeats [hidden] */
+.case-picker-wrap > .shirt-picker { overflow: hidden; min-height: 0; } /* same collapse as the cases */
+.shirt-picker {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-top: 0.55rem;
+}
+.shirt-card {
+  background: var(--bg-3); border: 1px solid var(--line); border-radius: 12px;
+  padding: 0.5rem 0.5rem 0.6rem; cursor: pointer; text-align: center;
+  color: var(--ink); font-family: var(--font-body);
+  display: flex; flex-direction: column; gap: 0.4rem; align-items: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.shirt-card:hover { border-color: var(--slate); }
+.shirt-card.on { border-color: var(--brand-light); background: var(--brand-fill); }
+.shirt-thumb { display: block; width: 100%; aspect-ratio: 1; background: #fff; border-radius: 8px; overflow: hidden; }
+/* contain matches the case tiles; switch to cover if the real shirt photos
+   turn out to be lifestyle shots rather than flat product shots */
+.shirt-thumb img { width: 100%; height: 100%; object-fit: contain; }
+.shirt-name { font-size: 0.78rem; }
+/* declining is a different kind of choice, so it gets no photo and less weight */
+.shirt-none { justify-content: center; border-style: dashed; background: none; }
+.shirt-none-text { color: var(--muted); font-size: 0.78rem; line-height: 1.35; }
+.shirt-none.on .shirt-none-text { color: var(--ink); }
+.shirt-sizes { margin-top: 0.9rem; }
+.shirt-sizes[hidden] { display: none; }
+.shirt-sizes-label { font-size: 0.85rem; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+.size-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+.size-chip {
+  background: var(--bg-3); border: 1px solid var(--line); border-radius: 10px;
+  padding: 0.5rem 0.3rem; cursor: pointer; color: var(--ink);
+  font-family: var(--font-body); display: flex; flex-direction: column; gap: 0.1rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.size-chip:hover { border-color: var(--slate); }
+.size-chip.on { border-color: var(--brand-light); background: var(--brand-fill); }
+.size-chip strong { font-size: 0.9rem; font-weight: 500; }
+.size-chip span { font-size: 0.62rem; color: var(--muted); }
 
 /* ---------- demo lightbox: desktop mini-player ---------- */
 .demo-top-btns { display: flex; gap: 0.5rem; flex: 0 0 auto; }

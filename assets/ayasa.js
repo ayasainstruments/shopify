@@ -1512,17 +1512,38 @@ function initProductPage() {
   const picker = document.getElementById("casePicker");
   const caseTrigger = document.getElementById("caseTrigger");
   const pickerWrap = document.getElementById("casePickerWrap");
+  // desktop: once an options panel has finished expanding, park Add to cart at
+  // the bottom edge so the new choices fill the space above it. Waiting for the
+  // expansion matters — the button's final position isn't known at click time.
+  function frameBuyRow(wrap) {
+    let done = false;
+    const go = () => {
+      if (done) return;
+      done = true;
+      const row = document.querySelector(".buy-row");
+      if (!row) return;
+      // computed, not scrollIntoView: that refuses to move when the element is
+      // already on screen, so on a tall display nothing would happen
+      const target = row.getBoundingClientRect().bottom + scrollY - innerHeight + 12;
+      scrollTo({ top: Math.max(0, target), behavior: "smooth" });
+    };
+    wrap?.addEventListener("transitionend", go, { once: true });
+    setTimeout(go, 340);
+  }
+
   const openPicker = open => {
     if (!pickerWrap) return;
     pickerWrap.classList.toggle("open", open);
     caseTrigger.setAttribute("aria-expanded", open);
+    if (!open) return; // closing never scrolls
     // phone: lift the "Handpan case" label to just under the fixed header so
-    // all nine cases open into view. Only on opening — jumping on close would
-    // just be disorienting. The label's position doesn't depend on the
+    // all nine cases open into view. The label's position doesn't depend on the
     // picker's height, so this can run alongside the expansion.
-    if (open && matchMedia("(max-width: 900px)").matches) {
+    if (matchMedia("(max-width: 900px)").matches) {
       caseTrigger.closest(".product-option")
         ?.scrollIntoView({ block: "start", behavior: "smooth" });
+    } else {
+      frameBuyRow(pickerWrap);
     }
   };
   if (picker && caseSelect) {
@@ -1550,6 +1571,13 @@ function initProductPage() {
       caseSelect.dispatchEvent(new Event("change", { bubbles: true }));
       if (error) error.hidden = true;
       openPicker(false);
+      // The t-shirt is not optional — you must pick a colour or decline — so
+      // open both of its steps straight away. No scrolling: the case picker
+      // collapsing above frees exactly the room the t-shirt block needs, so
+      // the viewport can stay put and the page reshapes underneath it.
+      if (matchMedia("(max-width: 900px)").matches) {
+        document.dispatchEvent(new CustomEvent("ayasa:open-shirt"));
+      }
     });
     caseSelect.addEventListener("change", syncPicker);
   }
@@ -1657,6 +1685,114 @@ function initProductPage() {
       localStorage.setItem(AB_KEY, variantB ? "b" : "a");
       paint();
     });
+  }
+
+  // Free t-shirt: colour tiles, then size chips. Both drive the hidden selects
+  // that the cart (and the lightbox buy bar) already read, so nothing
+  // downstream changes. Sizes appear only once a colour is chosen, and the
+  // "no t-shirt" tile skips them entirely.
+  const shirtPicker = document.getElementById("shirtPicker");
+  const shirtSizes = document.getElementById("shirtSizes");
+  const sizeChips = document.getElementById("sizeChips");
+  const shirtSize = document.getElementById("shirtSize");
+  const shirtColor = document.getElementById("shirtColor");
+  const shirtTrigger = document.getElementById("shirtTrigger");
+  const shirtWrap = document.getElementById("shirtPickerWrap");
+  if (shirtPicker && sizeChips && shirtSize && shirtColor) {
+    // chips from the select's own options — one source of truth for the strings
+    const SHORT = { "Extra Small": "XS", Small: "S", Medium: "M", Large: "L" };
+    const abbr = s => SHORT[s] || s; // XL / XXL / XXXL already read fine
+    sizeChips.innerHTML = [...shirtSize.options]
+      .filter(o => o.value && o.value !== "No free t-shirt")
+      .map(o => {
+        const [eu, us] = o.value.split(" / ");
+        return `<button type="button" class="size-chip" data-value="${o.value}" aria-pressed="false">
+            <strong>${abbr(eu.replace(/^EU /, ""))}</strong>
+            <span>${us ? "US " + abbr(us.replace(/^US /, "")) : ""}</span>
+          </button>`;
+      }).join("");
+
+    const nudge = el => {
+      if (!el || !matchMedia("(max-width: 900px)").matches) return; // phones only
+      const r = el.getBoundingClientRect();
+      // only move if the next step isn't already in view — four guided scrolls
+      // in a row would feel like the page is steering
+      if (r.top >= 60 && r.bottom <= innerHeight) return;
+      el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    };
+    const openShirt = (open, scroll = true) => {
+      if (!shirtWrap || !shirtTrigger) return;
+      shirtWrap.classList.toggle("open", open);
+      shirtTrigger.setAttribute("aria-expanded", open);
+      if (!open || !scroll) return; // closing, or the case step's silent handover
+      if (matchMedia("(max-width: 900px)").matches) {
+        document.getElementById("shirtOption")
+          ?.scrollIntoView({ block: "start", behavior: "smooth" });
+      } else {
+        frameBuyRow(shirtWrap); // desktop: Add to cart to the bottom edge
+      }
+    };
+    // the case step hands over: open without scrolling, it does its own
+    document.addEventListener("ayasa:open-shirt", () => openShirt(true, false));
+    const syncShirt = () => {
+      const color = shirtColor.dataset.chosen || "";
+      const none = shirtSize.value === "No free t-shirt";
+      let chosen = null;
+      shirtPicker.querySelectorAll(".shirt-card").forEach(b => {
+        // !!color guards the none tile, whose data-color is also empty
+        const on = none ? b.classList.contains("shirt-none") : !!color && b.dataset.color === color;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", on);
+        if (on) chosen = b;
+      });
+      sizeChips.querySelectorAll(".size-chip").forEach(c => {
+        const on = c.dataset.value === shirtSize.value;
+        c.classList.toggle("on", on);
+        c.setAttribute("aria-pressed", on);
+      });
+      // the trigger carries the answer once there is one, like the case picker
+      const label = document.getElementById("shirtTriggerLabel");
+      if (label) {
+        if (none) label.textContent = "No t-shirt, thanks";
+        else if (chosen) {
+          const img = chosen.querySelector("img");
+          label.innerHTML = `${img ? `<img src="${img.currentSrc || img.src}" alt="">` : ""}<span>${color}</span>`;
+        } else label.textContent = "Please choose a t-shirt…";
+      }
+      // sizes are visible from the start so the whole t-shirt decision sits on
+      // one screen; only declining removes them
+      shirtSizes.hidden = none;
+    };
+
+    shirtPicker.addEventListener("click", e => {
+      const card = e.target.closest(".shirt-card");
+      if (!card) return;
+      if (card.classList.contains("shirt-none")) {
+        shirtColor.dataset.chosen = "";
+        shirtSize.value = "No free t-shirt";
+        syncShirt();
+        nudge(document.querySelector(".buy-row")); // nothing left to choose
+      } else {
+        shirtColor.value = card.dataset.color;
+        shirtColor.dataset.chosen = card.dataset.color;
+        if (shirtSize.value === "No free t-shirt") shirtSize.value = "";
+        syncShirt();
+      }
+      // desktop folds the tiles away once you've chosen — the trigger carries
+      // the answer. On a phone they stay open so the whole decision is one view.
+      if (!matchMedia("(max-width: 900px)").matches) openShirt(false);
+      if (error) error.hidden = true;
+    });
+    shirtTrigger?.addEventListener("click", () => openShirt(!shirtWrap.classList.contains("open")));
+    sizeChips.addEventListener("click", e => {
+      const chip = e.target.closest(".size-chip");
+      if (!chip) return;
+      shirtSize.value = chip.dataset.value;
+      syncShirt();
+      if (error) error.hidden = true;
+      nudge(document.querySelector(".buy-row"));
+    });
+    syncShirt();
   }
 
   // product context for the lightbox buy bar (built lazily at click time)

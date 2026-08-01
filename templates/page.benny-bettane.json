@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Benny Bettane",
+        "portrait_file": "player-benny-bettane.jpg",
+        "kicker": "Meet Benny",
+        "credential": "Travelling player · handpan since 2014",
+        "relation": "<p>I began playing the Handpan in 2014 in Morgantown, West Virginia, USA. This 2 year journey has been the most amazing experience of my life! I have travelled all around the world since then, discovering myself, so many amazing people, so many magical places and of course my sound. The Handpan is a very powerful instrument that has touched my soul in the most beautiful way.</p>",
+        "quote": "Ayasa is the first top quality instrument that I owned. I am so in love with my Ayasas because of the qualities they offer my playing style. They have a huge dynamic range, very clean tones, flexible harmonics, strong percussive qualities and they are such sturdy and stable instruments. Because of these qualities and Ralf the Maker being such an amazing man, dedicated to the evolution of handpans, I have a very high opinion of Ayasa.",
+        "relation_more": "",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/user/stereosalad/videos",
+        "link_instagram": "https://www.instagram.com/bennybettane_music/",
+        "link_web": "http://www.bennybettane.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -6,7 +6,7 @@
       "blocks": {
         "stat1": { "type": "stat", "settings": { "value": "2013", "label": "Founded in the Netherlands" } },
         "stat2": { "type": "stat", "settings": { "value": "13+", "label": "Years of tuning, one obsession" } },
-        "stat3": { "type": "stat", "settings": { "value": "49", "label": "Named artists play Ayasa" } },
+        "stat3": { "type": "stat", "settings": { "value": "45", "label": "Named artists play Ayasa" } },
         "stat4": { "type": "stat", "settings": { "value": "№1", "label": "Handpan shell maker worldwide*" } },
         "stat5": { "type": "stat", "settings": { "value": "6+", "label": "Years without a retune — documented" } }
       },

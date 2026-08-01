@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Kavafoglu",
+        "portrait_file": "player-kavafoglu.jpg",
+        "kicker": "Meet Kavafoglu",
+        "credential": "Handpan meets electronic · Amsterdam",
+        "relation": "<p>With a bit more than two years of experience with acoustic music, he still sees himself as a rookie in the game. After playing in the electronic club scene for some years, he felt his interest slowly shifting towards percussion. Not long after he started playing drums he discovered the Handpan. As most people he was mesmerized by the sound of the instrument and felt the urge to obtain one for himself.</p>",
+        "quote": "Many things can be said about Ayasa, but one thing is for sure, it’s life changing",
+        "relation_more": "<p>Only 4 months after discovering the instrument he found himself his first real love, Ayasa Monsoon.</p><p>The instrument became his biggest passion and slowly took over his life. After a year he began busking around “Museum Plein” in Amsterdam and began sharing his music with the world. Having played at venues such as The Rijksmuseum, the City Theater of Amsterdam and many others including most nightclubs around town, his face is known in and outside the scene.</p><p>With his heart still in electronic music he could not resist to bring the two worlds together and is currently working on multiple electronic projects with the likes of Arjuna Schiks (Amsterdam), Justin Samgar A.K.A. The Poetry Pusher (Amsterdam) and Arteriam (Berlin).</p><p>Deniz can be found at The Gardens of Babylon and Home in The Woods where he plays regularly.</p><p>Deniz, please see Youtube / Facebook / Soundcloud</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/user/kavafogludeniz"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

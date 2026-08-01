@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artists-page",
+      "settings": {
+        "kicker": "Players",
+        "heading": "Everyone who plays Ayasa.",
+        "intro": "<p>Drummers, teachers, buskers and healers across more than thirty countries — each one chose an Ayasa, and each one says why in their own words.</p>",
+        "foot_text": "<p>Hear what they hear.</p>",
+        "foot_link_label": "Explore the range →",
+        "foot_link_url": "/collections/all"
+      }
+    }
+  },
+  "order": ["main"]
+}

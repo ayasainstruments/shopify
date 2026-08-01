@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Dani Galfione",
+        "portrait_file": "player-dani-galfione.jpg",
+        "kicker": "Meet Dani",
+        "credential": "Italian drummer turned handpan player",
+        "relation": "<p>Dani Galfione, musician from Italy, played drums for many years back in the days. The handpan took him to another level of passion for Music and joy of Creativity. In his early stage with this new instrument, he is still discovering and improving his playing-style day by day.</p>",
+        "quote": "The overall quality and the richness of sound is just amazing. I usually like to switch through many “playing-styles” from sweet music to experimental stuff and with my Ayasa I have in my hands a huge range of sound possibilities to express my creativity. Everything is engaging and easier with a great instrument like this!Thank you Ralf, I love it!",
+        "relation_more": "<p>Open-minded listener and musician, lover of the versatility and every kind of musical expression, heís continuously in search of a balanced blending between emotion, technique, improvisation and experimental stuff also. Nowadays Dani is playing and performing in festivals, yoga and healing events, ceremonies and private “house concerts” sharing his vibes through Music. Beside this he is working on his first album ìEmotional Overloadî.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_web": "http://www.danigalfione.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

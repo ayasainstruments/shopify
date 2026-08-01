@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Peter Levitov",
+        "portrait_file": "player-peter-levitov.jpg",
+        "kicker": "Meet Peter",
+        "credential": "Founder of Handpan 360 · sound healing",
+        "relation": "<p>Peter Levitov is an experimental multi-instrumentalist and improvisational composer. His soundscapes, inspired by Tibetan, Sufi, and Indigenous healing sound traditions, explore a broad range of instrumentation, from ancient to contemporary, creating restorative environments that support personal growth and healing.</p>",
+        "quote": "I have played about a dozen Ayasa instruments over the last 2 years and I am really impressed with the consistent quality. These are high level instruments with a wonderful fundamental heavy bloom, great balance and sustain in the overtones, solid stability, great note isolation, nice shoulder tones, and a crisp interstitial. Oh yeah, did i mention the consistency. When you purchase an Ayasa you can feel pretty confident you will be receiving a great instrument.",
+        "relation_more": "<p>He is the founder of Handpan 360, a space for us lovers of singing steel to gather around the fire of these mysterious instruments and their harmonizing sounds. We are a collective of artists, musicians, educators, and enthusiasts who have experienced these instruments to carry secrets of a healing and connection that are so dearly needed today to help us rise above and through the global challenges humanity currently faces.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_instagram": "http://www.instagram.com/peterlevitov",
+        "link_web": "http://www.handpan360.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

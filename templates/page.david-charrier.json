@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "David Charrier",
+        "portrait_file": "player-charrier.jpg",
+        "kicker": "Meet David",
+        "credential": "Founder, Master the Handpan · 7,500+ students",
+        "relation": "<p>David Charrier is a French multi-instrumentalist composer and performer. He has a strong musical background and began his musical journey 20 years ago. He is self-taught and has learned numerous different percussion instruments, including the udu, bongo, cajon, derbuka, and djembe. His style has always gone against the musical mainstream.</p>",
+        "quote": "Ayasa is a really high handpan quality brand, I love so much to perform with them on stage because they are precise, with good balance/stability and a great sustain. Thank you Ayasa!",
+        "relation_more": "<p>In 2004, he fell in love with a brand new instrument : the Hang, which was almost unknown at the time. David has spent hundred of hours playing, busking, composing, and exploring the magic of this “sound sculpture.” As a handpan pioneer, he was the first French Hang player to broadcast his unique style and compositions on the Web. His videos have inspired a multitude of players around the world to pick up the handpan.</p><p>In 2007, his friend and cousin, Sylvain Paslier, got a Hang and together they created WADHOM, a band that married digeridoo, HangHang, and violin. About the same time, David and Sylvain collaborted as KEONA, a hang duet. Known thereafter as the “Hang Cousins,” they became internationally known. One of their videos, Insomniac Jam, has over 4 millions views on YouTube.</p><p>After Keona, David continued to perform, record, and collaborate, in order to develop his own mastery of handpan. As the handpan community continue to grow, David discovered a calling to share his journey and experience with others. While teaching workshops in Europe and abroad, David decided to expand his reach to even more people.</p><p>In 2016, he created MasterTheHandpan.com , an online school with a unique learning method known to be fun and efficient. Embraced by the handpan community, his classes have enabled hundreds of students to enhance their skills and elevate their musical expression.</p><p>Whether it’s working solo, in a duet, or with a full band, David continues to play, learn, and perform with his Handpans at a European and international scale to showcase the amazing and captivating instrument responsible for the turning point in his musical journey.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/channel/UCwiJWmdnD8sVNFkSiRGzY3A",
+        "link_web": "http://masterthehandpan.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

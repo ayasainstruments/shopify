@@ -79,20 +79,27 @@ function modelCard(m) {
 const SOCIAL_ICONS = {
   youtube: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M23 7.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.4-1C16.6 3.6 12 3.6 12 3.6s-4.6 0-7.7.3c-.5.1-1.5.1-2.4 1-.7.7-.9 2.3-.9 2.3S.8 9.1.8 11v1.8c0 1.9.2 3.8.2 3.8s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.6.3 7.6.3s4.6 0 7.7-.3c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8V11c0-1.9-.2-3.8-.2-3.8zM9.7 15.1V8.5l6.2 3.3-6.2 3.3z"/></svg>',
   instagram: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2m0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.2.8-.4.4-.6.7-.8 1.2-.2.4-.3 1-.4 2.1-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.2.4.4.7.6 1.2.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.2-.8.4-.4.6-.7.8-1.2.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.2-.4-.4-.7-.6-1.2-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.2-8.3a1.1 1.1 0 1 1-2.3 0 1.1 1.1 0 0 1 2.3 0z"/></svg>',
-  web: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c2.5 2.6 3.8 5.7 3.8 9.2s-1.3 6.6-3.8 9.2c-2.5-2.6-3.8-5.7-3.8-9.2s1.3-6.6 3.8-9.2z"/></svg>'
+  web: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c2.5 2.6 3.8 5.7 3.8 9.2s-1.3 6.6-3.8 9.2c-2.5-2.6-3.8-5.7-3.8-9.2s1.3-6.6 3.8-9.2z"/></svg>',
+  // one note covers Spotify, SoundCloud and Bandcamp — whichever the artist gave us
+  music: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20 3.2v11.5a3.3 3.3 0 1 1-1.7-2.9V6.4L10.6 8v9a3.3 3.3 0 1 1-1.7-2.9V5.1L20 3.2z"/></svg>'
 };
-const SOCIAL_LABELS = { youtube: "YouTube", instagram: "Instagram", web: "Website" };
+const SOCIAL_LABELS = { youtube: "YouTube", instagram: "Instagram", web: "Website", music: "Music" };
 
 function playerCard(p) {
   const links = Object.entries(p.links || {})
     .map(([k, url]) => `<a href="${url}" target="_blank" rel="noopener" aria-label="${p.name} on ${SOCIAL_LABELS[k]}" title="${SOCIAL_LABELS[k]}">${SOCIAL_ICONS[k] || SOCIAL_LABELS[k]}</a>`)
     .join("");
   const quote = p.quote ? `<p class="player-quote">“${p.quote}”</p>` : "";
+  // whole card clickable via a stretched link on the name — same pattern as the
+  // range cards. The social icons sit above the overlay so they still work.
+  const name = p.handle
+    ? `<a class="player-name-link" href="/pages/${p.handle}">${p.name}</a>`
+    : p.name;
   return `
-  <article class="player-card">
+  <article class="player-card${p.handle ? " player-card-linked" : ""}">
     <img src="${p.img}" alt="${p.name}" loading="lazy">
     <div class="player-info">
-      <h3>${p.name}</h3>
+      <h3>${name}</h3>
       <p class="player-cred">${p.credential}</p>
       ${quote}
       <div class="player-links">${links}</div>
@@ -100,21 +107,24 @@ function playerCard(p) {
   </article>`;
 }
 
+// Two callers: the homepage grid shows the featured nine and a card pointing
+// at the full list; the artists page carries data-show="all" and shows everyone.
 function renderPlayers() {
-  const track = document.getElementById("playerCarousel");
-  if (!track || typeof PLAYERS === "undefined") return;
-  const rest = PLAYERS_TOTAL - PLAYERS.length;
-  track.innerHTML = PLAYERS.map(playerCard).join("") + `
+  if (typeof PLAYERS === "undefined") return;
+  document.querySelectorAll(".player-grid").forEach(track => {
+    const showAll = track.dataset.show === "all";
+    const shown = showAll ? PLAYERS : PLAYERS.filter(p => p.featured);
+    const rest = PLAYERS.length - shown.length;
+    const more = rest > 0 ? `
   <article class="player-card player-card-more">
     <div class="player-more-inner">
       <span>+${rest}</span>
       <p>more artists play Ayasa worldwide</p>
-      <a href="https://www.youtube.com/c/AyasaInstruments" target="_blank" rel="noopener">Watch on YouTube →</a>
+      <a href="/pages/artists">Meet them all →</a>
     </div>
-  </article>`;
-  const step = () => track.querySelector(".player-card").getBoundingClientRect().width + 20;
-  document.getElementById("carPrev").addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
-  document.getElementById("carNext").addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+  </article>` : "";
+    track.innerHTML = shown.map(playerCard).join("") + more;
+  });
 }
 
 function renderRange() {
@@ -811,6 +821,28 @@ function initScaleNav() {
 // list, first N visible) + listening room (round-robin video strip: every
 // unique scale once, then the second videos, and so on). Also VideoObject LD.
 function initArtistPage() {
+  // intro: a few lines, the rest behind Read more. Clipped rather than hidden,
+  // so the whole story stays crawlable on a page meant to rank for his name.
+  // Runs first and unconditionally — most artist pages carry a story but no
+  // footage, and the button must still work there.
+  const introText = document.getElementById("artistIntroText");
+  const relationMore = document.getElementById("artistRelationMore");
+  if (introText && relationMore) {
+    const sync = () => {
+      if (introText.dataset.open) return;
+      introText.classList.add("clipped");
+      relationMore.hidden = introText.scrollHeight <= introText.clientHeight + 2;
+    };
+    relationMore.addEventListener("click", () => {
+      introText.dataset.open = "1";
+      introText.classList.remove("clipped");
+      relationMore.hidden = true;
+    });
+    sync();
+    addEventListener("resize", sync, { passive: true });
+    if (document.fonts?.ready) document.fonts.ready.then(sync);
+  }
+
   const rail = document.getElementById("artistPlays");
   if (!rail || typeof ARTISTS === "undefined") return;
   const artist = rail.dataset.artist;
@@ -831,26 +863,6 @@ function initArtistPage() {
     loadCardAvailability(rail);
   } else {
     rail.hidden = true;
-  }
-
-  // intro: a few lines, the rest behind Read more. Clipped rather than hidden,
-  // so the whole story stays crawlable on a page meant to rank for his name.
-  const introText = document.getElementById("artistIntroText");
-  const relationMore = document.getElementById("artistRelationMore");
-  if (introText && relationMore) {
-    const sync = () => {
-      if (introText.dataset.open) return;
-      introText.classList.add("clipped");
-      relationMore.hidden = introText.scrollHeight <= introText.clientHeight + 2;
-    };
-    relationMore.addEventListener("click", () => {
-      introText.dataset.open = "1";
-      introText.classList.remove("clipped");
-      relationMore.hidden = true;
-    });
-    sync();
-    addEventListener("resize", sync, { passive: true });
-    if (document.fonts?.ready) document.fonts.ready.then(sync);
   }
 
   // --- listening room ---

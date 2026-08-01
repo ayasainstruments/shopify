@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Kate Stone",
+        "portrait_file": "player-2567-2.jpg",
+        "kicker": "Meet Kate",
+        "credential": "From classical piano · plays for healing",
+        "relation": "<p>When Kate first listened to the sound of a handpan she immediately knew this was for her. Coming from classical piano, she quickly discovered the power of simplicity and harmony in this incredible instrument. Radically changing her life she immediately started sharing this powerful sound – now all around the globe with different projects.</p>",
+        "quote": "Ayasa is a constant teacher for me – this outstanding instrument invites me to discover new sounds and vibrations again and again. While being balanced and warmly rewarding on every level of discovering Ayasa – the beauty of completion",
+        "relation_more": "<p>Finding a truer approach to assist healing than before. Touching & connecting people through radiation joy, inner freedom and the beauty of life.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_web": "http://www.themelodywithin.com/handpan/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

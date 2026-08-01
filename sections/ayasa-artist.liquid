@@ -11,7 +11,10 @@
       {%- if section.settings.portrait -%}
         {{ section.settings.portrait | image_url: width: 900 | image_tag: widths: '450, 700, 900', alt: section.settings.portrait.alt | default: artist }}
       {%- else -%}
-        <img src="{{ 'player-malte.jpg' | asset_url }}" alt="{{ artist }}, handpan artist" width="900" height="900" loading="eager">
+        {%- comment -%} no uploaded portrait: fall back to the card photo this
+            artist already has in the theme, never to another artist's face {%- endcomment -%}
+        {%- assign portrait_asset = section.settings.portrait_file | default: 'player-malte.jpg' -%}
+        <img src="{{ portrait_asset | asset_url }}" alt="{{ artist }}, handpan artist" width="900" height="900" loading="eager">
       {%- endif -%}
     </figure>
     <div class="artist-intro reveal">
@@ -54,26 +57,33 @@
       structure for search, just styled as a kicker. The name comes from the
       artist rather than a setting, so every artist page reads correctly.
   {%- endcomment -%}
-  <div class="section-head reveal artist-listen-head">
-    <h2 class="kicker">Hear {{ first_name }} play</h2>
-  </div>
-  {%- comment -%} one pill per scale, built by ayasa.js from his `plays` list {%- endcomment -%}
-  <div class="artist-filters reveal" id="artistFilters" role="group" aria-label="Filter by scale"></div>
-  <div class="artist-video-grid reveal" id="artistVideos">
-    <!-- rendered from ayasa-data.js -->
-  </div>
+  {%- comment -%} both blocks are driven by the artist's `plays` list in
+      ayasa-data.js. Artists we hold no footage for switch them off rather than
+      render a heading over an empty grid. {%- endcomment -%}
+  {%- if section.settings.show_videos -%}
+    <div class="section-head reveal artist-listen-head">
+      <h2 class="kicker">Hear {{ first_name }} play</h2>
+    </div>
+    {%- comment -%} one pill per scale, built by ayasa.js from his `plays` list {%- endcomment -%}
+    <div class="artist-filters reveal" id="artistFilters" role="group" aria-label="Filter by scale"></div>
+    <div class="artist-video-grid reveal" id="artistVideos">
+      <!-- rendered from ayasa-data.js -->
+    </div>
+  {%- endif -%}
 
   <!-- ============ THE INSTRUMENTS HE PLAYS → back to the shop ============ -->
-  <div class="section-head reveal artist-plays-head">
-    <p class="kicker">{{ section.settings.plays_kicker }}</p>
-    <h2>{{ first_name }} plays</h2>
-    <p class="section-sub">{{ section.settings.plays_sub }}</p>
-  </div>
-  {%- comment -%} full range cards for the scales he plays, rendered by
-      ayasa.js from his `plays` list matched against MODELS {%- endcomment -%}
-  <div class="artist-plays-grid" id="artistPlays" data-artist="{{ artist | escape }}" data-published="{{ section.settings.video_date }}">
-    <!-- rendered from ayasa-data.js -->
-  </div>
+  {%- if section.settings.show_instruments -%}
+    <div class="section-head reveal artist-plays-head">
+      <p class="kicker">{{ section.settings.plays_kicker }}</p>
+      <h2>{{ first_name }} plays</h2>
+      <p class="section-sub">{{ section.settings.plays_sub }}</p>
+    </div>
+    {%- comment -%} full range cards for the scales he plays, rendered by
+        ayasa.js from his `plays` list matched against MODELS {%- endcomment -%}
+    <div class="artist-plays-grid" id="artistPlays" data-artist="{{ artist | escape }}" data-published="{{ section.settings.video_date }}">
+      <!-- rendered from ayasa-data.js -->
+    </div>
+  {%- endif -%}
 
   <p class="artist-crosslink reveal">{{ section.settings.crosslink_text }} <a href="{{ section.settings.crosslink_url | default: '/#artists' }}">{{ section.settings.crosslink_label }}</a></p>
 
@@ -187,13 +197,16 @@
   "name": "Artist page",
   "settings": [
     { "type": "text", "id": "artist_name", "label": "Artist name (must match video labels)", "info": "Leave empty to use the page title." },
-    { "type": "image_picker", "id": "portrait", "label": "Portrait", "info": "Falls back to the carousel photo when empty." },
+    { "type": "image_picker", "id": "portrait", "label": "Portrait", "info": "Falls back to the theme photo named below." },
+    { "type": "text", "id": "portrait_file", "label": "Portrait asset filename", "info": "Used when no portrait is uploaded, e.g. player-sam-maher.jpg", "default": "player-malte.jpg" },
     { "type": "text", "id": "kicker", "label": "Kicker", "default": "Ayasa artist" },
     { "type": "text", "id": "credential", "label": "Credential line", "default": "Handpan artist" },
     { "type": "richtext", "id": "relation", "label": "Opening paragraph (always visible)" },
     { "type": "text", "id": "quote", "label": "Quote (without quotation marks)" },
     { "type": "richtext", "id": "relation_more", "label": "Relationship, continued (behind Read more)" },
     { "type": "richtext", "id": "story", "label": "Story (behind Read more)" },
+    { "type": "checkbox", "id": "show_videos", "label": "Show the listening room", "info": "Off for artists we hold no footage for.", "default": true },
+    { "type": "checkbox", "id": "show_instruments", "label": "Show the instruments they play", "default": true },
     { "type": "text", "id": "plays_kicker", "label": "Instruments kicker", "default": "The instruments" },
     { "type": "text", "id": "plays_sub", "label": "Instruments subheading", "default": "Tap a card to watch and listen — and follow it into the shop." },
     { "type": "text", "id": "crosslink_text", "label": "Crosslink text", "default": "Want to explore?" },

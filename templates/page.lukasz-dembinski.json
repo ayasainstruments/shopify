@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Łukasz Dembiński",
+        "portrait_file": "player-lukasz-dembinski.jpg",
+        "kicker": "Meet Łukasz",
+        "credential": "1,000+ concerts · founder of Foliba",
+        "relation": "<p>Musician; percussionist and handpan lover, music promoter and traveller. Founder of the Foliba band. Passionate about handpans, drums and percussion instruments – African drums in particular. His main instruments include djembe, calabash, dunduns and handpans.</p>",
+        "quote": "Absolutely crystal-clear, pure, stable, and perfect sound of the entire instrument. Beautiful high piano tones and low bass notes give you chills every time from the very first seconds of playing! The instrument amazes more and more each day, and the immense pleasure and satisfaction from playing it lasts indefinitely, allowing you to tell musical stories endlessly. Finally, you realise that it is your best and most devoted friend :)",
+        "relation_more": "<p>Over the last 15 years, he has played over 1000 concerts in Poland and abroad (Czech Republic, Slovakia, Ireland, Germany, Luxembourg, Austria, Tenerife, Morocco, Moldova, Zanzibar, Tanzania) together with such groups as Foliba, Zebra, ŜANĜO and Ngomads and solo. His solo show added flavour to the Warsaw edition of TEDx. Apart from performing, he runs numerous African drum workshops in collaboration with companies and cultural institutions across Poland. He has dedicated the last few years to playing handpans. Fascinated with the sound of handpans, he is currently developing his solo project and His debut solo album „a few stories about something” was released in 2022. He performs solo and with special guests. He regularly delivers new music on his social media pages.</p><p>Lukasz, please see Website / YouTube / Instagram / Spotify / Facebook / TikTok</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/channel/UCZjFaTR29jubrGa4ZZ-haJA",
+        "link_instagram": "https://www.instagram.com/lukasz_dembinski/",
+        "link_web": "http://www.lukaszdembinski.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

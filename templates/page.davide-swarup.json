@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Davide Swarup",
+        "portrait_file": "player-david-swarup.jpg",
+        "kicker": "Meet Davide",
+        "credential": "Italian hang player · meditative improvisation",
+        "relation": "<p>Davide Swarup is often said to be a soul player. As a hang musician, a very unique one, he inspires and blows the mind away from thoughts or mental mechanisms.</p>",
+        "quote": "",
+        "relation_more": "<p>An Italian by birth, a traveller and a world citizen. His unique approach to combine meditation and improvisation, together with the beauty of the handpan, creates unique compositions in the present moment that will be “heard” straight in your heart.</p><p>Listening to his melodies is a way of meditating. Davide himself plays in a meditative state, allowing the music to come to him, without the ego or any kind of control interfering. The energy just flows through him, as if channelled: his compositions come to him from somewhere out there and make them so special. Body, hands and fingers, so relaxed and smooth, become the translation of a beyond as well as the pure expression of the here and now. Through improvisation, the present moment reveals itself in all its beauty. One of Davide’s favorite sentences is: “let’s see what happens”. This very “happening” is really what can be heard in his hang music, as a way to enhance each and every moment that comes and goes. Davide enables us to listen to the power of mindfulness, to the inner freedom from which life just expresses itself.s</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "http://www.youtube.com/davideswarup",
+        "link_web": "http://www.music.davideswarup.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

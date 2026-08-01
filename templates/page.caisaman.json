@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Caisaman",
+        "portrait_file": "player-caisaman.jpg",
+        "kicker": "Meet Caisaman",
+        "credential": "German composer · handpan and caisa",
+        "relation": "<p>Born and raised in Leipzig/ Germany, Mike is currently living most of the time in France and Netherlands, following his passion to compose and perform in different musical projects. he has always been attracted to the rhythm of the music, and followed since several years his passion for percussion. in 2009 he discovered the Caisa at a small music festival. later he found his new Instruments, the Blue Point Steelharp, and eventually in 2017 the Ayasa.</p>",
+        "quote": "After playing music on handpans for eight years, i finally found my perfect instrumental match. Never before did i feel able to express myself in such an exquisite way, as i can now with the Ayasa. I´m deeply grateful for the amazing work of the the Ayasa team, and for the good connection to these wonderful people.",
+        "relation_more": "<p>As a result of his devotion to explore and develop his musical style, he created a variety of his own compositions in recent years on these exceptional instruments, whose exotic sounds fascinate and inspire the audience.</p><p>Mike, please see Website / Youtube / Facebook / Bandcamp</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/user/daliasify/videos",
+        "link_web": "https://www.caisaman.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

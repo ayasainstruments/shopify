@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Florian Betz",
+        "portrait_file": "player-florian-betz.jpg",
+        "kicker": "Meet Florian",
+        "credential": "Marimba and handpan · plays three Ayasas",
+        "relation": "<p></p>",
+        "quote": "I love the bright and strong sound of the Ayasa Instruments. Especially in the high range. Ayasa Instruments are among the very best you can get. My three Ayasa Instruments are crucial to all of my concerts and performances. For me, Ralf was and is a great support on my musical path. Thank you.",
+        "relation_more": "",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/channel/UCq7EiykYCU1aO0vBLkxoq4w",
+        "link_web": "http://marimbaklaenge.de/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Dan Mulqueen",
+        "portrait_file": "player-mulqueen.jpg",
+        "kicker": "Meet Dan",
+        "credential": "Recording artist · plays Ayasa",
+        "relation": "<p>Dan Mulqueen is one of the world's most respected and renowned handpan artists, celebrated for his intensely percussive style and beautifully melodic compositions. His unique blend of handpan and electronic music creates a sound that is truly one of a kind, leaving listeners eager to hit the 'repeat' button.</p>",
+        "quote": "The Ayasa handpan is outstanding! The flawless appearance of the instrument matches the crystal clear tone, harmonics, percussive hits and character that you hear in the sound.",
+        "relation_more": "<p>A New Jersey native, Dan is on a mission to showcase the handpan as a versatile instrument that belongs in every genre of music. Along with 4 full-length solo albums and multiple single releases under his belt, he's also made waves through collaborations with artists like Mereba, Shpongle, Zebbler Encanti Experience, Long Arm, and many more.</p><p>Dan's innovative approach to the handpan has taken him across the globe, with extensive tours not only in his home country, the USA, but also in Europe, Japan, Brazil, and Australia.</p><p>Whether you're discovering the handpan for the first time or you're a longtime fan, Dan Mulqueen's music promises to captivate and inspire. Dive into his world of sound and experience the artistry that has resonated with listeners across the globe. Hit play, follow, and join the journey—there’s always something new to explore.</p><p>Dan, please see Website / Youtube / Instagram / Spotify / Facebook / Bandcamp</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/@DanMulqueen",
+        "link_instagram": "https://www.instagram.com/danmulqueen/",
+        "link_web": "https://www.danmulqueen.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

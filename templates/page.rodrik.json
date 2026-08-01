@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Rodrik",
+        "portrait_file": "player-rodrik.jpg",
+        "kicker": "Meet Rodrik",
+        "credential": "Portuguese didgeridoo and handpan player",
+        "relation": "<p>Rodrik is a portuguese multi-instrumentalist musician, who explores the sound of different exotic instruments from various music cultures.</p>",
+        "quote": "It was from the first moment i got my first Ayasa that i took my relation with the Handpan more seriously…the amazing sound quality, beautiful design, perfect tuning, clear harmonics and reliable material, allowed me to explore some of the infinite possibilities of this sound magical Universe. Nowadays i feel very blessed and happy with 3 amazing instruments made by Ralf…Ayasa rules!!!",
+        "relation_more": "<p>He´s known mainly for his didgeridoo musicality and skills, which he plays since 2008, but also plays a few other instruments, such as handpan, guitar, bansuri, berimbau and a few small percussions.</p><p>Rodrik has started his career as a performer in 2010, and since then, has been regularly performing in various festival stages and events around Europe.</p><p>His relation with the Handpan started in 2013 when he got the chance to buy his first instrument, and slowly started to explore it.</p><p>In the end of 2014 he was lucky enough to get an Ayasa from Ralf and felt a instant connection with it.</p><p>Rodrik is nowadays a full-time performer and busker with the Handpan, still with a lot to learn from the steel, and enjoying his time exploring it.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/channel/UC9BBvrM6Cvopat0JoCFT-5w"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

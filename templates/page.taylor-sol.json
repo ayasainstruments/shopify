@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Taylor Sol",
+        "portrait_file": "player-taylor-sol.jpg",
+        "kicker": "Meet Taylor",
+        "credential": "Sound healer · debut album “Ancestry”",
+        "relation": "<p>Taylor Sol started his Sound Healing Journey in the summer of 2021. His inspirational music offers people a deeply transformative experience within, where music, healing and creativity converge to awaken the soul and elevate the spirit. Taylor's music is an inspirational multi-instrumental weaving of Handpan, Native American flute, Shamanic drum and more.</p>",
+        "quote": "I am super grateful for the team at Ayasa for creating absolute masterful handpan Instruments. Ayasa has been really supportive with my musical journey, encouraging me to expand to my highest alignment and play at my best! I can easily say Ayasa holds the best sound, stability & feeling in the Handpan world. Thanks Ayasa, much gratitude!",
+        "relation_more": "<p>Taylor’s debut album “Ancestry” - released December 2023, showcases engaging soundscapes of indigenous and contemporary sound alchemy. This 22-song collection features instruments like the Native American flute, Handpan, Voice and other world instruments that offer an immersive journey through sound. More recently, Taylor has shared his resonant expressions throughout events and festivals in New Zealand, played in the temples and pyramids of Egypt, Mexico and the Amazon Jungle of Peru with the Shipibo tribe.</p><p>Embrace the wonder of existence through empowering healing music and feel the positive energy envelop you with love.</p><p>Taylor, please see Website / YouTube / Instagram / Spotify / Facebook</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/@taylorsol",
+        "link_instagram": "https://www.instagram.com/taylorthesol/",
+        "link_web": "https://taylorsol.love/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Sam Maher",
+        "portrait_file": "player-sam-maher.jpg",
+        "kicker": "Meet Sam",
+        "credential": "Played 22 countries · 18M views from the NYC subway",
+        "relation": "<p>Sam Maher is a West Australian instrumentalist and drummer better known for his unique playing style on the handpan – Before discovering the instrument Sam had already established himself as a drummer in Australia, having worked with bands and artist such as Methyl Ethel, Katy Steele (Little Birdy), Rabbit Island, Grace Woodroofe, Nicholas Allbrook (POND, Tame Impala) and countless other groups based in Perth.</p>",
+        "quote": "The first time I played an Ayasa was on the beach of Coral Bay, an isolated coastal village in the North West of Australia. I was lazing out in the sun with my family after an impressive snorkel through the fringing reef – it was our tradition to gather here once a year. In the distance I heard a familiar sound. I was taken by complete surprise to find Roy, Ralf’s brother, sitting on the sand tapping away on his Ayasa. I had met him a month before in Fremantle. He explained to me that his brother was the builder and let me play it for the first time. I was utterly consumed by the instruments clarity, resonance, feel and well-rounded sound. From that moment on I promised myself I would own an Ayasa one day – truly beautiful instruments.",
+        "relation_more": "<p>In 2014, 6 months after Sam received his first Handpan he traveled to the Americas where he spent 15 months traversing from Mexico City down to the Patagonian region of Argentina, surviving mostly from the money he made on the streets. At the end of 2015 a video surfaced of Sam improvising with the unique instrument in the subways of New York City, reaching over 18 million people. From humble origins busking on the streets to documenting the instruments powerful affect on humans around the world, Sam has now performed his boundless music in over 22 countries. A recent dream project in collaboration with Manu Delago (Bjork, Cinematic Orchestra, Anoushka Shankar) and French production house La Blogotheque is due for release in January 2017.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/sammahermusic",
+        "link_instagram": "https://www.instagram.com/sammahermusic"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

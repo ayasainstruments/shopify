@@ -280,23 +280,13 @@ strong { font-weight: 600; }
 }
 .carousel-head p { color: var(--muted); font-size: 1.02rem; }
 .carousel-head strong { color: var(--brand-light); font-weight: 600; }
-.carousel-nav { display: flex; gap: 0.5rem; }
-.car-btn {
-  width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
-  background: var(--bg-2); color: var(--ink); font-size: 1rem; cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease;
+/* auto-fit tops out at five columns in the 1280px shell and stretches the
+   cards to fill the row while there are fewer artists than that */
+.player-grid {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
-.car-btn:hover { border-color: var(--brand); background: var(--brand-fill); }
-.player-carousel {
-  display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
-  padding-bottom: 0.8rem; scrollbar-width: thin; scrollbar-color: var(--brand-deep) transparent;
-  /* keep the fixed-width cards from inflating the section's min-content
-     (sections are grid items inside .shopify-section wrappers) */
-  width: 0; min-width: 100%;
-}
-.player-carousel:focus-visible { outline: 1px solid var(--brand); outline-offset: 4px; }
 .player-card {
-  flex: 0 0 min(320px, 78vw); scroll-snap-align: start;
   background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
   display: flex; flex-direction: column;
 }
@@ -310,6 +300,26 @@ strong { font-weight: 600; }
 .player-links { display: flex; gap: 0.9rem; margin-top: 0.4rem; }
 .player-links a { color: var(--muted); display: inline-flex; padding: 0.2rem; }
 .player-links a:hover { color: var(--brand-light); }
+/* whole player card clickable — the name carries a stretched link over the
+   card, and the social icons stay above it so they keep their own targets */
+.player-card { position: relative; }
+.player-card-linked .player-name-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.player-links { position: relative; z-index: 2; }
+.player-name-link { color: inherit; transition: color 0.2s ease; }
+.player-card-linked { transition: transform 0.25s ease, border-color 0.25s ease; }
+.player-card-linked:hover { transform: translateY(-4px); border-color: rgba(101, 117, 153, 0.55); }
+.player-card-linked:hover .player-name-link { color: var(--brand-light); }
+.player-card-linked:has(.player-name-link:focus-visible) { border-color: var(--brand); }
+
+/* ---------- the full artists page ---------- */
+.section-artists-page .section-head { max-width: 46rem; margin-bottom: 2.8rem; }
+.section-artists-page .section-head p:not(.kicker) { color: var(--muted); margin-top: 0.9rem; }
+.artists-page-foot {
+  text-align: center; margin-top: clamp(3rem, 6vw, 5rem);
+  padding-top: clamp(2.4rem, 5vw, 4rem); border-top: 1px solid var(--line);
+}
+.artists-page-foot p { color: var(--muted); margin-bottom: 1.3rem; }
+
 .player-card-more { justify-content: center; background: linear-gradient(180deg, var(--bg-3), var(--bg-2)); }
 .player-more-inner { text-align: center; padding: 2rem 1.6rem; }
 .player-more-inner span {
@@ -871,8 +881,13 @@ select:focus { outline: none; border-color: var(--slate); }
   .stats { grid-template-columns: 1fr 1fr; }
   .stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
-  /* artists carousel: arrows drop under the intro line */
-  .carousel-head { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+  /* artists: two across rather than four full-height cards to scroll past */
+  .player-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .player-info { padding: 0.9rem 1rem 1.1rem; gap: 0.35rem; }
+  .player-info h3 { font-size: 1rem; }
+  .player-quote { font-size: 0.82rem; }
+  .player-more-inner { padding: 1.4rem 1rem; }
+  .player-more-inner span { font-size: 2.6rem; }
 
   /* product page */
   .product-section { padding-top: 5.6rem; }

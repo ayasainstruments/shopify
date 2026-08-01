@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Johann Immanuel",
+        "portrait_file": "player-johann-immanuel.jpg",
+        "kicker": "Meet Johann",
+        "credential": "Malte Marten Method team · Hamburg",
+        "relation": "<p>My name is Johann Immanuel, and I am a Handpan artist, born and raised in Hamburg City, Germany. Beyond my love for music, I travel far and wide, immerse myself in the art of movement, and dedicate my life to helping others discover and understand their true selves. I am proud to be a part of the Malte Marten Method Team, where we create transformative online courses and the world's first Handpan teacher training.</p>",
+        "quote": "There are no instruments that sound more beautiful, pure, and warm than those from Ayasa. I'm incredibly happy to have the privilege of playing these instruments. Over time, I have developed a true friendship with the Ayasa family. I am grateful for everything that is and look forward to all that is yet to come.",
+        "relation_more": "<p>For me, the Handpan is far more than an instrument; it is a gateway to my soul, a vessel that continuously reconnects me with my deepest self. In times of struggle, it has been a sanctuary, allowing me to express and process my innermost emotions. My mental and emotional landscapes are ever-active, teeming with countless simultaneous processes. Through the Handpan, I find a way to channel my thoughts and feelings, to bring order to the chaos, and to rediscover my centre. It grants me peace and depth, no matter how stormy life may become.</p><p>My music is a reflection of my journey, embodying freedom, hope, raw emotion, the art of letting go, honesty, and profound peace.</p><p>Right now, I'm working on my debut album and really: I can't wait to share it with all of you. In the meantime, you're invited to visit my YouTube channel, where I post a new video every week, and of course, check me out on social media.</p><p>Johann, please see YouTube / Instagram / Facebook / TikTok</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/@johannimmanuel",
+        "link_instagram": "https://www.instagram.com/johannimmanuel/",
+        "link_web": "https://www.tiktok.com/@johannimmanuel_"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

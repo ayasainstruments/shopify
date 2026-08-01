@@ -1,0 +1,53 @@
+{%- comment -%}
+  The full artist roster. Cards come from PLAYERS in ayasa-data.js — the grid
+  carries data-show="all" so renderPlayers() lists everyone instead of the
+  featured nine the homepage shows.
+{%- endcomment -%}
+<section class="section section-artists-page" id="artists">
+  <div class="section-head reveal">
+    <p class="kicker">{{ section.settings.kicker }}</p>
+    <h2>{{ section.settings.heading | newline_to_br }}</h2>
+    {{ section.settings.intro }}
+  </div>
+
+  <div class="player-grid reveal" data-show="all" aria-label="Every Ayasa artist"><!-- rendered from ayasa-data.js --></div>
+
+  {%- if section.settings.foot_text != blank -%}
+    <div class="artists-page-foot reveal">
+      {{ section.settings.foot_text }}
+      {%- if section.settings.foot_link_label != blank -%}
+        <a class="btn btn-primary" href="{{ section.settings.foot_link_url }}">{{ section.settings.foot_link_label }}</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Ayasa artists page",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Players" },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Everyone who plays Ayasa."
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>Drummers, teachers, buskers and healers across more than thirty countries — each one chose an Ayasa, and each one says why in their own words.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "foot_text",
+      "label": "Closing text",
+      "default": "<p>Hear what they hear.</p>"
+    },
+    { "type": "text", "id": "foot_link_label", "label": "Closing button label", "default": "Explore the range →" },
+    { "type": "url", "id": "foot_link_url", "label": "Closing button link", "default": "/collections/all" }
+  ],
+  "presets": [{ "name": "Ayasa artists page" }]
+}
+{% endschema %}

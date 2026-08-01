@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Philippe Gagné",
+        "portrait_file": "player-philippe-gagne.jpg",
+        "kicker": "Meet Philippe",
+        "credential": "Street musician, Quebec City",
+        "relation": "<p>Philippe Gagné is an independant artist and street musician from Quebec city, Canada.His musical style focuses on composed and improvised rhythmical melodies acting as an ambient soundtrack to everyday life’s situations. Music has always been part of his life, learning piano and guitar at a young age to then shift towards exotic instruments such as the didgeridoo and the Handpan.</p>",
+        "quote": "The instruments that Ralf creates are lovely balanced instrument with clear tones, beautiful timbre and perfectly tuned harmonics, couple with a lovely tak sound on the interstices, what else could someone ask for?",
+        "relation_more": "<p>Avid traveler and street performer, he has played in Germany and Finland, always coming back to the pittoresque St-Lawrence river and the streets of his hometown Quebec city.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_web": "http://bit.ly/2dyVjsz"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

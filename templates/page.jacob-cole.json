@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Jacob Cole",
+        "portrait_file": "player-jacob-cole.jpg",
+        "kicker": "Meet Jacob",
+        "credential": "Berklee graduate · world percussionist",
+        "relation": "<p>Jacob Cole is a world percussionist, instructor, composer, and jazz fusion drummer. As a graduate of Berklee College of Music he has studied with many of the worlds masters. He now takes that knowledge and his depth of experience as a professional musician to the handpan, his primary love and passion.</p>",
+        "quote": "I’m honored to play Ayasa and call Ralf my friend, he is an amazing human and equally amazing craftsman. My Ayasa 2015 LongLoy can only be described as a pristine musical gift to my soul. Every Ayasa I have tried are among the best looking and sounding handpans in the world!",
+        "relation_more": "<p>Jacob’s unique style of playing reflects a diverse range of percussive styles and techniques, yet ultimately it is his love for the groove and improvisation that drives his music.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/user/RogueChimp2",
+        "link_instagram": "https://www.instagram.com/jacobcolepercussion/",
+        "link_web": "http://jacobcolepercussion.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

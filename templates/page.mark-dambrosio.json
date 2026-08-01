@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Mark D’Ambrosio",
+        "portrait_file": "player-mark-dambrosio.jpg",
+        "kicker": "Meet Mark",
+        "credential": "Founder, Steel Mountain Handpan Gathering",
+        "relation": "<p>Mark D’Ambrosio is a percussionist, composer, educator, and rounded musician from Colorado’s Western slope. Mark specializes as a player of the HandPan, a new and unique percussion instrument. He has performed as a soloist and taught throughout Colorado, the greater United States, and Europe.</p>",
+        "quote": "Very few Handpans I have played feel quite as good in my hands as the Ayasa. The Ayasa embodies balance, precision, and intense attention to detail. It is an honor to to be able to share my music on such a perfect sonic canvas.",
+        "relation_more": "<p>When not performing Mark is an avid composer, arranger, and music producer; he has released two EPs to critical acclaim which have been featured in numerous creative projects. Mark’s writings have been featured in such publications as the Percussive Arts Society’s “Rhythm! Scene Magazine.” Additionally he serves as an educator for various area institutions in the Western Colorado region and is a founder of the Steel Mountain Handpan Gathering, Colorado’s largest Handpan event. Mark holds a BA in Percussion from Colorado Mesa University in Grand Junction where he currently resides.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/channel/UCNjKlniY46JOmfADetE3zZw/feed",
+        "link_instagram": "https://www.instagram.com/brokedrummer/",
+        "link_web": "https://markdambrosiomusic.com/home"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

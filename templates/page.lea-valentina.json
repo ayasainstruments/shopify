@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Lea Valentina",
+        "portrait_file": "player-lea-valentina.jpg",
+        "kicker": "Meet Lea",
+        "credential": "Founder, Handpan Atelier Munich",
+        "relation": "<p>Lea's music is a colourful potpourri of tender handpan sounds, percussive drumming and guitar playing mixed with poetry and lyrics that invite to sing along. In her concerts Lea welcomes the whole spectrum of being human, travelling from inner silence, softness and vulnerability to the most powerful version of ourselves, standing strong, with roots deep down and embracing the transformative power of a fully open heart.</p>",
+        "quote": "I love the Ayasa handpans for crystal clear sound and the purity of the notes. The Ayasa team reached perfection in bringing out magic from steel and the constant top quality makes it so much fun to work with Ayasa. An extra plus is visiting the headquarter and having the most epic jam sessions with the whole Ayasa team and experiencing outstanding hospitality.",
+        "relation_more": "<p>Besides playing solo, Lea is also playing together with Marketa Drozdkova with their band project MEA Duo. She is the founder of the handpan school 'Handpan Atelier' in Munich where she teaches with a lot of passion and with the firm belief that everybody can learn to create music.</p><p>Lea, please see Website / YouTube / Instagram / Spotify / Facebook</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/c/LeaValentina",
+        "link_instagram": "https://www.instagram.com/leavalentina.music/",
+        "link_web": "https://leavalentina.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

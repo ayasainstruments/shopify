@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Jonny Ong",
+        "portrait_file": "player-jonny-ong.jpg",
+        "kicker": "Meet Jonny",
+        "credential": "Singer-songwriter, Singapore",
+        "relation": "<p>Jonny Ong is a singer/songwriter and multi-instrumentalist from Singapore.</p>",
+        "quote": "It is clear to me how much love and passion went into building and tuning these wonderful instruments. When I received my first Ayasa I was just blown away by how amazing it sounded; definitely worth the wait!",
+        "relation_more": "<p>Jonny started his musical journey at the age of 10 where he sang covers of Frank Sinatra for family birthdays. It was only during his high school years when Jonny first discovered the joy of The Beatles and when he first got hold of the electric guitar. He went on to performing and eventually, writing and recording his own music.</p><p>Later during his teenage years, Jonny found a deep obsession for psychedelic music and how songs usually had unconventional instruments layered into the mix to add unique textures.The multi-instrumental approach to creating psychedelic music spurred him to find different instruments around the globe for him to layer into his own music.</p><p>As the frontman and lead guitarist of his bands, The London Fog and Holy Rollers and The Smoking Guns, Jonny has performed several times in Asia at the Formula One Singapore Grand Prix, ZOUK Singapore and the Hard Rock Cafe Singapore, Kuala Lumpur, Malacca and Bali. Eager to add another city under his belt, Jonny completed a local club circuit tour in Shoreditch, London.</p><p>In 2007 while on a short holiday in Amsterdam , he came across a street busker, Davide Swarup performing with a Hang! Captivated by it’s hypnotic sound and the instruments unique layout, he went on to look for avenues where he could get his hands on one. Finally in 2014, Jonny managed to find his first instrument.</p><p>He is currently in the process of releasing his debut album which is slated for release by the end of 2016. For eager listeners, his 4 track EP, The Mermaid, is available for digital download online.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/channel/UCuxgFktce9-ZoTxJtm5Tfgw"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

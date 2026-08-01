@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Laurent Sureau",
+        "portrait_file": "player-laurent-sureau.jpg",
+        "kicker": "Meet Laurent",
+        "credential": "Conservatory prizes · playing since 2005",
+        "relation": "<p>Laurent Sureau grew up in a musical family and has had a passion for music since childhood. He began learning the piano at the age of 6 years, extending its range with the study of percussion: classical and contemporary first, then to various continents (congas, cajon, the balafon of Africa west), and finally the battery.</p>",
+        "quote": "In November 2014, I met Ralf for the second time and asked him to make him an instrument in a particular scale. Ralf accepts and makes him a special Ayasa, full with feeling, amazing sound and touching nature.",
+        "relation_more": "<p>In 2005, Laurent discovered the Hang and the Handpans and travelled a lot to share this new sound vibration. His curiosity and thirst for discovery led him to experiment with these instruments in improvised music, amplified and experimental and enjoys mixing all his knowledge exploring the mix of his musical experiences.</p><p>His academic curriculum of the conservatory (several first prizes) allows him to practice the written music. His internships, master classes, and travel has increased his taste for oral traditions and improvised music. Thus, he readily builds bridges between different modes of musical expression and regularly records different musical’s esthetics, arrangement from J.S. Bach to personal compositions in which he likes to play all the instruments.</p><p>Laurent likes performing in formations with very different esthetics, and to support artists in their project on stage and / or in studio. Currently he performs live solo and with OLOJi, TwinPan, Mayaëlo, Rauni and Morgane Ji.</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/channel/UC6s1l_zsHImitRsQ81-OtqA",
+        "link_web": "http://www.laurent-sureau.net/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

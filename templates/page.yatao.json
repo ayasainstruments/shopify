@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Yatao",
+        "portrait_file": "player-yatao.jpg",
+        "kicker": "Meet Yatao",
+        "credential": "Alexander Mercks and Malte Marten together",
+        "relation": "<p>Alex and Malte started their musical journey in the summer of 2014. In the past years a strong friendship evolved between the two as well as an intensive musical project.</p>",
+        "quote": "Its not only the instruments, but also Ralf and the whole team of Ayasa, we love! Working together with such a good maker changed a lot for us and makes possible what we are loving to do – bringing this magic of sound into life! For us Ayasa is perfection of a well-rounded and resonate sound!",
+        "relation_more": "<p>In their music they use the instruments handpan and didgeridoo and create dynamically improvised sounds – contemplative and sensuous flowing into animating rhythms. In their concerts they are trying to create an atmosphere of total relaxation and inspiration in which people can just follow their mind dreams.</p><p>Yatao, please see Website / Youtube / Facebook / Instagram / Bandcamp</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/channel/UCXwBPO45wLC_lGDB-C-Dvqg/",
+        "link_instagram": "https://www.instagram.com/yatao.music/",
+        "link_web": "https://www.yataomusic.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

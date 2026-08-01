@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Konstantin Rössler",
+        "portrait_file": "player-konstantin-rossler.jpg",
+        "kicker": "Meet Konstantin",
+        "credential": "Full-time musician · concerts and retreats",
+        "relation": "<p>When I was a teenager, I played the drums and loved the power of rhythm. But deep inside, I felt like something was missing.</p>",
+        "quote": "No matter which scale I touch from Ayasa I immediately recognize the unique quality, timbre and overall sound quality! The precision in sound and dynamic range is out of this world. It is truly a pleasure to be able to express myself on these magnificent instruments",
+        "relation_more": "<p>One day, I accidentally discovered the handpan on YouTube, and it was love at first sight. The handpans enchanting sounds captured my heart and soul instantly. In May 2019, I began my personal journey with this incredible instrument, and everything fell into place.</p><p>Things happened quickly, and I realized what I truly wanted to do with my life. Since 2023, I have become self-employed and fully dedicated to being a musician. I play concerts, creating improvised music. I also offer workshops and retreats for those who want to explore the world of handpan and discover their own musical expression. I am grateful every day for the opportunity to follow my passion and share the magic of the handpan with others. It brings me immense joy to connect with myself and people through music.</p><p>Konstantin, please see Website / Youtube / Instagram / Spotify</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/@konstantin.roessler/featured",
+        "link_instagram": "https://www.instagram.com/konstantin.roessler/",
+        "link_web": "https://konstantin-roessler.com/"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

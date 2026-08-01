@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Nadishana",
+        "portrait_file": "player-nadishana.jpg",
+        "kicker": "Meet Nadishana",
+        "credential": "Plays 200+ instruments · world fusion, Berlin",
+        "relation": "<p>Nadishana is a multi-instrumentalist, composer and sound designer from Siberia, who creates his own unique and innovative approach to world fusion music – the creative synthesis of different musical traditions of the world on the basis of contemporary technologies. He plays on more than 200 instruments of the world, including self-created ones.</p>",
+        "quote": "Thanks to Ralf and Ayasa team for accepting the challenge and making for me the double-side instrument with 20 notes and no Gu! It’s now a part of my live set and i’m really enjoying playing it.",
+        "relation_more": "<p>He elaborated the unique playing technique on each of his instruments and his own approach to advanced digital audio editing called “sound microsurgery”.</p><p>He possesses a huge collection of musical instruments (more than 200) from different parts of the world.</p><p>Nadishana lives in Berlin where he works on several projects. Some of them are:</p>",
+        "story": "",
+        "show_videos": false,
+        "show_instruments": false,
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_web": "http://nadishana.com/index.php/en/projects/nadishana-kuckhermann-metz"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

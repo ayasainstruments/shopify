@@ -1355,25 +1355,70 @@ function initProductPage() {
   // when the text really overflows, so short descriptions get no button.
   const desc = document.getElementById("productDesc");
   const descMore = document.getElementById("descMore");
+  // TEMP A/B: in layout B the desktop description is trimmed to whatever fits,
+  // so the buy button lands level with the gallery's thumbnails. Measured, not
+  // a guessed line count — descriptions and window widths both vary.
+  function fitDescription() {
+    if (!desc || !descMore) return;
+    if (matchMedia("(max-width: 900px)").matches) return; // phone path owns it
+    // the two edges to line up: the thumbnail row and the buy button's row
+    const thumbs = document.getElementById("productThumbs") || document.querySelector(".product-gallery");
+    const buyRow = document.querySelector(".buy-row");
+    desc.classList.remove("clamped");
+    desc.style.removeProperty("-webkit-line-clamp");
+    desc.style.removeProperty("margin-bottom");
+    if (!document.body.classList.contains("pdp-b") || !thumbs || !buyRow || desc.dataset.open) {
+      descMore.hidden = true;
+      return;
+    }
+    const lineH = parseFloat(getComputedStyle(desc).lineHeight) || 24;
+    const descH = desc.getBoundingClientRect().height;
+    const target = thumbs.getBoundingClientRect().bottom;
+    const overshoot = buyRow.getBoundingClientRect().bottom - target;
+    const fullLines = Math.round(descH / lineH);
+    if (overshoot <= 0) { descMore.hidden = true; return; } // already fits
+    const lines = Math.max(3, Math.floor((descH - overshoot) / lineH)); // floor: never a stub
+    if (lines >= fullLines) { descMore.hidden = true; return; }
+    desc.classList.add("clamped");
+    desc.style.setProperty("-webkit-line-clamp", lines);
+    descMore.hidden = false;
+    // Whole lines only get us within one line-height, and the grid hands back
+    // part of any margin (the gallery spans both rows, so slack is shared).
+    // A couple of measure-and-adjust passes settle it exactly.
+    let margin = 0;
+    for (let i = 0; i < 6; i++) {
+      const drift = thumbs.getBoundingClientRect().bottom - buyRow.getBoundingClientRect().bottom;
+      if (Math.abs(drift) < 1) break;
+      margin = Math.max(0, margin + drift);
+      desc.style.marginBottom = `${margin}px`;
+    }
+  }
+
   if (desc && descMore) {
     const phone = matchMedia("(max-width: 900px)");
     const sync = () => {
-      if (!phone.matches) { // desktop shows it whole
-        desc.classList.remove("clamped");
-        descMore.hidden = true;
-        return;
-      }
+      if (!phone.matches) return fitDescription(); // desktop: layout B may trim it
       if (desc.dataset.open) return; // already expanded by the reader
+      desc.style.removeProperty("-webkit-line-clamp");
       desc.classList.add("clamped");
       descMore.hidden = desc.scrollHeight <= desc.clientHeight + 1;
     };
     descMore.addEventListener("click", () => {
       desc.dataset.open = "1";
       desc.classList.remove("clamped");
+      desc.style.removeProperty("-webkit-line-clamp");
       descMore.hidden = true;
     });
     sync();
     phone.addEventListener("change", sync);
+    addEventListener("resize", sync, { passive: true });
+    if (document.fonts?.ready) document.fonts.ready.then(sync); // metrics settle late
+    // the gallery is the measuring stick: re-fit whenever it changes height
+    // (the product photo finishing its load is the big one). Observing the
+    // gallery and not the info column keeps this loop-free — fitDescription
+    // only ever changes the info side.
+    const galleryEl = document.querySelector(".product-gallery");
+    if (galleryEl && window.ResizeObserver) new ResizeObserver(sync).observe(galleryEl);
   }
 
   // gallery carousel: product photos + (when the model has videos) a final
@@ -1471,6 +1516,14 @@ function initProductPage() {
     if (!pickerWrap) return;
     pickerWrap.classList.toggle("open", open);
     caseTrigger.setAttribute("aria-expanded", open);
+    // phone: lift the "Handpan case" label to just under the fixed header so
+    // all nine cases open into view. Only on opening — jumping on close would
+    // just be disorienting. The label's position doesn't depend on the
+    // picker's height, so this can run alongside the expansion.
+    if (open && matchMedia("(max-width: 900px)").matches) {
+      caseTrigger.closest(".product-option")
+        ?.scrollIntoView({ block: "start", behavior: "smooth" });
+    }
   };
   if (picker && caseSelect) {
     const syncPicker = () => {
@@ -1524,20 +1577,36 @@ function initProductPage() {
   if (caseSelect) caseSelect.addEventListener("change", updateTotal);
   updateTotal();
 
-  // mobile two-step buy: the choices stay folded and the button reads
-  // "Order now"; the first tap unfolds them in place (everything above stays
-  // put — the expansion is below the reading position) and the button becomes
-  // the real Add to cart, which then validates and submits as always.
+  // TEMP A/B (remove before the public domain launch): layout B moves the clip
+  // carousel full-width above Keep exploring at its original size and brings
+  // the Order-now buy flow to desktop. Desktop only; the choice sticks per
+  // browser so you can click between scales while demoing.
+  const AB_KEY = "ayasa:pdp-variant";
+  const abBtn = document.getElementById("pdpAb");
+  const desktop = matchMedia("(min-width: 901px)");
+  let variantB = desktop.matches && localStorage.getItem(AB_KEY) === "b";
+
+  // Two-step buy: the choices stay folded and the button reads "Order now";
+  // the first tap unfolds them in place and the button becomes the real Add to
+  // cart, which then validates and submits as always. Mobile always; desktop
+  // only in layout B, so it has to be switchable rather than set once.
   const buyOptions = document.getElementById("buyOptions");
   const buyBtn = form?.querySelector(".product-buy");
-  if (matchMedia("(max-width: 900px)").matches &&
-      buyOptions && buyOptions.querySelector(".product-option") &&
-      buyBtn && buyBtn.type === "submit") {
-    buyOptions.classList.add("collapsible");
-    const finalLabel = buyBtn.textContent.trim();
-    buyBtn.textContent = "Order now";
+  const twoStepPossible = buyOptions && buyOptions.querySelector(".product-option") &&
+    buyBtn && buyBtn.type === "submit";
+  const finalLabel = twoStepPossible ? buyBtn.textContent.trim() : "";
+  let twoStepWired = false;
+  function applyTwoStep(enable) {
+    if (!twoStepPossible || optionsRevealed) return; // already opened: leave it alone
+    buyOptions.classList.toggle("collapsible", !!enable);
+    if (!enable) buyOptions.classList.remove("open");
+    buyBtn.textContent = enable ? "Order now" : finalLabel;
+    updateTotal();
+    if (twoStepWired) return;
+    twoStepWired = true;
     buyBtn.addEventListener("click", e => {
-      if (optionsRevealed) return; // second tap onward: the normal submit path
+      // only intercept while the folded step is actually showing
+      if (optionsRevealed || !buyOptions.classList.contains("collapsible")) return;
       e.preventDefault();
       optionsRevealed = true;
       buyOptions.classList.add("open");
@@ -1553,6 +1622,40 @@ function initProductPage() {
       };
       buyOptions.addEventListener("transitionend", frame, { once: true });
       setTimeout(frame, 450); // fallback if the transition event never lands
+    });
+  }
+  applyTwoStep(matchMedia("(max-width: 900px)").matches || variantB);
+
+  // TEMP A/B: paint the chosen layout (declared after applyTwoStep so it can
+  // call it — the toggle drives both the carousel's home and the buy flow)
+  if (abBtn && desktop.matches) {
+    abBtn.hidden = false;
+    const paint = () => {
+      document.body.classList.toggle("pdp-b", variantB);
+      abBtn.classList.toggle("on", variantB);
+      document.getElementById("pdpAbLabel").textContent = variantB ? "Layout B" : "Layout A";
+      const demos = document.getElementById("productDemos");
+      const keep = document.getElementById("scaleNav");
+      // B parks the carousel between the grid and Keep exploring; A returns it
+      // to the gallery column, where the named grid areas place it
+      if (demos) {
+        if (variantB && keep) keep.parentElement.insertBefore(demos, keep);
+        else document.querySelector(".product-grid")?.appendChild(demos);
+      }
+      applyTwoStep(variantB); // layout B buys the same way the phone does
+      // measure once the moved carousel and the new grid template have settled;
+      // the second pass catches anything still reflowing (fitDescription is
+      // idempotent, so re-running it is free)
+      // the options fold/unfold over 0.35s, so measure again once that settles
+      requestAnimationFrame(() => requestAnimationFrame(fitDescription));
+      setTimeout(fitDescription, 200);
+      setTimeout(fitDescription, 600);
+    };
+    paint();
+    abBtn.addEventListener("click", () => {
+      variantB = !variantB;
+      localStorage.setItem(AB_KEY, variantB ? "b" : "a");
+      paint();
     });
   }
 

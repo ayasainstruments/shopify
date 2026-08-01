@@ -534,6 +534,71 @@ select:focus { outline: none; border-color: var(--slate); }
 /* live total (handpan + case) just above the buy button */
 .buy-total { margin: 0 0 0.7rem; font-family: var(--font-display); font-size: 1.05rem; }
 .buy-total[hidden] { display: none; }
+
+/* Order-now step: the choices unfold in place, pushing only the button down.
+   .collapsible is added by JS only when the two-step is active (always on
+   mobile, desktop in layout B), so untouched pages keep the plain form. */
+.buy-options.collapsible {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+.buy-options.collapsible.open { grid-template-rows: 1fr; }
+.buy-options.collapsible .buy-options-inner { overflow: hidden; min-height: 0; }
+/* the post-reveal scroll parks Add to cart at the screen's bottom edge */
+.buy-row { scroll-margin-bottom: 12px; }
+/* opening the case picker lifts its label clear of the fixed header */
+.product-option { scroll-margin-top: 70px; }
+
+/* ---------- TEMP A/B layout toggle — REMOVE before the public domain ----------
+   Everything under .pdp-ab and body.pdp-b belongs to the throwaway experiment:
+   layout B puts the clip carousel full-width above Keep exploring and brings
+   the Order-now buy flow to desktop. Delete this block, the #pdpAb markup in
+   ayasa-product.liquid, and the AB section in ayasa.js to remove it cleanly. */
+.pdp-ab {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-left: auto; padding: 0.3rem 0.7rem;
+  background: none; border: 1px dashed var(--line); border-radius: 999px;
+  color: var(--muted); font-family: var(--font-body); font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.pdp-ab[hidden] { display: none; }
+.pdp-ab:hover { color: var(--ink); border-color: var(--slate); }
+.pdp-ab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--slate); }
+.pdp-ab.on { color: var(--brand-light); border-color: var(--brand); }
+.pdp-ab.on .pdp-ab-dot { background: var(--brand); }
+@media (min-width: 901px) {
+  /* no third row: the carousel has left the grid, so the gallery and the info
+     column are the only two things sizing it */
+  body.pdp-b .product-grid {
+    grid-template-areas:
+      "gallery head"
+      "gallery info";
+  }
+  /* carousel back to full width at its original size, above Keep exploring */
+  body.pdp-b .product-demos { margin-top: clamp(2rem, 4vw, 3rem); }
+  body.pdp-b .product-demos .demo-strip { gap: 1rem; }
+  body.pdp-b .product-demos .demo-card {
+    flex: 0 0 min(230px, 62vw); border-radius: 16px;
+  }
+  body.pdp-b .product-demos .demo-card-info { left: 1rem; right: 1rem; bottom: 0.95rem; }
+  body.pdp-b .product-demos .demo-card-info strong { font-size: 1.08rem; }
+  body.pdp-b .product-demos .demo-card-info span { display: block; }
+  body.pdp-b .product-demos .demo-card-play { width: 54px; height: 54px; font-size: 0.85rem; padding-left: 4px; }
+  /* the fitted description needs its Read more on desktop too */
+  body.pdp-b .desc-more {
+    display: inline-block; margin: 0.2rem 0 1.4rem; padding: 0;
+    background: none; border: 0; cursor: pointer;
+    color: var(--brand-light); font-family: var(--font-body);
+    font-size: 0.8rem; letter-spacing: 0.06em;
+  }
+  body.pdp-b .desc-more[hidden] { display: none; }
+  body.pdp-b .product-desc.clamped {
+    display: -webkit-box; -webkit-box-orient: vertical;
+    overflow: hidden; margin-bottom: 0;
+  }
+}
+/* ---------- end TEMP A/B ---------- */
 .product-option { margin-bottom: 1.3rem; }
 .product-option label { display: block; font-size: 0.85rem; letter-spacing: 0.06em; margin-bottom: 0.5rem; color: var(--ink); }
 .option-required { display: block; color: var(--muted); font-size: 0.78rem; letter-spacing: 0; margin-top: 0.15rem; }
@@ -839,18 +904,6 @@ select:focus { outline: none; border-color: var(--slate); }
     font-size: 0.8rem; letter-spacing: 0.06em;
   }
   .desc-more[hidden] { display: none; }
-  /* Order-now step: the choices unfold in place, pushing only the button down.
-     .collapsible is added by JS solely when the two-step is active, so
-     sold-out pages and desktop are untouched. */
-  .buy-options.collapsible {
-    display: grid; grid-template-rows: 0fr;
-    transition: grid-template-rows 0.35s ease;
-  }
-  .buy-options.collapsible.open { grid-template-rows: 1fr; }
-  .buy-options.collapsible .buy-options-inner { overflow: hidden; min-height: 0; }
-  /* the post-reveal scroll parks Add to cart at the screen's bottom edge —
-     with a little air beneath it */
-  .buy-row { scroll-margin-bottom: 12px; }
   /* clips keep their desktop size and scroll sideways — the cut-off card is
      the affordance. Full-bleed to the screen edge; the first card still lines
      up with the photo thanks to the matching padding. */

@@ -68,6 +68,13 @@
           {%- endif -%}
           {{ product.price | money }}
         </p>
+        {%- comment -%} TEMP A/B — remove before the public domain launch
+            (see docs and the go-live checklist). Desktop only, wired in
+            ayasa.js; version B = big carousel above Keep exploring +
+            Order-now buy flow. {%- endcomment -%}
+        <button type="button" class="pdp-ab" id="pdpAb" hidden>
+          <span class="pdp-ab-dot" aria-hidden="true"></span><span id="pdpAbLabel">Layout A</span>
+        </button>
       </div>
     </div>
 

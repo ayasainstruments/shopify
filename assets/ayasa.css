@@ -132,7 +132,12 @@ strong { font-weight: 600; }
 .stat span { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 
 /* ---------- sections ---------- */
-.section { padding: clamp(4.5rem, 9vw, 8rem) clamp(1.2rem, 6vw, 6rem); max-width: 1280px; margin: 0 auto; }
+/* --page-pad mirrors the horizontal padding so full-bleed strips inside a
+   section can break out of it exactly (see the mobile clip and pill rows) */
+.section {
+  --page-pad: clamp(1.2rem, 6vw, 6rem);
+  padding: clamp(4.5rem, 9vw, 8rem) var(--page-pad); max-width: 1280px; margin: 0 auto;
+}
 .section-head { max-width: 760px; margin-bottom: 3rem; }
 .section-sub { color: var(--muted); margin-top: 1.2rem; }
 
@@ -512,9 +517,7 @@ select:focus { outline: none; border-color: var(--slate); }
 .gal-next { right: 0.8rem; }
 /* the thumbnail row and the video strip below it share one width:
    6 thumbs + their gaps === 4 video cards + theirs */
-/* --page-pad mirrors .section's horizontal padding so the mobile clip strip
-   can break out of it and run to the screen edge */
-.product-section { --strip-gap: 0.6rem; --demo-card-w: 118px; --page-pad: clamp(1.2rem, 6vw, 6rem); }
+.product-section { --strip-gap: 0.6rem; --demo-card-w: 118px; }
 .product-thumbs { display: flex; gap: var(--strip-gap); margin-top: 0.8rem; flex-wrap: wrap; }
 .product-thumb {
   width: calc((4 * var(--demo-card-w) - 2 * var(--strip-gap)) / 6); aspect-ratio: 1;
@@ -531,6 +534,7 @@ select:focus { outline: none; border-color: var(--slate); }
 .product-desc { color: #c9c6be; margin-bottom: 1.8rem; }
 .product-desc p { margin-bottom: 1rem; }
 .desc-more { display: none; }
+.demos-more { display: none; } /* only layout B's grid has rows to hide */
 /* live total (handpan + case) just above the buy button */
 .buy-total { margin: 0 0 0.7rem; font-family: var(--font-display); font-size: 1.05rem; }
 .buy-total[hidden] { display: none; }
@@ -575,12 +579,28 @@ select:focus { outline: none; border-color: var(--slate); }
       "gallery head"
       "gallery info";
   }
-  /* carousel back to full width at its original size, above Keep exploring */
+  /* carousel back to full width above Keep exploring — a grid that fills the
+     row rather than a strip that runs off the edge, like the artist page */
   body.pdp-b .product-demos { margin-top: clamp(2rem, 4vw, 3rem); }
-  body.pdp-b .product-demos .demo-strip { gap: 1rem; }
-  body.pdp-b .product-demos .demo-card {
-    flex: 0 0 min(230px, 62vw); border-radius: 16px;
+  body.pdp-b .product-demos .demo-strip {
+    display: grid; gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(230px, 44vw), 1fr));
+    width: auto; min-width: 0; overflow-x: visible;
   }
+  body.pdp-b .product-demos .demo-card {
+    flex: none; min-width: 0; border-radius: 16px;
+  }
+  body.pdp-b .product-demos .demo-card[hidden] { display: none; }
+  body.pdp-b .demos-more {
+    display: block; margin: 1.2rem auto 0;
+    background: none; border: 1px solid var(--line); border-radius: 999px;
+    color: var(--muted); padding: 0.5rem 1.3rem; cursor: pointer;
+    font-family: var(--font-body); font-size: 0.72rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  body.pdp-b .demos-more:hover { color: var(--ink); border-color: var(--slate); }
+  body.pdp-b .demos-more[hidden] { display: none; }
   body.pdp-b .product-demos .demo-card-info { left: 1rem; right: 1rem; bottom: 0.95rem; }
   body.pdp-b .product-demos .demo-card-info strong { font-size: 1.08rem; }
   body.pdp-b .product-demos .demo-card-info span { display: block; }

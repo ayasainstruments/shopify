@@ -829,38 +829,39 @@ function initArtistPage() {
   const plays = info.plays || [];
   if (!plays.length) return;
 
-  // --- instrument rail ---
-  const visible = info.visiblePlays || 4;
-  rail.innerHTML = plays.map((p, i) => `
-    <a class="artist-card${i >= visible ? " artist-card-extra" : ""}" href="/products/${p.handle}"${i >= visible ? " hidden" : ""}>
-      <span class="artist-card-thumb" data-handle="${p.handle}"></span>
-      <span class="artist-card-text">
-        <strong>${p.name}</strong>
-        <span>${p.mode}</span>
-      </span>
-      <span class="artist-card-arrow" aria-hidden="true">View in shop →</span>
-    </a>`).join("");
-  rail.querySelectorAll(".artist-card-thumb").forEach(el => {
-    fetch(`/products/${el.dataset.handle}.js`)
-      .then(r => (r.ok ? r.json() : null))
-      .then(p => {
-        if (!p || !p.featured_image) return;
-        const u = new URL(p.featured_image, location.href);
-        u.searchParams.set("width", "120");
-        el.innerHTML = `<img src="${u.href}" alt="" loading="lazy">`;
-      })
-      .catch(() => {});
-  });
+  // --- the instruments he plays: the real range cards, sent back to the shop ---
+  // Only the scales with a full MODELS entry can render a card (note map, desc,
+  // Listen button); a `plays` entry with no model is skipped rather than shown
+  // as a stub.
+  const playedModels = typeof MODELS !== "undefined"
+    ? plays.map(p => MODELS.find(m => m.name === p.name)).filter(Boolean)
+    : [];
+  if (playedModels.length) {
+    rail.innerHTML = `<div class="range-grid scale-cards">${playedModels.map(modelCard).join("")}</div>`;
+    swapLinkPrices(rail);        // a price reads better than "View in shop" here
+    loadCardAvailability(rail);
+  } else {
+    rail.hidden = true;
+  }
 
-  const more = document.getElementById("artistMore");
-  const extra = plays.length - visible;
-  if (more && extra > 0) {
-    more.hidden = false;
-    more.textContent = `+ ${extra} more scale${extra === 1 ? "" : "s"}`;
-    more.addEventListener("click", () => {
-      rail.querySelectorAll(".artist-card-extra").forEach(c => { c.hidden = false; });
-      more.hidden = true;
-    }, { once: true });
+  // intro: a few lines, the rest behind Read more. Clipped rather than hidden,
+  // so the whole story stays crawlable on a page meant to rank for his name.
+  const introText = document.getElementById("artistIntroText");
+  const relationMore = document.getElementById("artistRelationMore");
+  if (introText && relationMore) {
+    const sync = () => {
+      if (introText.dataset.open) return;
+      introText.classList.add("clipped");
+      relationMore.hidden = introText.scrollHeight <= introText.clientHeight + 2;
+    };
+    relationMore.addEventListener("click", () => {
+      introText.dataset.open = "1";
+      introText.classList.remove("clipped");
+      relationMore.hidden = true;
+    });
+    sync();
+    addEventListener("resize", sync, { passive: true });
+    if (document.fonts?.ready) document.fonts.ready.then(sync);
   }
 
   // --- listening room ---
@@ -871,8 +872,10 @@ function initArtistPage() {
     (rounds[vi] = rounds[vi] || []).push({ p, file, vi });
   }));
   const flat = rounds.flat();
+  // data-i indexes the FULL list, never the filtered view — the lightbox reads
+  // it to know what to play, so filtering must not renumber anything
   strip.innerHTML = flat.map((e, i) => `
-    <article class="demo-card" data-i="${i}" tabindex="0" role="button" aria-label="Watch ${artist} play the ${e.p.name}">
+    <article class="demo-card" data-i="${i}" data-scale="${e.p.handle}" tabindex="0" role="button" aria-label="Watch ${artist} play the ${e.p.name}">
       <img src="${e.file.replace(/\.mp4$/, ".jpg")}" alt="" loading="lazy">
       <span class="demo-card-play" aria-hidden="true">▶</span>
       <div class="demo-card-info">
@@ -880,6 +883,34 @@ function initArtistPage() {
         <span>${e.p.mode}</span>
       </div>
     </article>`).join("");
+
+  // one pill per scale he plays, same chip component as the range and shop
+  const filters = document.getElementById("artistFilters");
+  if (filters) {
+    const scales = [];
+    flat.forEach(e => {
+      if (!scales.some(s => s.handle === e.p.handle)) scales.push({ handle: e.p.handle, name: e.p.name });
+    });
+    filters.innerHTML =
+      `<button type="button" class="filter-chip on" data-filter="all" aria-pressed="true">All</button>` +
+      scales.map(s =>
+        `<button type="button" class="filter-chip" data-filter="${s.handle}" aria-pressed="false">${s.name}</button>`
+      ).join("");
+    filters.addEventListener("click", e => {
+      const chip = e.target.closest(".filter-chip");
+      if (!chip) return;
+      // radio-style; re-tapping the active chip falls back to All
+      const key = chip.classList.contains("on") ? "all" : chip.dataset.filter;
+      filters.querySelectorAll(".filter-chip").forEach(c => {
+        const on = c.dataset.filter === key;
+        c.classList.toggle("on", on);
+        c.setAttribute("aria-pressed", on);
+      });
+      strip.querySelectorAll(".demo-card").forEach(card => {
+        card.hidden = !(key === "all" || card.dataset.scale === key);
+      });
+    });
+  }
   const numerals = ["", " · II", " · III", " · IV", " · V"];
   const openAt = i => {
     const e = flat[i];
@@ -1501,6 +1532,38 @@ function initProductPage() {
       const card = e.target.closest(".demo-card");
       if (card && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); open(card); }
     });
+
+    const demosMore = document.getElementById("demosMore");
+    if (demosMore) {
+      demosMore.addEventListener("click", () => {
+        strip.dataset.open = "1";
+        fitDemoRows();
+      });
+      addEventListener("resize", fitDemoRows, { passive: true });
+    }
+  }
+
+  // Layout B shows one row of clips and parks the rest behind a button. How
+  // many fit in a row depends on the window, so it's measured (cards sharing
+  // the first card's offsetTop) rather than assumed.
+  function fitDemoRows() {
+    const strip = document.getElementById("demoStrip");
+    const demosMore = document.getElementById("demosMore");
+    if (!strip || !demosMore) return;
+    const cards = [...strip.querySelectorAll(".demo-card")];
+    if (!cards.length) return;
+    cards.forEach(c => { c.hidden = false; }); // measure with everything shown
+    const gridMode = document.body.classList.contains("pdp-b") &&
+      matchMedia("(min-width: 901px)").matches;
+    if (!gridMode || strip.dataset.open) { // scroller, or already expanded
+      demosMore.hidden = true;
+      return;
+    }
+    const firstRow = cards.filter(c => c.offsetTop === cards[0].offsetTop).length;
+    const rest = cards.length - firstRow;
+    cards.forEach((c, i) => { c.hidden = i >= firstRow; });
+    demosMore.textContent = `+ ${rest} more video${rest === 1 ? "" : "s"}`;
+    demosMore.hidden = rest <= 0;
   }
 
   // buy form: instrument + required case go into the cart together
@@ -1671,6 +1734,7 @@ function initProductPage() {
         else document.querySelector(".product-grid")?.appendChild(demos);
       }
       applyTwoStep(variantB); // layout B buys the same way the phone does
+      requestAnimationFrame(fitDemoRows); // grid vs strip changes what a row is
       // measure once the moved carousel and the new grid template have settled;
       // the second pass catches anything still reflowing (fitDescription is
       // idempotent, so re-running it is free)

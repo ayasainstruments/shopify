@@ -251,6 +251,9 @@
     {% endcomment %}
     <div class="product-demos" id="productDemos" hidden>
       <div class="demo-strip" id="demoStrip"></div>
+      {%- comment -%} layout B only: the grid shows one row, this reveals the
+          rest. Shown by ayasa.js when there is actually a second row. {%- endcomment -%}
+      <button type="button" class="demos-more" id="demosMore" hidden></button>
     </div>
   </div>
 

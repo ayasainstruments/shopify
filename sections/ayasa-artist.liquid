@@ -25,43 +25,53 @@
           {%- if section.settings.link_web != blank -%}<a href="{{ section.settings.link_web }}" target="_blank" rel="noopener">Website</a>{%- endif -%}
         </div>
       {%- endif -%}
-      <div class="artist-relation">{{ section.settings.relation }}</div>
-    </div>
-  </div>
+      {%- comment -%}
+        The story lives here, clipped to a few lines with the rest behind
+        "Read more" — the performances are what this page is for, so the prose
+        can't own three screens ahead of them.
 
-  <!-- ============ QUOTE + STORY | INSTRUMENTS ============ -->
-  <div class="artist-body">
-    <div class="artist-body-text reveal">
+        Clipped with max-height, deliberately NOT `hidden` or `display: none`:
+        the full text stays rendered and crawlable, which matters on a page
+        meant to rank for the artist's name.
+      {%- endcomment -%}
+      <div class="artist-relation">{{ section.settings.relation }}</div>
       {%- if section.settings.quote != blank -%}
         <figure class="artist-quote">
           <blockquote>“{{ section.settings.quote }}”</blockquote>
           <figcaption>{{ artist }}</figcaption>
         </figure>
       {%- endif -%}
-      <div class="artist-story">{{ section.settings.story }}</div>
+      <button type="button" class="artist-relation-more" id="artistRelationMore" hidden>Read more</button>
+      <div class="artist-intro-text artist-story" id="artistIntroText">{{ section.settings.story }}</div>
     </div>
-    <aside class="artist-plays reveal">
-      <div class="section-head artist-plays-head">
-        <p class="kicker">{{ section.settings.plays_kicker }}</p>
-        <h2>{{ first_name }} plays</h2>
-        <p class="section-sub">{{ section.settings.plays_sub }}</p>
-      </div>
-      <div class="artist-rail" id="artistPlays" data-artist="{{ artist | escape }}" data-published="{{ section.settings.video_date }}">
-        <!-- rendered from ayasa-data.js -->
-      </div>
-      <button type="button" class="artist-more" id="artistMore" hidden></button>
-    </aside>
   </div>
 
   <!-- ============ LISTENING ROOM ============ -->
+  {%- comment -%} one line only. It stays an <h2> so the page keeps its heading
+      structure for search, just styled as a kicker. The name comes from the
+      artist rather than a setting, so every artist page reads correctly.
+  {%- endcomment -%}
   <div class="section-head reveal artist-listen-head">
-    <p class="kicker">{{ section.settings.listen_kicker }}</p>
-    <h2>{{ section.settings.listen_heading }}</h2>
-    <p class="section-sub">{{ section.settings.listen_sub }}</p>
+    <h2 class="kicker">Hear {{ first_name }} play</h2>
   </div>
+  {%- comment -%} one pill per scale, built by ayasa.js from his `plays` list {%- endcomment -%}
+  <div class="artist-filters reveal" id="artistFilters" role="group" aria-label="Filter by scale"></div>
   <div class="artist-video-grid reveal" id="artistVideos">
     <!-- rendered from ayasa-data.js -->
   </div>
+
+  <!-- ============ THE INSTRUMENTS HE PLAYS → back to the shop ============ -->
+  <div class="section-head reveal artist-plays-head">
+    <p class="kicker">{{ section.settings.plays_kicker }}</p>
+    <h2>{{ first_name }} plays</h2>
+    <p class="section-sub">{{ section.settings.plays_sub }}</p>
+  </div>
+  {%- comment -%} full range cards for the scales he plays, rendered by
+      ayasa.js from his `plays` list matched against MODELS {%- endcomment -%}
+  <div class="artist-plays-grid" id="artistPlays" data-artist="{{ artist | escape }}" data-published="{{ section.settings.video_date }}">
+    <!-- rendered from ayasa-data.js -->
+  </div>
+
   <p class="artist-crosslink reveal">{{ section.settings.crosslink_text }} <a href="{{ section.settings.crosslink_url | default: '/#artists' }}">{{ section.settings.crosslink_label }}</a></p>
 
 </article>
@@ -106,10 +116,6 @@
   .artist-links a:hover { color: var(--ink); border-color: var(--slate); }
   .artist-relation { margin-top: 1.8rem; }
   .artist-relation p, .artist-story p { margin-bottom: 1.2rem; color: #c9c6be; }
-  .artist-body {
-    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2rem, 5vw, 5rem);
-    align-items: start; margin-top: clamp(3rem, 6vw, 4.5rem);
-  }
   .artist-quote {
     border-left: 2px solid; border-image: var(--anneal) 1;
     padding: 0.4rem 0 0.4rem 1.8rem; margin: 0 0 2.2rem;
@@ -119,39 +125,57 @@
   .artist-plays-head { margin-bottom: 1.4rem; }
   .artist-plays-head h2 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); }
   .artist-plays-head .section-sub { font-size: 0.9rem; margin-top: 0.6rem; }
-  .artist-rail { display: grid; grid-template-columns: 1fr; gap: 0.8rem; }
-  .artist-card {
-    display: flex; align-items: center; gap: 1rem;
-    background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px;
-    padding: 0.8rem 1.1rem; color: var(--ink);
-    transition: border-color 0.25s ease, transform 0.25s ease;
+  /* a single kicker line needs far less air beneath it than a full head */
+  .artist-listen-head { margin-top: clamp(3.5rem, 7vw, 5.5rem); margin-bottom: 1.2rem; }
+  .artist-listen-head .kicker { margin-bottom: 0; }
+  /* the intro and the quote always show; the story waits behind Read more.
+     Clipped to nothing rather than display:none — the text stays rendered and
+     crawlable, which matters on a page meant to rank for the artist's name. */
+  .artist-intro-text.clipped { max-height: 0; overflow: hidden; margin: 0; }
+  .artist-relation-more {
+    display: block; margin: 0.7rem 0 0; padding: 0;
+    background: none; border: 0; cursor: pointer;
+    color: var(--brand-light); font-family: var(--font-body);
+    font-size: 0.8rem; letter-spacing: 0.06em;
   }
-  .artist-card:hover { transform: translateY(-2px); border-color: rgba(101, 117, 153, 0.55); color: var(--ink); }
-  .artist-card[hidden] { display: none; } /* display:flex above would defeat [hidden] */
-  .artist-card-thumb { width: 58px; height: 58px; border-radius: 50%; background: #fff; overflow: hidden; flex: 0 0 auto; }
-  .artist-card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .artist-card-text { flex: 1; min-width: 0; }
-  .artist-card-text strong { display: block; font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; }
-  .artist-card-text span { font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brand-light); }
-  .artist-card-arrow { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
-  .artist-card:hover .artist-card-arrow { color: var(--ink); }
-  .artist-card-extra:not([hidden]) { animation: demo-fade-in 0.45s ease; }
-  .artist-more {
-    margin-top: 0.9rem; background: none; border: 1px solid var(--line); border-radius: 999px;
-    color: var(--muted); padding: 0.5rem 1.3rem; cursor: pointer; font-family: var(--font-body);
-    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
-  }
-  .artist-more:hover { color: var(--ink); border-color: var(--slate); }
-  .artist-listen-head { margin-top: clamp(3.5rem, 7vw, 5.5rem); }
+  .artist-relation-more[hidden] { display: none; }
+  .artist-plays-head { margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .artist-plays-grid[hidden] { display: none; }
+  /* pills: wrap freely on desktop; on a phone they become a two-row strip
+     that scrolls sideways rather than eating the screen */
+  .artist-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
+  .artist-filters .filter-chip[hidden] { display: none; }
   /* wall of sound: vertical-scroll grid instead of a side-scroll strip */
   .artist-video-grid {
     display: grid; gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(min(230px, 44vw), 1fr));
   }
+  .artist-video-grid .demo-card[hidden] { display: none; }
   .artist-crosslink { margin-top: 2rem; color: var(--muted); }
   @media (max-width: 900px) {
-    .artist-hero, .artist-body { grid-template-columns: 1fr; }
+    .artist-hero { grid-template-columns: 1fr; }
     .artist-portrait { max-width: 420px; }
+    /* the listening room no longer needs to announce itself so grandly —
+       it sits much closer to the top of the page now */
+    .artist-listen-head { margin-top: 2.4rem; margin-bottom: 1.2rem; }
+    .artist-listen-head .section-sub { margin-top: 0.5rem; font-size: 0.85rem; }
+    /* three across: one column stacked twelve 587px cards into a 7,200px wall */
+    .artist-video-grid { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+    .artist-video-grid .demo-card-info { left: 0.4rem; right: 0.4rem; bottom: 0.4rem; }
+    .artist-video-grid .demo-card-info strong { font-size: 0.62rem; line-height: 1.15; }
+    .artist-video-grid .demo-card-info span { display: none; }
+    .artist-video-grid .demo-card-play { width: 34px; height: 34px; font-size: 0.62rem; }
+    .artist-video-grid .demo-card.watched::before { font-size: 0.44rem; padding: 0.12rem 0.35rem; }
+    /* two rows, scrolling sideways, full-bleed to the screen edge */
+    .artist-filters {
+      display: grid; grid-auto-flow: column; grid-template-rows: repeat(2, auto);
+      grid-auto-columns: max-content; justify-content: start;
+      overflow-x: auto; scrollbar-width: none;
+      width: 0; min-width: calc(100% + 2 * var(--page-pad, 1.2rem));
+      margin-left: calc(-1 * var(--page-pad, 1.2rem)); margin-right: calc(-1 * var(--page-pad, 1.2rem));
+      padding-left: var(--page-pad, 1.2rem); padding-right: var(--page-pad, 1.2rem);
+    }
+    .artist-filters::-webkit-scrollbar { display: none; }
   }
 {% endstylesheet %}
 
@@ -168,9 +192,6 @@
     { "type": "richtext", "id": "story", "label": "Story" },
     { "type": "text", "id": "plays_kicker", "label": "Instruments kicker", "default": "The instruments" },
     { "type": "text", "id": "plays_sub", "label": "Instruments subheading", "default": "Tap a card to watch and listen — and follow it into the shop." },
-    { "type": "text", "id": "listen_kicker", "label": "Listening room kicker", "default": "The listening room" },
-    { "type": "text", "id": "listen_heading", "label": "Listening room heading", "default": "Hear how they play." },
-    { "type": "text", "id": "listen_sub", "label": "Listening room subheading", "default": "Pick a scale that speaks to you." },
     { "type": "text", "id": "crosslink_text", "label": "Crosslink text", "default": "Prefer a different voice?" },
     { "type": "text", "id": "crosslink_label", "label": "Crosslink label", "default": "Meet the other Ayasa artists →" },
     { "type": "url", "id": "crosslink_url", "label": "Crosslink URL" },

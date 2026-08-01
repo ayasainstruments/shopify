@@ -1070,8 +1070,13 @@ select:focus { outline: none; border-color: var(--slate); }
 .demo-case-picker { grid-template-columns: repeat(3, 1fr); margin-top: 0.4rem; }
 .demo-case-label { margin-top: 0.85rem; }
 .demo-cta-casewrap > label:first-child { margin-top: 0; }
-.demo-shirt-row { display: flex; gap: 0.5rem; }
-.demo-shirt-row select { flex: 1; min-width: 0; }
+/* the borrowed options block arrives with the page's own fold applied; inside
+   the bar it is always open, and its margins are the bar's to set */
+.demo-cta-casewrap #buyOptions { display: block; margin: 0; }
+.demo-cta-casewrap #buyOptions .buy-options-inner { overflow: visible; }
+.demo-cta-casewrap .product-option { margin-bottom: 1rem; }
+.demo-cta-casewrap .product-option:last-child { margin-bottom: 0; }
+.demo-cta-casewrap .shirt-picker { grid-template-columns: repeat(4, 1fr); }
 .demo-cta-add {
   display: block; width: 100%; margin-top: 0.8rem; padding: 0.7rem 1rem;
   border: 0; cursor: pointer; text-align: center; font-family: var(--font-body);
@@ -1316,6 +1321,27 @@ select:focus { outline: none; border-color: var(--slate); }
   /* slim black bar above the full-bleed video */
   .demo-panel video { max-height: 62svh; border-radius: 0; border-top: 14px solid #000; }
   .demo-cta-casewrap { max-height: 26svh; } /* keep the video the hero on the sheet */
+
+  /* ---- buying state: the sheet turns into a checkout ----
+     Order now shrinks the video, retires the tabs and gives the options every
+     remaining pixel, with Add to cart held at the bottom edge. */
+  .demo-lightbox.buying .demo-panel video { max-height: 22svh; }
+  .demo-lightbox.buying .demo-scroll { display: none; }
+  /* stays a grid — its 0fr/1fr reveal still owns display; it just becomes a
+     growing flex item of the panel */
+  .demo-lightbox.buying .demo-cta { flex: 1 1 auto; min-height: 0; margin-bottom: 0; }
+  .demo-lightbox.buying .demo-cta-inner {
+    display: flex; flex-direction: column; min-height: 0;
+  }
+  .demo-lightbox.buying .demo-cta-casewrap {
+    flex: 1 1 auto; min-height: 0; max-height: none; overflow-y: auto;
+    padding-bottom: 0.3rem; /* last chips clear of the scroll edge */
+  }
+  /* the growing options block is what pins this to the bottom, so a real
+     margin here buys breathing room (margin-top:auto collapsed to nothing
+     once the options filled the space) */
+  .demo-lightbox.buying .demo-cta-add { margin-top: 1rem; margin-bottom: 0; }
+  .demo-lightbox.buying .shirt-picker { grid-template-columns: repeat(2, 1fr); }
   .demo-scroll { padding: 0 1.1rem; }
   .demo-cta { margin-left: 1.1rem; margin-right: 1.1rem; }
   .demo-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }

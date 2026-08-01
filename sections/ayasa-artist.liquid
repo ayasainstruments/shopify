@@ -42,7 +42,10 @@
         </figure>
       {%- endif -%}
       <button type="button" class="artist-relation-more" id="artistRelationMore" hidden>Read more</button>
-      <div class="artist-intro-text artist-story" id="artistIntroText">{{ section.settings.story }}</div>
+      <div class="artist-intro-text" id="artistIntroText">
+        <div class="artist-relation">{{ section.settings.relation_more }}</div>
+        <div class="artist-story">{{ section.settings.story }}</div>
+      </div>
     </div>
   </div>
 
@@ -187,12 +190,13 @@
     { "type": "image_picker", "id": "portrait", "label": "Portrait", "info": "Falls back to the carousel photo when empty." },
     { "type": "text", "id": "kicker", "label": "Kicker", "default": "Ayasa artist" },
     { "type": "text", "id": "credential", "label": "Credential line", "default": "Handpan artist" },
-    { "type": "richtext", "id": "relation", "label": "Relationship to Ayasa" },
+    { "type": "richtext", "id": "relation", "label": "Opening paragraph (always visible)" },
     { "type": "text", "id": "quote", "label": "Quote (without quotation marks)" },
-    { "type": "richtext", "id": "story", "label": "Story" },
+    { "type": "richtext", "id": "relation_more", "label": "Relationship, continued (behind Read more)" },
+    { "type": "richtext", "id": "story", "label": "Story (behind Read more)" },
     { "type": "text", "id": "plays_kicker", "label": "Instruments kicker", "default": "The instruments" },
     { "type": "text", "id": "plays_sub", "label": "Instruments subheading", "default": "Tap a card to watch and listen — and follow it into the shop." },
-    { "type": "text", "id": "crosslink_text", "label": "Crosslink text", "default": "Prefer a different voice?" },
+    { "type": "text", "id": "crosslink_text", "label": "Crosslink text", "default": "Want to explore?" },
     { "type": "text", "id": "crosslink_label", "label": "Crosslink label", "default": "Meet the other Ayasa artists →" },
     { "type": "url", "id": "crosslink_url", "label": "Crosslink URL" },
     { "type": "url", "id": "link_youtube", "label": "YouTube" },

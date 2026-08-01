@@ -260,19 +260,13 @@ function openDemoLightbox(model, startIndex, buyCtx) {
             <p class="demo-cta-price">
               ${buyCtx.compareAt ? `<s>${buyCtx.compareAt}</s>` : ""}<strong>${buyCtx.price}</strong>
             </p>
-            <button type="button" class="btn btn-primary demo-cta-btn">Add to cart</button>
+            <button type="button" class="btn btn-primary demo-cta-btn">Order now</button>
           </div>
           ${buyCtx.caseSelect ? `
-          <div class="demo-cta-casewrap" hidden>
-            ${document.getElementById("shirtSize") ? `
-            <label class="demo-shirt-label" for="demoShirtSize">Free Ayasa t-shirt — optional</label>
-            <div class="demo-shirt-row">
-              <select id="demoShirtSize">${document.getElementById("shirtSize").innerHTML}</select>
-              <select id="demoShirtColor">${document.getElementById("shirtColor").innerHTML}</select>
-            </div>` : ""}
-            <label class="demo-case-label">Choose your case — every instrument ships in one</label>
-            <div class="case-picker demo-case-picker">${(document.getElementById("casePicker") || { innerHTML: "" }).innerHTML}</div>
-          </div>
+          <!-- the page's real options block is MOVED in here on the first tap:
+               same case picker, colour tiles, size chips and validation,
+               rather than a clone that can drift out of step -->
+          <div class="demo-cta-casewrap" hidden></div>
           <button type="button" class="btn btn-primary demo-cta-add" hidden>Add to cart</button>` : ""}
           <p class="demo-cta-error" hidden></p>
         </div>
@@ -329,6 +323,13 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   const close = () => {
     video.pause();
     document.body.style.overflow = "";
+    // hand the borrowed options block back to the page before this element
+    // disappears, or the product page loses its case and t-shirt pickers
+    const borrowed = lb.querySelector("#buyOptions");
+    if (borrowed && lb.__optsHome) {
+      lb.__optsHome.insertBefore(borrowed, lb.__optsNext || null);
+      document.dispatchEvent(new CustomEvent("ayasa:options-returned"));
+    }
     lb.remove();
     document.removeEventListener("keydown", onKey);
   };
@@ -594,8 +595,9 @@ function openDemoLightbox(model, startIndex, buyCtx) {
       }
     };
 
-    // step 1: the small button. No case needed → add straight away; otherwise it
-    // fades out and hands over to the case picker + the big add button below.
+    // step 1: "Order now" borrows the page's own options block — moved, not
+    // cloned, so the case picker, colour tiles, size chips and validation are
+    // literally the same elements, already wired. close() puts it back.
     btnFirst.addEventListener("click", () => {
       err.hidden = true;
       // buying from the mini-player: bring the full lightbox back first
@@ -605,10 +607,20 @@ function openDemoLightbox(model, startIndex, buyCtx) {
       btnFirst.classList.add("fading");
       setTimeout(() => {
         btnFirst.hidden = true;
+        const opts = document.getElementById("buyOptions");
+        if (opts && caseWrap && !caseWrap.contains(opts)) {
+          lb.__optsHome = opts.parentElement;      // remembered for close()
+          lb.__optsNext = opts.nextElementSibling;
+          opts.classList.remove("collapsible", "open"); // no fold inside the sheet
+          caseWrap.appendChild(opts);
+        }
         caseWrap.hidden = false;
         btnAdd.hidden = false;
+        // the phone sheet becomes a checkout: video shrinks, tabs step aside,
+        // options take the middle and Add to cart holds the bottom edge
+        lb.classList.add("buying");
         requestAnimationFrame(updateFade);
-        caseWrap.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        if (!mq.matches) caseWrap.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }, 320);
     });
 
@@ -622,8 +634,9 @@ function openDemoLightbox(model, startIndex, buyCtx) {
         const needShirt = pageShirt && !pageShirt.value;
         if (needCase || needShirt) {
           showChoicePopup(choiceMessage(needCase, needShirt));
-          // the shirt row sits on top — scroll there whenever it's part of what's missing
-          const target = needShirt ? cta.querySelector("#demoShirtSize") : casePick;
+          const target = needCase
+            ? cta.querySelector("#caseTrigger") || cta.querySelector(".case-picker")
+            : cta.querySelector("#shirtTrigger") || cta.querySelector("#shirtSizes");
           target?.scrollIntoView({ block: "nearest", behavior: "smooth" });
           return;
         }
@@ -631,33 +644,9 @@ function openDemoLightbox(model, startIndex, buyCtx) {
       });
     }
 
-    // picking a case is selection only — it highlights and syncs the page form
-    if (casePick) {
-      casePick.addEventListener("click", e => {
-        const card = e.target.closest(".case-card");
-        if (!card || card.disabled) return;
-        casePick.querySelectorAll(".case-card").forEach(b => b.classList.toggle("on", b === card));
-        if (buyCtx.caseSelect) {
-          buyCtx.caseSelect.value = card.dataset.variant;
-          buyCtx.caseSelect.dispatchEvent(new Event("change", { bubbles: true }));
-        }
-        err.hidden = true;
-      });
-    }
-
-    // t-shirt choice in the lightbox mirrors the page selects (getProperties reads those)
-    const demoShirtSize = cta.querySelector("#demoShirtSize");
-    const demoShirtColor = cta.querySelector("#demoShirtColor");
-    const pageShirtSize = document.getElementById("shirtSize");
-    const pageShirtColor = document.getElementById("shirtColor");
-    if (demoShirtSize && pageShirtSize) {
-      demoShirtSize.value = pageShirtSize.value;
-      demoShirtSize.addEventListener("change", () => { pageShirtSize.value = demoShirtSize.value; });
-    }
-    if (demoShirtColor && pageShirtColor) {
-      demoShirtColor.value = pageShirtColor.value;
-      demoShirtColor.addEventListener("change", () => { pageShirtColor.value = demoShirtColor.value; });
-    }
+    // nothing to wire for the case or t-shirt here any more: the moved block
+    // brings the product page's own listeners with it, and they already drive
+    // the hidden selects this bar reads.
   }
 
   video.play().catch(() => {}); // restore/iOS may refuse — restoreMiniPlayer escalates from here
@@ -1716,6 +1705,10 @@ function initProductPage() {
     });
   }
   applyTwoStep(matchMedia("(max-width: 900px)").matches || variantB);
+  // the lightbox borrows this block; when it hands it back, restore whatever
+  // step the page itself was on (it strips the fold while it has it)
+  document.addEventListener("ayasa:options-returned", () =>
+    applyTwoStep(matchMedia("(max-width: 900px)").matches || variantB));
 
   // TEMP A/B: paint the chosen layout (declared after applyTwoStep so it can
   // call it — the toggle drives both the carousel's home and the buy flow)
@@ -1846,9 +1839,14 @@ function initProductPage() {
         syncShirt();
         parkBuyRow();
       }
-      // desktop folds the tiles away once you've chosen — the trigger carries
-      // the answer. On a phone they stay open so the whole decision is one view.
-      if (!matchMedia("(max-width: 900px)").matches) openShirt(false);
+      // fold the tiles away once chosen — the trigger carries the answer, and
+      // the size chips below stay put. Exception: the phone product page keeps
+      // them open, where the whole t-shirt decision is meant to be one view.
+      // (closest() is read at click time, so it sees the block once the
+      // lightbox has borrowed it.)
+      const onPhonePage = matchMedia("(max-width: 900px)").matches &&
+        !shirtPicker.closest(".demo-lightbox");
+      if (!onPhonePage) openShirt(false);
       if (error) error.hidden = true;
     });
     shirtTrigger?.addEventListener("click", () => openShirt(!shirtWrap.classList.contains("open")));

@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Vybeshift",
+        "portrait_file": "player-vybeshift.jpg",
+        "kicker": "Meet Roni",
+        "credential": "Breathwork and sound healing · Los Angeles",
+        "relation": "<p>Roni Yohanan performs as Vybeshift, from Los Angeles. Her work sits between music and practice: guided breathwork first, then sound — crystal bowls, handpan, and what she calls earth-inspired instruments — to settle the body into what the breath has opened.</p>",
+        "quote": "There’s something so alive and emotionally expressive in every Ayasa instrument I’ve touched. Every note feels perfectly warm & spacious, allowing me to access a beautiful meditative state to create my music every time I sit down to play. The quality is unmatched, and I feel very grateful for Ralf and the Ayasa team!",
+        "relation_more": "<p>The breathwork is a deliberate mix of grounding and activating: pranayama, Qi Gong-inspired movement, Tibetan technique, guided intuitively but always aimed at the nervous system. What follows is the integration — the part of a session where the body stops working and starts receiving.</p><p>She reaches for the handpan for what it does to a room rather than what it can be made to do. Quieter mental chatter, a slower pulse, the drop into the theta and delta states that deep rest lives in.</p><p>Outside her own sessions she records with other Ayasa players, including Malte Marten and Johann Immanuel, whose long-form meditation pieces have carried the instrument well past the handpan world.</p>",
+        "story": "",
+        "show_videos": true,
+        "show_instruments": true,
+        "plays_kicker": "The instruments",
+        "plays_sub": "The scales Roni reaches for.",
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://youtube.com/@vybeshift",
+        "link_instagram": "https://www.instagram.com/vybeshift",
+        "link_web": "https://www.vybeshift.com/",
+        "video_date": "2026-08-02"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

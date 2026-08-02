@@ -37,7 +37,7 @@ const TEST_GALLERY = {
 // Shared details for anyone appearing in demo videos or the carousel.
 // Keyed by base artist name (video labels like "Malte Marten · II" resolve
 // to "Malte Marten"). img and links are optional.
-// TODO (Ralf): fill in Immanuel's and Vybeshift's credential/bio + links + photo.
+// TODO (Ralf): Immanuel still needs a credential/bio + links + photo.
 const ARTISTS = {
   "Malte Marten": {
     credential: "1.4M YouTube subscribers · plays mostly Ayasa",
@@ -73,10 +73,18 @@ const ARTISTS = {
     links: {}          // TODO
   },
   "Vybeshift": {
-    credential: "Ayasa artist",
-    bio: "",           // TODO
-    img: "",           // TODO — add portrait to site/assets/
-    links: {}          // TODO
+    credential: "Breathwork and sound healing · Los Angeles",
+    bio: "Roni Yohanan performs as Vybeshift: breathwork first, then handpan and crystal bowls to settle what the breath has opened.",
+    img: AYASA_ASSET("player-vybeshift.jpg") + "?v=2", // beach photo replaced the video frame under the same name
+    page: "/pages/vybeshift",
+    links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" },
+    visiblePlays: 2,
+    plays: [
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
+        videos: [AYASA_ASSET("d-aegean-18__roni.mp4")] },
+      { name: "E Amara 20", mode: "E Celtic minor", handle: "e-amara-20-ember-steel",
+        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4")] }
+    ]
   }
 };
 
@@ -144,7 +152,6 @@ const PLAYERS = [
     quote: "Ralf not only builds these beauties, he is also open for experiments and innovation.",
     handle: "david-kuckhermann",
     img: AYASA_ASSET("player-david-kuckhermann.jpg"),
-    featured: true,
     links: { youtube: "https://www.youtube.com/user/DavidKuckhermann", web: "http://worldpercussion.net/" }
   },
   {
@@ -434,6 +441,17 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/c/VasilisVasiliou", instagram: "https://www.instagram.com/vasilis__vasiliou", web: "http://vasilisv.com/" }
   },
   {
+    // not on the old site — portrait is a frame from our own D Aegean footage.
+    // Card shows the first sentence; her full quote lives on her artist page.
+    name: "Vybeshift",
+    credential: "Breathwork and sound healing · Los Angeles",
+    quote: "There’s something so alive and emotionally expressive in every Ayasa instrument I’ve touched.",
+    handle: "vybeshift",
+    img: AYASA_ASSET("player-vybeshift.jpg") + "?v=2", // beach photo replaced the video frame under the same name
+    featured: true,
+    links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" }
+  },
+  {
     name: "Warren Shanti",
     credential: "Self-taught · sound healer and teacher",
     quote: "Each handpan is a true masterpiece, both visually and musically.",
@@ -530,7 +548,13 @@ const MODELS = [
     bottom: ["C3", "D3", "F#3", "G3", "A3", "C4", "C5"],
     desc: "Celtic minor across twenty notes, lighter and more ethereal than the Kurd family. The meditative player's scale, and a Malte Marten staple.",
     availability: "In stock. Ships in 1–2 working days",
-    inStock: true
+    inStock: true,
+    videoShop: { name: "E Amara 20 — Ember Steel®", url: "/products/e-amara-20-ember-steel" },
+    // real footage — having its own videos: means the placeholder loop skips this model
+    videos: [
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") },
+      { artist: "Vybeshift · II", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") }
+    ]
   },
   {
     range: "premium",

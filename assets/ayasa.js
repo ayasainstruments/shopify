@@ -1318,9 +1318,14 @@ function initScrollSpotlight() {
 
 // ---------- scroll reveal ----------
 function initReveal() {
+  // NB: threshold is a fraction of the ELEMENT, not the screen. The 46-artist
+  // grid is ~8200px tall on a phone, so 12% of it can never be on screen at
+  // once and the grid stayed at opacity 0 forever. Trigger instead when the
+  // element's edge clears the bottom eighth of the viewport — same feel for
+  // card-sized elements, but height can no longer disable the reveal.
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
+  }, { rootMargin: "0px 0px -12% 0px" });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 }
 

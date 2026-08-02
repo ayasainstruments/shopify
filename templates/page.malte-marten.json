@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "ayasa-artist",
+      "settings": {
+        "artist_name": "Malte Marten",
+        "kicker": "Meet Malte",
+        "credential": "1.4M YouTube subscribers · plays mostly Ayasa",
+        "relation": "<p>Few people have shaped what the world hears in a handpan like Malte Marten — and few instruments have shaped Malte's sound like Ayasa. The world's most-listened handpan artist has built his practice almost entirely on Ember Steel®: his meditations and performances on Ayasa instruments have been heard more than fifty million times on YouTube.</p>",
+        "relation_more": "<p>The relationship runs deeper than endorsement. In 2017 Malte co-created the <a href=\"/products/d-ashakiran-19-ember-steel-spotted\">D Ashakiran</a> — “Ray of Hope” — together with the Almere workshop: an extended major scale that has become one of Ayasa's most loved voices. When a new scale leaves the workshop, chances are the first person to play it for the world is Malte.</p>",
+        "quote": "The handpan has helped me personally, but also thousands of my students and listeners to get to know, feel and express themselves better.",
+        "story": "<p>For Malte, the handpan was never just an instrument. Its simple structure makes it approachable for anyone — no theory, no barriers — yet it opens a depth of expression that keeps even lifelong musicians exploring.</p><p>Through his teaching and the community around his channel, he has watched the handpan connect thousands of players — with themselves, and with each other. That connection is what he found the first time he sat behind one, and it is what he passes on in every video, workshop and performance.</p>",
+        "plays_kicker": "The instruments",
+        "plays_sub": "The scales Malte reaches for.",
+        "crosslink_text": "Want to explore?",
+        "crosslink_label": "Meet the other Ayasa artists →",
+        "crosslink_url": "/pages/artists",
+        "link_youtube": "https://www.youtube.com/@MalteMarten",
+        "link_web": "https://www.maltemarten.com/",
+        "video_date": "2026-07-29"
+      }
+    }
+  },
+  "order": ["main"]
+}

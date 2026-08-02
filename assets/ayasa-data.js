@@ -153,7 +153,6 @@ const PLAYERS = [
     quote: "I’m amazed again and again by the crystal clear, precise and warm sound of their instruments.",
     handle: "julia-baier",
     img: AYASA_ASSET("player-changeofcolours-julia-baier.jpg"),
-    featured: true,
     links: { youtube: "https://www.youtube.com/@changeofcolours", instagram: "https://www.instagram.com/changeofcolours/", web: "https://changeofcolours.com/" }
   },
   {
@@ -162,7 +161,6 @@ const PLAYERS = [
     quote: "For me, Ayasa are the best handpan makers in the world.",
     handle: "dany-rud",
     img: AYASA_ASSET("player-dany-rud.jpg"),
-    featured: true,
     links: { youtube: "https://www.youtube.com/@Danyrud", instagram: "https://www.instagram.com/dany.rud/?utm_source=ig_web_button_share_sheet", web: "https://www.danyrud.com/" }
   },
   {
@@ -458,7 +456,7 @@ const MODELS = [
   // ---------- PREMIUM — made in Almere, NL ----------
   {
     range: "premium",
-    family: "fis-minor", // scale-family filter chip on product pages; will move to the per-model data sheet later
+    family: "f#-minor", // scale-family filter chip on product pages; will move to the per-model data sheet later
     name: "F# Low Pygmy 21",
     productHandle: "fis-low-pygmy-21-ember-steel",
     // TEMP: Aegean close-up as texture until the Pygmy gets its own shoot
@@ -473,7 +471,7 @@ const MODELS = [
   },
   {
     range: "premium",
-    family: "fis-minor", // the Aegean is the full extended F# minor scale (D ding)
+    family: "f#-minor", // the Aegean is the full extended F# minor scale (D ding)
     name: "D Aegean 18",
     productHandle: "d-aegean-18-ember-steel",
     cardPhoto: AYASA_ASSET("gal-test-1.jpg") + "?v=2", // masked card background (hands hero)
@@ -497,7 +495,7 @@ const MODELS = [
   },
   {
     range: "premium",
-    family: "fis-minor",
+    family: "f#-minor",
     name: "D Aegean 20",
     productHandle: "d-aegean-20-ember-steel",
     scale: "D Lydian · extended",
@@ -562,7 +560,7 @@ const MODELS = [
   },
   {
     range: "premium",
-    family: "fis-minor",
+    family: "f#-minor",
     name: "F#2 Nordlys 16",
     productHandle: "fis2-nordlys-16-ember-steel",
     scale: "F# Lydian hexatonic · deep F#2 ding",

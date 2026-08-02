@@ -51,19 +51,19 @@ const ARTISTS = {
     visiblePlays: 4,
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4"), AYASA_ASSET("d-aegean-18__malte-2.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
       { name: "E Amara 20", mode: "E Celtic minor", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("d-aegean-18__malte-2.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
       { name: "D Kurd 19", mode: "D minor", handle: "d-kurd-19-ember-steel",
-        videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4"), AYASA_ASSET("d-aegean-18__malte-2.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
       { name: "F# Kurd 22", mode: "F# minor · fully extended", handle: "fis-kurd-22-ember-steel",
-        videos: [AYASA_ASSET("d-aegean-18__malte-2.mp4"), AYASA_ASSET("d-aegean-18__malte-1.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-2.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-1.mp4")] },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
-        videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4"), AYASA_ASSET("d-aegean-18__malte-2.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("d-aegean-18__malte-2.mp4"), AYASA_ASSET("d-aegean-18__malte-1.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-2.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-1.mp4")] },
       { name: "F#2 Nordlys 16", mode: "F# minor · low F#2 ding", handle: "fis2-nordlys-16-ember-steel",
-        videos: [AYASA_ASSET("d-aegean-18__malte-1.mp4")] }
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4")] }
     ]
   },
   "Immanuel": {
@@ -81,7 +81,7 @@ const ARTISTS = {
     visiblePlays: 2,
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("d-aegean-18__roni.mp4")] },
+        videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4")] },
       { name: "E Amara 20", mode: "E Celtic minor", handle: "e-amara-20-ember-steel",
         videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4")] }
     ]
@@ -505,10 +505,10 @@ const MODELS = [
     videoShop: { name: "D Aegean 18 — Ember Steel®", url: "/products/d-aegean-18-ember-steel" },
     // demo clips: one poster jpg per mp4 (same basename), served from theme assets
     videos: [
-      { artist: "Malte Marten", file: AYASA_ASSET("d-aegean-18__malte-1.mp4") },
-      { artist: "Malte Marten · II", file: AYASA_ASSET("d-aegean-18__malte-2.mp4") },
-      { artist: "Immanuel", file: AYASA_ASSET("d-aegean-18__immie.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("d-aegean-18__roni.mp4") }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
+      { artist: "Malte Marten · II", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
+      { artist: "Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") }
     ]
   },
   {
@@ -679,10 +679,10 @@ MODELS.forEach((m, i) => {
 MODELS.forEach(m => {
   if (!m.videos || !m.videos.length) {
     m.videos = [
-      { artist: "Malte Marten", file: AYASA_ASSET("d-aegean-18__malte-1.mp4") },
-      { artist: "Malte Marten · II", file: AYASA_ASSET("d-aegean-18__malte-2.mp4") },
-      { artist: "Immanuel", file: AYASA_ASSET("d-aegean-18__immie.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("d-aegean-18__roni.mp4") }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
+      { artist: "Malte Marten · II", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
+      { artist: "Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") }
     ];
   }
 });

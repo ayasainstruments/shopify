@@ -111,22 +111,6 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/DanMulqueen", instagram: "https://www.instagram.com/danmulqueen/", web: "https://www.danmulqueen.com/" }
   },
   {
-    name: "Jeremy Nattagh",
-    credential: "Live-looping soloist · teaches Master the Handpan",
-    quote: "What resonates with me in Ayasa craft is the constant search for pristine sound and balance.",
-    handle: "jeremy-nattagh",
-    img: AYASA_ASSET("player-jeremy-nattagh.jpg"),
-    links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", music: "https://open.spotify.com/artist/2ztpUNuwyFwI6yG9nFCrvF", web: "http://www.nattagh.fr/" }
-  },
-  {
-    name: "Johann Immanuel",
-    credential: "Ayasa artist",
-    quote: "There are no instruments that sound more beautiful, pure, and warm than those from Ayasa.",
-    handle: "johann-immanuel",
-    img: AYASA_ASSET("player-johann-immanuel.jpg") + "?v=2",
-    links: { youtube: "https://www.youtube.com/@johannimmanuel", instagram: "https://www.instagram.com/johannimmanuel/", web: "https://www.tiktok.com/@johannimmanuel_" }
-  },
-  {
     name: "Lea Valentina",
     credential: "Founder, Handpan Atelier Munich",
     quote: "I love the Ayasa handpans for crystal clear sound and the purity of the notes.",
@@ -169,15 +153,6 @@ const PLAYERS = [
     handle: "tomek-torres",
     img: AYASA_ASSET("player-tomek-torres.jpg"),
     links: { youtube: "https://www.youtube.com/@tomektorresmusic", instagram: "https://www.instagram.com/tomektorres/", music: "https://open.spotify.com/artist/23L0CzYMuf5yUd0Pgzq8g4?si=aA6l2qPOS-uhPYJ1CbbUlA&nd=1&dlsi=5122bbad7eb647bf" }
-  },
-  {
-    name: "Sam Maher",
-    credential: "Played 22 countries · 18M views from the NYC subway",
-    quote: "I was utterly consumed by the instruments clarity, resonance, feel and well-rounded sound.",
-    handle: "sam-maher",
-    img: AYASA_ASSET("player-sam-maher.jpg"),
-    featured: true,
-    links: { youtube: "https://www.youtube.com/sammahermusic", instagram: "https://www.instagram.com/sammahermusic" }
   },
   {
     name: "Julia Baier",
@@ -237,30 +212,6 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/@konstantin.roessler/featured", instagram: "https://www.instagram.com/konstantin.roessler/", music: "https://open.spotify.com/artist/4qedSQHMODqYZOTF10C8le", web: "https://konstantin-roessler.com/" }
   },
   {
-    name: "Louis L",
-    credential: "Hamburg percussionist and producer",
-    quote: "I consider Ralf and his team friends who grant humanity the access to some of the finest musical instruments on this planet.",
-    handle: "louis-l",
-    img: AYASA_ASSET("player-louis-l.jpg"),
-    links: { youtube: "https://www.youtube.com/@louisl.fourbirds1229", instagram: "https://www.instagram.com/louisfourbirdshandpan/?hl=de", music: "https://open.spotify.com/artist/6m0EZM8DbeVBK2XVc6yp5S", web: "https://www.llart.org/" }
-  },
-  {
-    name: "Leander Greitemann",
-    credential: "Speaker and author · 1M+ views with Malte Marten",
-    quote: "After that I knew I HAD to have one for myself.",
-    handle: "leander-greitemann",
-    img: AYASA_ASSET("player-leander-greitemann.jpg"),
-    links: { youtube: "https://www.youtube.com/@Leander.Greitemann", instagram: "https://www.instagram.com/leanderhandpan/", music: "https://open.spotify.com/artist/4dTenh8RyuuIR67QUrGY7Z?si=OiQRarlFSmmOb3LNeM7OQQ&nd=1&dlsi=a037259e670a4bbc" }
-  },
-  {
-    name: "Rishiraj Kulkarni",
-    credential: "Tabla player · designed his own Ayasa scale",
-    quote: "Ayasa over the years has become like a musical family in the Netherlands.",
-    handle: "rishiraj-kulkarni",
-    img: AYASA_ASSET("player-rishiraj-kulkarni.jpg"),
-    links: { youtube: "https://www.youtube.com/@rishiraj.kulkarni", instagram: "https://www.instagram.com/rishiraj.kulkarni", music: "https://open.spotify.com/artist/4mdUQh0dEzK2PIZkOFOVtz", web: "https://www.rishirajkulkarni.com/" }
-  },
-  {
     name: "Laurent Sureau",
     credential: "Conservatory prizes · playing since 2005",
     quote: "A special Ayasa, full with feeling, amazing sound and touching nature.",
@@ -277,11 +228,51 @@ const PLAYERS = [
     links: { youtube: "http://www.youtube.com/user/ADRIANJPDRUM/", instagram: "https://instagram.com/adrianjportia", music: "https://soundcloud.com/adrian-portia", web: "http://www.adrianportia.com/" }
   },
   {
+    name: "Jeremy Nattagh",
+    credential: "Live-looping soloist · teaches Master the Handpan",
+    quote: "What resonates with me in Ayasa craft is the constant search for pristine sound and balance.",
+    handle: "jeremy-nattagh",
+    img: AYASA_ASSET("player-jeremy-nattagh.jpg"),
+    links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", music: "https://open.spotify.com/artist/2ztpUNuwyFwI6yG9nFCrvF", web: "http://www.nattagh.fr/" }
+  },
+  {
+    name: "Johann Immanuel",
+    credential: "Ayasa artist",
+    quote: "There are no instruments that sound more beautiful, pure, and warm than those from Ayasa.",
+    handle: "johann-immanuel",
+    img: AYASA_ASSET("player-johann-immanuel.jpg") + "?v=2",
+    links: { youtube: "https://www.youtube.com/@johannimmanuel", instagram: "https://www.instagram.com/johannimmanuel/", web: "https://www.tiktok.com/@johannimmanuel_" }
+  },
+  {
+    name: "Rishiraj Kulkarni",
+    credential: "Tabla player · designed his own Ayasa scale",
+    quote: "Ayasa over the years has become like a musical family in the Netherlands.",
+    handle: "rishiraj-kulkarni",
+    img: AYASA_ASSET("player-rishiraj-kulkarni.jpg"),
+    links: { youtube: "https://www.youtube.com/@rishiraj.kulkarni", instagram: "https://www.instagram.com/rishiraj.kulkarni", music: "https://open.spotify.com/artist/4mdUQh0dEzK2PIZkOFOVtz", web: "https://www.rishirajkulkarni.com/" }
+  },
+  {
+    name: "Louis L",
+    credential: "Hamburg percussionist and producer",
+    quote: "I consider Ralf and his team friends who grant humanity the access to some of the finest musical instruments on this planet.",
+    handle: "louis-l",
+    img: AYASA_ASSET("player-louis-l.jpg"),
+    links: { youtube: "https://www.youtube.com/@louisl.fourbirds1229", instagram: "https://www.instagram.com/louisfourbirdshandpan/?hl=de", music: "https://open.spotify.com/artist/6m0EZM8DbeVBK2XVc6yp5S", web: "https://www.llart.org/" }
+  },
+  {
     name: "Simon Wood",
     credential: "UK teacher · Womad and HangOut UK",
     handle: "simon-wood",
     img: AYASA_ASSET("player-simon-wood.jpg"),
     links: { youtube: "https://www.youtube.com/channel/UCHIw4MRf8A1iO_gDpmo1DZQ", music: "https://soundcloud.com/simonwoodmusic", web: "https://simonwoodmusic.com/" }
+  },
+  {
+    name: "Leander Greitemann",
+    credential: "Speaker and author · 1M+ views with Malte Marten",
+    quote: "After that I knew I HAD to have one for myself.",
+    handle: "leander-greitemann",
+    img: AYASA_ASSET("player-leander-greitemann.jpg"),
+    links: { youtube: "https://www.youtube.com/@Leander.Greitemann", instagram: "https://www.instagram.com/leanderhandpan/", music: "https://open.spotify.com/artist/4dTenh8RyuuIR67QUrGY7Z?si=OiQRarlFSmmOb3LNeM7OQQ&nd=1&dlsi=a037259e670a4bbc" }
   },
   {
     name: "Taylor Sol",
@@ -290,6 +281,15 @@ const PLAYERS = [
     handle: "taylor-sol",
     img: AYASA_ASSET("player-taylor-sol.jpg"),
     links: { youtube: "https://www.youtube.com/@taylorsol", instagram: "https://www.instagram.com/taylorthesol/", music: "https://open.spotify.com/artist/2cNOXtjWrwZvelyviaZoa7?si=TcoxNpjkTaC5okJK0ws0TA&nd=1&dlsi=53a4c8734f0d4cb9", web: "https://taylorsol.love/" }
+  },
+  {
+    name: "Sam Maher",
+    credential: "Played 22 countries · 18M views from the NYC subway",
+    quote: "I was utterly consumed by the instruments clarity, resonance, feel and well-rounded sound.",
+    handle: "sam-maher",
+    img: AYASA_ASSET("player-sam-maher.jpg"),
+    featured: true,
+    links: { youtube: "https://www.youtube.com/sammahermusic", instagram: "https://www.instagram.com/sammahermusic" }
   },
   {
     name: "Dany Rud",

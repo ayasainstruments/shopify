@@ -17,9 +17,14 @@
         "crosslink_url": "/pages/artists",
         "link_youtube": "https://www.youtube.com/@MalteMarten",
         "link_web": "https://www.maltemarten.com/",
-        "video_date": "2026-07-29"
+        "video_date": "2026-07-29",
+        "link_instagram": "https://www.instagram.com/maltemarten/",
+        "show_instruments": true,
+        "show_videos": true
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

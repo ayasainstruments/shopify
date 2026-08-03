@@ -43,47 +43,38 @@ const ARTISTS = {
     credential: "1.4M YouTube subscribers · plays mostly Ayasa",
     bio: "The world's most-listened handpan artist; his Ayasa meditations have been heard over 50 million times on YouTube.",
     img: AYASA_ASSET("player-malte.jpg"),
-    page: "/pages/malte-marten", // artist page — lightbox names link here
-    links: { youtube: "https://www.youtube.com/@MalteMarten", web: "https://www.maltemarten.com/" },
-    // artist page: curated instrument rail (editorial order, first `visiblePlays`
-    // shown before the expander) + listening-room videos per instrument.
-    // NOTE: all videos are the two D Aegean 18 clips as placeholders for now.
+    page: "/pages/malte-marten",
+    links: { youtube: "https://www.youtube.com/@MalteMarten", instagram: "https://www.instagram.com/maltemarten/", web: "https://www.maltemarten.com/" },
     visiblePlays: 4,
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
-      { name: "E Amara 20", mode: "E Celtic minor", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
-      { name: "D Kurd 19", mode: "D minor", handle: "d-kurd-19-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
-      { name: "F# Kurd 22", mode: "F# minor · fully extended", handle: "fis-kurd-22-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-2.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-1.mp4")] },
-      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-2.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-1.mp4")] },
-      { name: "F#2 Nordlys 16", mode: "F# minor · low F#2 ding", handle: "fis2-nordlys-16-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4")] }
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] }
     ]
-  },
-  "Immanuel": {
-    credential: "Ayasa artist",
-    bio: "",           // TODO
-    img: "",           // TODO — add portrait to site/assets/
-    links: {}          // TODO
   },
   "Vybeshift": {
     credential: "Breathwork and sound healing · Los Angeles",
     bio: "Roni Yohanan performs as Vybeshift: breathwork first, then handpan and crystal bowls to settle what the breath has opened.",
-    img: AYASA_ASSET("player-vybeshift.jpg") + "?v=2", // beach photo replaced the video frame under the same name
+    img: AYASA_ASSET("player-vybeshift.jpg") + "?v=2",
     page: "/pages/vybeshift",
     links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" },
     visiblePlays: 2,
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
         videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4")] },
-      { name: "E Amara 20", mode: "E Celtic minor", handle: "e-amara-20-ember-steel",
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
         videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4")] }
+    ]
+  },
+  "Johann Immanuel": {
+    credential: "Ayasa artist",
+    bio: "",
+    img: AYASA_ASSET("player-johann-immanuel.jpg") + "?v=2",
+    page: "/pages/johann-immanuel",
+    links: { youtube: "https://www.youtube.com/@johannimmanuel", instagram: "https://www.instagram.com/johannimmanuel/", web: "https://www.tiktok.com/@johannimmanuel_" },
+    visiblePlays: 4,
+    plays: [
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
+        videos: [AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4")] }
     ]
   }
 };
@@ -120,22 +111,20 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/DanMulqueen", instagram: "https://www.instagram.com/danmulqueen/", web: "https://www.danmulqueen.com/" }
   },
   {
-    name: "Alexander Mercks",
-    credential: "Co-founder of Yatao · album “Osmosis”",
-    quote: "Ayasa handpans are in my opinion the best handpans in the world.",
-    handle: "alexander-mercks",
-    img: AYASA_ASSET("player-alexander-mercks.jpg"),
-    featured: true,
-    links: { youtube: "https://www.youtube.com/@alexandermercks", instagram: "https://www.instagram.com/alexander.mercks/", music: "https://open.spotify.com/artist/1GykWQWG7xcdwxdLiX40jL", web: "https://alexander-mercks.com/" }
+    name: "Jeremy Nattagh",
+    credential: "Live-looping soloist · teaches Master the Handpan",
+    quote: "What resonates with me in Ayasa craft is the constant search for pristine sound and balance.",
+    handle: "jeremy-nattagh",
+    img: AYASA_ASSET("player-jeremy-nattagh.jpg"),
+    links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", music: "https://open.spotify.com/artist/2ztpUNuwyFwI6yG9nFCrvF", web: "http://www.nattagh.fr/" }
   },
   {
-    name: "Sam Maher",
-    credential: "Played 22 countries · 18M views from the NYC subway",
-    quote: "I was utterly consumed by the instruments clarity, resonance, feel and well-rounded sound.",
-    handle: "sam-maher",
-    img: AYASA_ASSET("player-sam-maher.jpg"),
-    featured: true,
-    links: { youtube: "https://www.youtube.com/sammahermusic", instagram: "https://www.instagram.com/sammahermusic" }
+    name: "Johann Immanuel",
+    credential: "Ayasa artist",
+    quote: "There are no instruments that sound more beautiful, pure, and warm than those from Ayasa.",
+    handle: "johann-immanuel",
+    img: AYASA_ASSET("player-johann-immanuel.jpg") + "?v=2",
+    links: { youtube: "https://www.youtube.com/@johannimmanuel", instagram: "https://www.instagram.com/johannimmanuel/", web: "https://www.tiktok.com/@johannimmanuel_" }
   },
   {
     name: "Lea Valentina",
@@ -147,12 +136,48 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/c/LeaValentina", instagram: "https://www.instagram.com/leavalentina.music/", music: "https://open.spotify.com/artist/2sulGEfNo27qx0Hssaw2D7", web: "https://leavalentina.com/" }
   },
   {
+    // not on the old site — portrait is a frame from our own D Aegean footage.
+    // Card shows the first sentence; her full quote lives on her artist page.
+    name: "Vybeshift",
+    credential: "Breathwork and sound healing · Los Angeles",
+    quote: "There’s something so alive and emotionally expressive in every Ayasa instrument I’ve touched.",
+    handle: "vybeshift",
+    img: AYASA_ASSET("player-vybeshift.jpg") + "?v=2", // beach photo replaced the video frame under the same name
+    featured: true,
+    links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" }
+  },
+  {
     name: "David Kuckhermann",
     credential: "World percussionist · toured with Dead Can Dance",
     quote: "Ralf not only builds these beauties, he is also open for experiments and innovation.",
     handle: "david-kuckhermann",
     img: AYASA_ASSET("player-david-kuckhermann.jpg"),
     links: { youtube: "https://www.youtube.com/user/DavidKuckhermann", web: "http://worldpercussion.net/" }
+  },
+  {
+    name: "Warren Shanti",
+    credential: "Self-taught · sound healer and teacher",
+    quote: "Each handpan is a true masterpiece, both visually and musically.",
+    handle: "warren-shanti",
+    img: AYASA_ASSET("player-warren-shanti.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UC4eeCb06B2CKRjGanve1zog", instagram: "https://www.instagram.com/warren_shanti/", music: "https://open.spotify.com/artist/3XwAsaKVwRUdKkHZKAGovh" }
+  },
+  {
+    name: "Tomek Torres",
+    credential: "Session drummer, Poland · “Handpan Meditations”",
+    quote: "There is one word that describes what I love about Ayasa handpans - PERFECTION.",
+    handle: "tomek-torres",
+    img: AYASA_ASSET("player-tomek-torres.jpg"),
+    links: { youtube: "https://www.youtube.com/@tomektorresmusic", instagram: "https://www.instagram.com/tomektorres/", music: "https://open.spotify.com/artist/23L0CzYMuf5yUd0Pgzq8g4?si=aA6l2qPOS-uhPYJ1CbbUlA&nd=1&dlsi=5122bbad7eb647bf" }
+  },
+  {
+    name: "Sam Maher",
+    credential: "Played 22 countries · 18M views from the NYC subway",
+    quote: "I was utterly consumed by the instruments clarity, resonance, feel and well-rounded sound.",
+    handle: "sam-maher",
+    img: AYASA_ASSET("player-sam-maher.jpg"),
+    featured: true,
+    links: { youtube: "https://www.youtube.com/sammahermusic", instagram: "https://www.instagram.com/sammahermusic" }
   },
   {
     name: "Julia Baier",
@@ -163,83 +188,12 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/@changeofcolours", instagram: "https://www.instagram.com/changeofcolours/", web: "https://changeofcolours.com/" }
   },
   {
-    name: "Dany Rud",
-    credential: "Handpan teacher · 100+ students worldwide",
-    quote: "For me, Ayasa are the best handpan makers in the world.",
-    handle: "dany-rud",
-    img: AYASA_ASSET("player-dany-rud.jpg"),
-    links: { youtube: "https://www.youtube.com/@Danyrud", instagram: "https://www.instagram.com/dany.rud/?utm_source=ig_web_button_share_sheet", web: "https://www.danyrud.com/" }
-  },
-  {
-    name: "Adrian J Portia",
-    credential: "Percussionist, Melbourne · “the hummingbird”",
-    quote: "What I love about the Ayasa is ease of playability, they are very responsive with beautiful sustain and consistency in sound.",
-    handle: "adrian-j-portia",
-    img: AYASA_ASSET("player-adrian-j-portia.jpg"),
-    links: { youtube: "http://www.youtube.com/user/ADRIANJPDRUM/", instagram: "https://instagram.com/adrianjportia", music: "https://soundcloud.com/adrian-portia", web: "http://www.adrianportia.com/" }
-  },
-  {
-    name: "Alessio De Simone",
-    credential: "Percussionist and busker · Rome",
-    quote: "I was mesmerized by the quality of the sound they spread, it shines in the air!",
-    handle: "alessio-de-simone",
-    img: AYASA_ASSET("player-alessio-de-simone.jpg"),
-    links: { instagram: "https://www.instagram.com/alessio_desimone_handpan/?hl=it", music: "https://soundcloud.com/casperhang" }
-  },
-  {
-    name: "Alexandre Lora",
-    credential: "Brazilian percussionist · Trio Brasileiro",
-    quote: "Really clean tones and overtones – very important qualities for a professional instrument.",
-    handle: "alexandre-lora",
-    img: AYASA_ASSET("player-alexandre-lora.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UClAIycDBodMBGX0cgJyrCrQ?view_as=subscriber", instagram: "https://www.instagram.com/alexandrelora/", web: "http://www.alexandrelora.com/" }
-  },
-  {
-    name: "Angus Lee",
-    credential: "Handpan player, Taiwan · scores for cinema",
-    quote: "Their instrument have bright sound, long and balanced sustain.",
-    handle: "angus-lee",
-    img: AYASA_ASSET("player-angus-lee.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UCu8ROl7zbn177zwbzftltdQ" }
-  },
-  {
-    name: "Benny Bettane",
-    credential: "Travelling player · handpan since 2014",
-    quote: "They have a huge dynamic range, very clean tones, flexible harmonics, strong percussive qualities.",
-    handle: "benny-bettane",
-    img: AYASA_ASSET("player-benny-bettane.jpg"),
-    links: { youtube: "https://www.youtube.com/user/stereosalad/videos", instagram: "https://www.instagram.com/bennybettane_music/", web: "http://www.bennybettane.com/" }
-  },
-  {
-    name: "Caisaman",
-    credential: "German composer · handpan and caisa",
-    quote: "After playing music on handpans for eight years, i finally found my perfect instrumental match.",
-    handle: "caisaman",
-    img: AYASA_ASSET("player-caisaman.jpg"),
-    links: { youtube: "https://www.youtube.com/user/daliasify/videos", music: "https://caisaman.bandcamp.com/", web: "https://www.caisaman.com/" }
-  },
-  {
-    name: "Dani Galfione",
-    credential: "Italian drummer turned handpan player",
-    quote: "The overall quality and the richness of sound is just amazing.",
-    handle: "dani-galfione",
-    img: AYASA_ASSET("player-dani-galfione.jpg"),
-    links: { web: "http://www.danigalfione.com/" }
-  },
-  {
-    name: "Davide Swarup",
-    credential: "Italian hang player · meditative improvisation",
-    handle: "davide-swarup",
-    img: AYASA_ASSET("player-david-swarup.jpg"),
-    links: { youtube: "http://www.youtube.com/davideswarup", music: "http://www.soundcloud.com/davideswarup", web: "http://www.music.davideswarup.com/" }
-  },
-  {
-    name: "Florian Betz",
-    credential: "Marimba and handpan · plays three Ayasas",
-    quote: "I love the bright and strong sound of the Ayasa Instruments. Especially in the high range.",
-    handle: "florian-betz",
-    img: AYASA_ASSET("player-florian-betz.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UCq7EiykYCU1aO0vBLkxoq4w", music: "https://florianbetz.bandcamp.com/", web: "http://marimbaklaenge.de/" }
+    name: "Łukasz Dembiński",
+    credential: "1,000+ concerts · founder of Foliba",
+    quote: "Absolutely crystal-clear, pure, stable, and perfect sound of the entire instrument.",
+    handle: "lukasz-dembinski",
+    img: AYASA_ASSET("player-lukasz-dembinski.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UCZjFaTR29jubrGa4ZZ-haJA", instagram: "https://www.instagram.com/lukasz_dembinski/", music: "https://open.spotify.com/artist/4ki17Pcjvii44WnQ77VT5j", web: "http://www.lukaszdembinski.com/" }
   },
   {
     name: "Gabriele Pollina",
@@ -250,12 +204,188 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/@GabrielePollina", instagram: "https://www.instagram.com/gabriele_pollina/", music: "https://gabrielepollina.bandcamp.com/" }
   },
   {
-    name: "Guitòti",
-    credential: "Conservatory-trained percussionist · Paris",
-    quote: "The sound of the Ayasa is a delight and very peculiar. When you have tried one, you can’t live without it.",
-    handle: "guitoti",
-    img: AYASA_ASSET("player-guitoti.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UCsYqXauRIAoCpb7x-8ex8Ew", web: "http://www.guitoti.fr/" }
+    name: "Alexander Mercks",
+    credential: "Co-founder of Yatao · album “Osmosis”",
+    quote: "Ayasa handpans are in my opinion the best handpans in the world.",
+    handle: "alexander-mercks",
+    img: AYASA_ASSET("player-alexander-mercks.jpg"),
+    featured: true,
+    links: { youtube: "https://www.youtube.com/@alexandermercks", instagram: "https://www.instagram.com/alexander.mercks/", music: "https://open.spotify.com/artist/1GykWQWG7xcdwxdLiX40jL", web: "https://alexander-mercks.com/" }
+  },
+  {
+    name: "Nadishana",
+    credential: "Plays 200+ instruments · world fusion, Berlin",
+    quote: "Thanks to Ralf and Ayasa team for accepting the challenge and making for me the double-side instrument with 20 notes and no Gu!",
+    handle: "nadishana",
+    img: AYASA_ASSET("player-nadishana.jpg"),
+    links: { web: "http://nadishana.com/index.php/en/projects/nadishana-kuckhermann-metz" }
+  },
+  {
+    name: "Marcel Hutter",
+    credential: "Street musician, Linz · busks across Europe",
+    quote: "I worked incredibly hard during the winter months, busking until my fingers bled.",
+    handle: "marcel-hutter",
+    img: AYASA_ASSET("player-marcel-hutter.jpg"),
+    links: { youtube: "https://www.youtube.com/user/skelter1992" }
+  },
+  {
+    name: "Konstantin Rössler",
+    credential: "Full-time musician · concerts and retreats",
+    quote: "The precision in sound and dynamic range is out of this world.",
+    handle: "konstantin-rossler",
+    img: AYASA_ASSET("player-konstantin-rossler.jpg"),
+    links: { youtube: "https://www.youtube.com/@konstantin.roessler/featured", instagram: "https://www.instagram.com/konstantin.roessler/", music: "https://open.spotify.com/artist/4qedSQHMODqYZOTF10C8le", web: "https://konstantin-roessler.com/" }
+  },
+  {
+    name: "Louis L",
+    credential: "Hamburg percussionist and producer",
+    quote: "I consider Ralf and his team friends who grant humanity the access to some of the finest musical instruments on this planet.",
+    handle: "louis-l",
+    img: AYASA_ASSET("player-louis-l.jpg"),
+    links: { youtube: "https://www.youtube.com/@louisl.fourbirds1229", instagram: "https://www.instagram.com/louisfourbirdshandpan/?hl=de", music: "https://open.spotify.com/artist/6m0EZM8DbeVBK2XVc6yp5S", web: "https://www.llart.org/" }
+  },
+  {
+    name: "Leander Greitemann",
+    credential: "Speaker and author · 1M+ views with Malte Marten",
+    quote: "After that I knew I HAD to have one for myself.",
+    handle: "leander-greitemann",
+    img: AYASA_ASSET("player-leander-greitemann.jpg"),
+    links: { youtube: "https://www.youtube.com/@Leander.Greitemann", instagram: "https://www.instagram.com/leanderhandpan/", music: "https://open.spotify.com/artist/4dTenh8RyuuIR67QUrGY7Z?si=OiQRarlFSmmOb3LNeM7OQQ&nd=1&dlsi=a037259e670a4bbc" }
+  },
+  {
+    name: "Rishiraj Kulkarni",
+    credential: "Tabla player · designed his own Ayasa scale",
+    quote: "Ayasa over the years has become like a musical family in the Netherlands.",
+    handle: "rishiraj-kulkarni",
+    img: AYASA_ASSET("player-rishiraj-kulkarni.jpg"),
+    links: { youtube: "https://www.youtube.com/@rishiraj.kulkarni", instagram: "https://www.instagram.com/rishiraj.kulkarni", music: "https://open.spotify.com/artist/4mdUQh0dEzK2PIZkOFOVtz", web: "https://www.rishirajkulkarni.com/" }
+  },
+  {
+    name: "Laurent Sureau",
+    credential: "Conservatory prizes · playing since 2005",
+    quote: "A special Ayasa, full with feeling, amazing sound and touching nature.",
+    handle: "laurent-sureau",
+    img: AYASA_ASSET("player-laurent-sureau.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UC6s1l_zsHImitRsQ81-OtqA", music: "https://oloji.bandcamp.com/album/orion", web: "http://www.laurent-sureau.net/" }
+  },
+  {
+    name: "Adrian J Portia",
+    credential: "Percussionist, Melbourne · “the hummingbird”",
+    quote: "What I love about the Ayasa is ease of playability, they are very responsive with beautiful sustain and consistency in sound.",
+    handle: "adrian-j-portia",
+    img: AYASA_ASSET("player-adrian-j-portia.jpg"),
+    links: { youtube: "http://www.youtube.com/user/ADRIANJPDRUM/", instagram: "https://instagram.com/adrianjportia", music: "https://soundcloud.com/adrian-portia", web: "http://www.adrianportia.com/" }
+  },
+  {
+    name: "Simon Wood",
+    credential: "UK teacher · Womad and HangOut UK",
+    handle: "simon-wood",
+    img: AYASA_ASSET("player-simon-wood.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UCHIw4MRf8A1iO_gDpmo1DZQ", music: "https://soundcloud.com/simonwoodmusic", web: "https://simonwoodmusic.com/" }
+  },
+  {
+    name: "Taylor Sol",
+    credential: "Sound healer · debut album “Ancestry”",
+    quote: "Ayasa holds the best sound, stability & feeling in the Handpan world.",
+    handle: "taylor-sol",
+    img: AYASA_ASSET("player-taylor-sol.jpg"),
+    links: { youtube: "https://www.youtube.com/@taylorsol", instagram: "https://www.instagram.com/taylorthesol/", music: "https://open.spotify.com/artist/2cNOXtjWrwZvelyviaZoa7?si=TcoxNpjkTaC5okJK0ws0TA&nd=1&dlsi=53a4c8734f0d4cb9", web: "https://taylorsol.love/" }
+  },
+  {
+    name: "Dany Rud",
+    credential: "Handpan teacher · 100+ students worldwide",
+    quote: "For me, Ayasa are the best handpan makers in the world.",
+    handle: "dany-rud",
+    img: AYASA_ASSET("player-dany-rud.jpg"),
+    links: { youtube: "https://www.youtube.com/@Danyrud", instagram: "https://www.instagram.com/dany.rud/?utm_source=ig_web_button_share_sheet", web: "https://www.danyrud.com/" }
+  },
+  {
+    name: "Alessio De Simone",
+    credential: "Percussionist and busker · Rome",
+    quote: "I was mesmerized by the quality of the sound they spread, it shines in the air!",
+    handle: "alessio-de-simone",
+    img: AYASA_ASSET("player-alessio-de-simone.jpg"),
+    links: { instagram: "https://www.instagram.com/alessio_desimone_handpan/?hl=it", music: "https://soundcloud.com/casperhang" }
+  },
+  {
+    name: "Angus Lee",
+    credential: "Handpan player, Taiwan · scores for cinema",
+    quote: "Their instrument have bright sound, long and balanced sustain.",
+    handle: "angus-lee",
+    img: AYASA_ASSET("player-angus-lee.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UCu8ROl7zbn177zwbzftltdQ" }
+  },
+  {
+    name: "Philippe Gagné",
+    credential: "Street musician, Quebec City",
+    quote: "Lovely balanced instrument with clear tones, beautiful timbre and perfectly tuned harmonics.",
+    handle: "philippe-gagne",
+    img: AYASA_ASSET("player-philippe-gagne.jpg"),
+    links: { music: "https://philippegagne.bandcamp.com/", web: "http://bit.ly/2dyVjsz" }
+  },
+  {
+    name: "Benny Bettane",
+    credential: "Travelling player · handpan since 2014",
+    quote: "They have a huge dynamic range, very clean tones, flexible harmonics, strong percussive qualities.",
+    handle: "benny-bettane",
+    img: AYASA_ASSET("player-benny-bettane.jpg"),
+    links: { youtube: "https://www.youtube.com/user/stereosalad/videos", instagram: "https://www.instagram.com/bennybettane_music/", web: "http://www.bennybettane.com/" }
+  },
+  {
+    name: "Jonny Ong",
+    credential: "Singer-songwriter, Singapore",
+    quote: "When I received my first Ayasa I was just blown away by how amazing it sounded.",
+    handle: "jonny-ong",
+    img: AYASA_ASSET("player-jonny-ong.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UCuxgFktce9-ZoTxJtm5Tfgw", music: "https://soundcloud.com/jonny-ong" }
+  },
+  {
+    name: "Kim Boulard",
+    credential: "Found the handpan in 2019 · plays a C# Pygmy",
+    quote: "Ayasa instruments are just DIVINE. Sounds like perfection, purity.",
+    handle: "kim-boulard",
+    img: AYASA_ASSET("player-kim-boulard.jpg"),
+    links: { instagram: "https://www.instagram.com/kimoon/?utm_source=qr" }
+  },
+  {
+    name: "Vasilis Vasiliou",
+    credential: "Drummer, Cyprus · World Jazz Trio Tricoolore",
+    quote: "I was hitting a note and the note came to life.",
+    handle: "vasilis-vasiliou",
+    img: AYASA_ASSET("player-vasilis-vasiliou.jpg"),
+    links: { youtube: "https://www.youtube.com/c/VasilisVasiliou", instagram: "https://www.instagram.com/vasilis__vasiliou", web: "http://vasilisv.com/" }
+  },
+  {
+    name: "Mark D’Ambrosio",
+    credential: "Founder, Steel Mountain Handpan Gathering",
+    quote: "Very few Handpans I have played feel quite as good in my hands as the Ayasa.",
+    handle: "mark-dambrosio",
+    img: AYASA_ASSET("player-mark-dambrosio.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UCNjKlniY46JOmfADetE3zZw/feed", instagram: "https://www.instagram.com/brokedrummer/", web: "https://markdambrosiomusic.com/home" }
+  },
+  {
+    name: "Florian Betz",
+    credential: "Marimba and handpan · plays three Ayasas",
+    quote: "I love the bright and strong sound of the Ayasa Instruments. Especially in the high range.",
+    handle: "florian-betz",
+    img: AYASA_ASSET("player-florian-betz.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UCq7EiykYCU1aO0vBLkxoq4w", music: "https://florianbetz.bandcamp.com/", web: "http://marimbaklaenge.de/" }
+  },
+  {
+    name: "Peter Levitov",
+    credential: "Founder of Handpan 360 · sound healing",
+    quote: "When you purchase an Ayasa you can feel pretty confident you will be receiving a great instrument.",
+    handle: "peter-levitov",
+    img: AYASA_ASSET("player-peter-levitov.jpg"),
+    links: { instagram: "http://www.instagram.com/peterlevitov", web: "http://www.handpan360.com/" }
+  },
+  {
+    name: "Rodrik",
+    credential: "Portuguese didgeridoo and handpan player",
+    quote: "The amazing sound quality, beautiful design, perfect tuning, clear harmonics and reliable material.",
+    handle: "rodrik",
+    img: AYASA_ASSET("player-rodrik.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UC9BBvrM6Cvopat0JoCFT-5w", music: "http://rodrik.bandcamp.com/" }
   },
   {
     name: "Jacob Cole",
@@ -266,28 +396,27 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/user/RogueChimp2", instagram: "https://www.instagram.com/jacobcolepercussion/", music: "https://soundcloud.com/jacobcolepercussion", web: "http://jacobcolepercussion.com/" }
   },
   {
-    name: "Jeremy Nattagh",
-    credential: "Live-looping soloist · teaches Master the Handpan",
-    quote: "What resonates with me in Ayasa craft is the constant search for pristine sound and balance.",
-    handle: "jeremy-nattagh",
-    img: AYASA_ASSET("player-jeremy-nattagh.jpg"),
-    links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", music: "https://open.spotify.com/artist/2ztpUNuwyFwI6yG9nFCrvF", web: "http://www.nattagh.fr/" }
+    name: "Guitòti",
+    credential: "Conservatory-trained percussionist · Paris",
+    quote: "The sound of the Ayasa is a delight and very peculiar. When you have tried one, you can’t live without it.",
+    handle: "guitoti",
+    img: AYASA_ASSET("player-guitoti.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UCsYqXauRIAoCpb7x-8ex8Ew", web: "http://www.guitoti.fr/" }
   },
   {
-    name: "Johann Immanuel",
-    credential: "Malte Marten Method team · Hamburg",
-    quote: "There are no instruments that sound more beautiful, pure, and warm than those from Ayasa.",
-    handle: "johann-immanuel",
-    img: AYASA_ASSET("player-johann-immanuel.jpg"),
-    links: { youtube: "https://www.youtube.com/@johannimmanuel", instagram: "https://www.instagram.com/johannimmanuel/", web: "https://www.tiktok.com/@johannimmanuel_" }
+    name: "Davide Swarup",
+    credential: "Italian hang player · meditative improvisation",
+    handle: "davide-swarup",
+    img: AYASA_ASSET("player-david-swarup.jpg"),
+    links: { youtube: "http://www.youtube.com/davideswarup", music: "http://www.soundcloud.com/davideswarup", web: "http://www.music.davideswarup.com/" }
   },
   {
-    name: "Jonny Ong",
-    credential: "Singer-songwriter, Singapore",
-    quote: "When I received my first Ayasa I was just blown away by how amazing it sounded.",
-    handle: "jonny-ong",
-    img: AYASA_ASSET("player-jonny-ong.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UCuxgFktce9-ZoTxJtm5Tfgw", music: "https://soundcloud.com/jonny-ong" }
+    name: "Dani Galfione",
+    credential: "Italian drummer turned handpan player",
+    quote: "The overall quality and the richness of sound is just amazing.",
+    handle: "dani-galfione",
+    img: AYASA_ASSET("player-dani-galfione.jpg"),
+    links: { web: "http://www.danigalfione.com/" }
   },
   {
     name: "Kate Stone",
@@ -306,158 +435,12 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/user/kavafogludeniz", music: "https://soundcloud.com/kavafoglu" }
   },
   {
-    name: "Kim Boulard",
-    credential: "Found the handpan in 2019 · plays a C# Pygmy",
-    quote: "Ayasa instruments are just DIVINE. Sounds like perfection, purity.",
-    handle: "kim-boulard",
-    img: AYASA_ASSET("player-kim-boulard.jpg"),
-    links: { instagram: "https://www.instagram.com/kimoon/?utm_source=qr" }
-  },
-  {
-    name: "Konstantin Rössler",
-    credential: "Full-time musician · concerts and retreats",
-    quote: "The precision in sound and dynamic range is out of this world.",
-    handle: "konstantin-rossler",
-    img: AYASA_ASSET("player-konstantin-rossler.jpg"),
-    links: { youtube: "https://www.youtube.com/@konstantin.roessler/featured", instagram: "https://www.instagram.com/konstantin.roessler/", music: "https://open.spotify.com/artist/4qedSQHMODqYZOTF10C8le", web: "https://konstantin-roessler.com/" }
-  },
-  {
-    name: "Laurent Sureau",
-    credential: "Conservatory prizes · playing since 2005",
-    quote: "A special Ayasa, full with feeling, amazing sound and touching nature.",
-    handle: "laurent-sureau",
-    img: AYASA_ASSET("player-laurent-sureau.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UC6s1l_zsHImitRsQ81-OtqA", music: "https://oloji.bandcamp.com/album/orion", web: "http://www.laurent-sureau.net/" }
-  },
-  {
-    name: "Leander Greitemann",
-    credential: "Speaker and author · 1M+ views with Malte Marten",
-    quote: "After that I knew I HAD to have one for myself.",
-    handle: "leander-greitemann",
-    img: AYASA_ASSET("player-leander-greitemann.jpg"),
-    links: { youtube: "https://www.youtube.com/@Leander.Greitemann", instagram: "https://www.instagram.com/leanderhandpan/", music: "https://open.spotify.com/artist/4dTenh8RyuuIR67QUrGY7Z?si=OiQRarlFSmmOb3LNeM7OQQ&nd=1&dlsi=a037259e670a4bbc" }
-  },
-  {
-    name: "Louis L",
-    credential: "Hamburg percussionist and producer",
-    quote: "I consider Ralf and his team friends who grant humanity the access to some of the finest musical instruments on this planet.",
-    handle: "louis-l",
-    img: AYASA_ASSET("player-louis-l.jpg"),
-    links: { youtube: "https://www.youtube.com/@louisl.fourbirds1229", instagram: "https://www.instagram.com/louisfourbirdshandpan/?hl=de", music: "https://open.spotify.com/artist/6m0EZM8DbeVBK2XVc6yp5S", web: "https://www.llart.org/" }
-  },
-  {
-    name: "Łukasz Dembiński",
-    credential: "1,000+ concerts · founder of Foliba",
-    quote: "Absolutely crystal-clear, pure, stable, and perfect sound of the entire instrument.",
-    handle: "lukasz-dembinski",
-    img: AYASA_ASSET("player-lukasz-dembinski.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UCZjFaTR29jubrGa4ZZ-haJA", instagram: "https://www.instagram.com/lukasz_dembinski/", music: "https://open.spotify.com/artist/4ki17Pcjvii44WnQ77VT5j", web: "http://www.lukaszdembinski.com/" }
-  },
-  {
-    name: "Marcel Hutter",
-    credential: "Street musician, Linz · busks across Europe",
-    quote: "I worked incredibly hard during the winter months, busking until my fingers bled.",
-    handle: "marcel-hutter",
-    img: AYASA_ASSET("player-marcel-hutter.jpg"),
-    links: { youtube: "https://www.youtube.com/user/skelter1992" }
-  },
-  {
-    name: "Mark D’Ambrosio",
-    credential: "Founder, Steel Mountain Handpan Gathering",
-    quote: "Very few Handpans I have played feel quite as good in my hands as the Ayasa.",
-    handle: "mark-dambrosio",
-    img: AYASA_ASSET("player-mark-dambrosio.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UCNjKlniY46JOmfADetE3zZw/feed", instagram: "https://www.instagram.com/brokedrummer/", web: "https://markdambrosiomusic.com/home" }
-  },
-  {
-    name: "Nadishana",
-    credential: "Plays 200+ instruments · world fusion, Berlin",
-    quote: "Thanks to Ralf and Ayasa team for accepting the challenge and making for me the double-side instrument with 20 notes and no Gu!",
-    handle: "nadishana",
-    img: AYASA_ASSET("player-nadishana.jpg"),
-    links: { web: "http://nadishana.com/index.php/en/projects/nadishana-kuckhermann-metz" }
-  },
-  {
-    name: "Peter Levitov",
-    credential: "Founder of Handpan 360 · sound healing",
-    quote: "When you purchase an Ayasa you can feel pretty confident you will be receiving a great instrument.",
-    handle: "peter-levitov",
-    img: AYASA_ASSET("player-peter-levitov.jpg"),
-    links: { instagram: "http://www.instagram.com/peterlevitov", web: "http://www.handpan360.com/" }
-  },
-  {
-    name: "Philippe Gagné",
-    credential: "Street musician, Quebec City",
-    quote: "Lovely balanced instrument with clear tones, beautiful timbre and perfectly tuned harmonics.",
-    handle: "philippe-gagne",
-    img: AYASA_ASSET("player-philippe-gagne.jpg"),
-    links: { music: "https://philippegagne.bandcamp.com/", web: "http://bit.ly/2dyVjsz" }
-  },
-  {
-    name: "Rishiraj Kulkarni",
-    credential: "Tabla player · designed his own Ayasa scale",
-    quote: "Ayasa over the years has become like a musical family in the Netherlands.",
-    handle: "rishiraj-kulkarni",
-    img: AYASA_ASSET("player-rishiraj-kulkarni.jpg"),
-    links: { youtube: "https://www.youtube.com/@rishiraj.kulkarni", instagram: "https://www.instagram.com/rishiraj.kulkarni", music: "https://open.spotify.com/artist/4mdUQh0dEzK2PIZkOFOVtz", web: "https://www.rishirajkulkarni.com/" }
-  },
-  {
-    name: "Rodrik",
-    credential: "Portuguese didgeridoo and handpan player",
-    quote: "The amazing sound quality, beautiful design, perfect tuning, clear harmonics and reliable material.",
-    handle: "rodrik",
-    img: AYASA_ASSET("player-rodrik.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UC9BBvrM6Cvopat0JoCFT-5w", music: "http://rodrik.bandcamp.com/" }
-  },
-  {
-    name: "Simon Wood",
-    credential: "UK teacher · Womad and HangOut UK",
-    handle: "simon-wood",
-    img: AYASA_ASSET("player-simon-wood.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UCHIw4MRf8A1iO_gDpmo1DZQ", music: "https://soundcloud.com/simonwoodmusic", web: "https://simonwoodmusic.com/" }
-  },
-  {
-    name: "Taylor Sol",
-    credential: "Sound healer · debut album “Ancestry”",
-    quote: "Ayasa holds the best sound, stability & feeling in the Handpan world.",
-    handle: "taylor-sol",
-    img: AYASA_ASSET("player-taylor-sol.jpg"),
-    links: { youtube: "https://www.youtube.com/@taylorsol", instagram: "https://www.instagram.com/taylorthesol/", music: "https://open.spotify.com/artist/2cNOXtjWrwZvelyviaZoa7?si=TcoxNpjkTaC5okJK0ws0TA&nd=1&dlsi=53a4c8734f0d4cb9", web: "https://taylorsol.love/" }
-  },
-  {
-    name: "Tomek Torres",
-    credential: "Session drummer, Poland · “Handpan Meditations”",
-    quote: "There is one word that describes what I love about Ayasa handpans - PERFECTION.",
-    handle: "tomek-torres",
-    img: AYASA_ASSET("player-tomek-torres.jpg"),
-    links: { youtube: "https://www.youtube.com/@tomektorresmusic", instagram: "https://www.instagram.com/tomektorres/", music: "https://open.spotify.com/artist/23L0CzYMuf5yUd0Pgzq8g4?si=aA6l2qPOS-uhPYJ1CbbUlA&nd=1&dlsi=5122bbad7eb647bf" }
-  },
-  {
-    name: "Vasilis Vasiliou",
-    credential: "Drummer, Cyprus · World Jazz Trio Tricoolore",
-    quote: "I was hitting a note and the note came to life.",
-    handle: "vasilis-vasiliou",
-    img: AYASA_ASSET("player-vasilis-vasiliou.jpg"),
-    links: { youtube: "https://www.youtube.com/c/VasilisVasiliou", instagram: "https://www.instagram.com/vasilis__vasiliou", web: "http://vasilisv.com/" }
-  },
-  {
-    // not on the old site — portrait is a frame from our own D Aegean footage.
-    // Card shows the first sentence; her full quote lives on her artist page.
-    name: "Vybeshift",
-    credential: "Breathwork and sound healing · Los Angeles",
-    quote: "There’s something so alive and emotionally expressive in every Ayasa instrument I’ve touched.",
-    handle: "vybeshift",
-    img: AYASA_ASSET("player-vybeshift.jpg") + "?v=2", // beach photo replaced the video frame under the same name
-    featured: true,
-    links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" }
-  },
-  {
-    name: "Warren Shanti",
-    credential: "Self-taught · sound healer and teacher",
-    quote: "Each handpan is a true masterpiece, both visually and musically.",
-    handle: "warren-shanti",
-    img: AYASA_ASSET("player-warren-shanti.jpg"),
-    links: { youtube: "https://www.youtube.com/channel/UC4eeCb06B2CKRjGanve1zog", instagram: "https://www.instagram.com/warren_shanti/", music: "https://open.spotify.com/artist/3XwAsaKVwRUdKkHZKAGovh" }
+    name: "Alexandre Lora",
+    credential: "Brazilian percussionist · Trio Brasileiro",
+    quote: "Really clean tones and overtones – very important qualities for a professional instrument.",
+    handle: "alexandre-lora",
+    img: AYASA_ASSET("player-alexandre-lora.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UClAIycDBodMBGX0cgJyrCrQ?view_as=subscriber", instagram: "https://www.instagram.com/alexandrelora/", web: "http://www.alexandrelora.com/" }
   },
   {
     name: "Yatao",
@@ -466,6 +449,14 @@ const PLAYERS = [
     handle: "yatao",
     img: AYASA_ASSET("player-yatao.jpg"),
     links: { youtube: "https://www.youtube.com/channel/UCXwBPO45wLC_lGDB-C-Dvqg/", instagram: "https://www.instagram.com/yatao.music/", music: "https://yatao.bandcamp.com/", web: "https://www.yataomusic.com/" }
+  },
+  {
+    name: "Caisaman",
+    credential: "German composer · handpan and caisa",
+    quote: "After playing music on handpans for eight years, i finally found my perfect instrumental match.",
+    handle: "caisaman",
+    img: AYASA_ASSET("player-caisaman.jpg"),
+    links: { youtube: "https://www.youtube.com/user/daliasify/videos", music: "https://caisaman.bandcamp.com/", web: "https://www.caisaman.com/" }
   }
 ];
 const PLAYERS_TOTAL = PLAYERS.length; // every artist we have a card for
@@ -506,8 +497,8 @@ const MODELS = [
     // demo clips: one poster jpg per mp4 (same basename), served from theme assets
     videos: [
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
-      { artist: "Malte Marten · II", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
-      { artist: "Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") }
     ]
   },
@@ -553,7 +544,7 @@ const MODELS = [
     // real footage — having its own videos: means the placeholder loop skips this model
     videos: [
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") },
-      { artist: "Vybeshift · II", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") }
     ]
   },
   {
@@ -681,7 +672,7 @@ MODELS.forEach(m => {
     m.videos = [
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
       { artist: "Malte Marten · II", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
-      { artist: "Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") }
     ];
   }

@@ -194,6 +194,64 @@ function markWatched(file) {
   refreshWatchedDots();
 }
 
+// ---------- how far people actually watch ----------
+// Shopify cannot tell us this and no analytics product will: the player is ours,
+// so it reports. Anonymous by design — a clip id, a percentage, a duration.
+// No cookie, no visitor id, nothing that could identify anybody.
+//
+// A play only counts after PLAY_AFTER seconds of real playback; without that,
+// crawlers and accidental taps register as viewers and every completion rate
+// sags for reasons that have nothing to do with the footage.
+const BEACON = "https://beacon.ayasa-studio.com/api/beacon";
+const PLAY_AFTER = 3;
+const videoId = file => videoKey(file).replace(/\.mp4$/, "");
+
+function report(payload) {
+  try {
+    const body = JSON.stringify(payload);
+    // sendBeacon survives the page being closed, which is exactly when the last
+    // and most interesting event fires
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(BEACON, new Blob([body], { type: "application/json" }));
+    } else {
+      fetch(BEACON, { method: "POST", body, keepalive: true,
+        headers: { "Content-Type": "application/json" } }).catch(() => {});
+    }
+  } catch (e) { /* measurement must never break playback */ }
+}
+
+// One clip at a time: start() when it appears, flush() when it is replaced,
+// closed, or the tab goes away.
+const watchTracker = {
+  id: null, counted: false, maxPct: 0, secs: 0, lastT: 0,
+  start(id) {
+    this.flush();
+    this.id = id; this.counted = false; this.maxPct = 0; this.secs = 0; this.lastT = 0;
+  },
+  tick(el) {
+    if (!this.id || !el.duration || !isFinite(el.duration)) return;
+    // sum of forward movement, so scrubbing back and forth cannot inflate it
+    const t = el.currentTime;
+    if (t > this.lastT) this.secs += Math.min(t - this.lastT, 1.5);
+    this.lastT = t;
+    this.maxPct = Math.max(this.maxPct, Math.round(t / el.duration * 100));
+    if (!this.counted && this.secs >= PLAY_AFTER) {
+      this.counted = true;
+      report({ v: this.id, e: "play" });
+    }
+  },
+  finished() { this.maxPct = 100; },
+  flush() {
+    if (this.id && this.counted) {
+      report({ v: this.id, e: "done", p: this.maxPct, s: Math.round(this.secs) });
+    }
+    this.id = null; this.counted = false;
+  },
+  shopClick() { if (this.id) report({ v: this.id, e: "shop" }); }
+};
+// a closed tab is the commonest way a watch ends
+addEventListener("pagehide", () => watchTracker.flush());
+
 // ---------- demo video lightbox ----------
 function artistInfoHTML(label) {
   const base = label.split(" · ")[0];
@@ -318,6 +376,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
   updateFade();
   const close = () => {
     video.pause();
+    watchTracker.flush();
     document.body.style.overflow = "";
     // hand the borrowed options block back to the page before this element
     // disappears, or the product page loses its case and t-shirt pickers
@@ -398,6 +457,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     // autoplay refused (un-gestured after src swap, e.g. iOS): rest on the poster, one tap resumes
     video.play().catch(() => {});
     markWatched(v.file);
+    watchTracker.start(videoId(v.file));   // closes the books on the previous clip
     artistBox.innerHTML = artistInfoHTML(v.artist);
     updateFade();
     warmNeighbors(n);
@@ -647,6 +707,12 @@ function openDemoLightbox(model, startIndex, buyCtx) {
 
   video.play().catch(() => {}); // restore/iOS may refuse — restoreMiniPlayer escalates from here
   markWatched(model.videos[start].file);
+  watchTracker.start(videoId(model.videos[start].file));
+  video.addEventListener("timeupdate", () => watchTracker.tick(video));
+  video.addEventListener("ended", () => watchTracker.finished());
+  // "Order now" / "View in shop" is the click closest to the thing we care about
+  lb.querySelectorAll(".demo-cta-btn, .demo-cta-add").forEach(b =>
+    b.addEventListener("click", () => watchTracker.shopClick()));
   if (wasMin) btnMin.click(); // browse mode carries over — the new player starts minimized
 }
 

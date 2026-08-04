@@ -638,6 +638,17 @@ function openDemoLightbox(model, startIndex, buyCtx) {
           body: JSON.stringify({ items })
         });
         if (!r.ok) throw new Error((await r.json()).description || "Could not add to cart");
+        // Which clip preceded this sale. Shopify carries cart attributes into the
+        // order permanently, so the sale remembers — costs nothing now, and it is
+        // history that cannot be recovered later if we skip it. Nothing reads it
+        // yet; attribution waits until the volume makes it mean something.
+        if (watchTracker.id) {
+          fetch("/cart/update.js", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ attributes: { "_video": watchTracker.id } })
+          }).catch(() => {});   // never let bookkeeping fail a purchase
+        }
         cta.querySelector(".demo-cta-row").innerHTML = `
           <p class="demo-cta-price"><strong>Added to cart ✓</strong></p>
           ${btnAdd ? "" : `<a class="btn btn-primary demo-cta-btn" href="/cart">View cart →</a>`}`;

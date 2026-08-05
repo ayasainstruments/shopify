@@ -62,7 +62,7 @@ const ARTISTS = {
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
         videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4")] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4")] }
+        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4"), AYASA_ASSET("vybeshift-e-amara-20-3.mp4")] }
     ]
   },
   "Johann Immanuel": {
@@ -544,7 +544,8 @@ const MODELS = [
     // real footage — having its own videos: means the placeholder loop skips this model
     videos: [
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") }
     ]
   },
   {

@@ -65,16 +65,18 @@ const ARTISTS = {
     clips: [
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") },
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") },
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") },
-      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") }
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") }
     ],
     plays: [
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
         videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4"), AYASA_ASSET("vybeshift-e-amara-20-3.mp4"), AYASA_ASSET("vybeshift-e-amara-20-4.mp4")] },
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4")] }
+        videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4")] },
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",
+        videos: [AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4")] }
     ]
   },
   "Johann Immanuel": {

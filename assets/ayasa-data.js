@@ -67,7 +67,8 @@ const ARTISTS = {
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") },
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") }
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") },
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") }
     ],
     plays: [
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
@@ -574,7 +575,10 @@ const MODELS = [
     bottom: ["C#3", "E3", "E4", "G#4", "B4", "C#5", "D#5", "E5"],
     desc: "A low B2 ding under a B major scale — warm, enveloping, unhurried. An uncommon voice in any collection.",
     availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load. VERIFY: draft catalogue card says in stock, pricing table says 2 months
-    inStock: false
+    inStock: false,
+    videos: [
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") }
+    ]
   },
   {
     range: "premium",

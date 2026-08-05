@@ -101,10 +101,11 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", web: "http://www.nattagh.fr/" },
     visiblePlays: 4,
     clips: [
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") }
     ],
     plays: [
       { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",
-        videos: [] }
+        videos: [AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4")] }
     ]
   }
 };
@@ -592,7 +593,8 @@ const MODELS = [
     availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load. VERIFY: draft catalogue card says in stock, pricing table says 2 months
     inStock: false,
     videos: [
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") },
+      { artist: "Jeremy Nattagh", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") }
     ]
   },
   {

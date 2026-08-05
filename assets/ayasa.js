@@ -931,11 +931,18 @@ function initArtistPage() {
   // --- listening room ---
   const strip = document.getElementById("artistVideos");
   if (!strip) return;
-  const rounds = [];
-  plays.forEach(p => (p.videos || []).forEach((file, vi) => {
-    (rounds[vi] = rounds[vi] || []).push({ p, file, vi });
-  }));
-  const flat = rounds.flat();
+  // the studio's own order, one flat list across instruments — the rail above
+  // and this strip are ordered independently on purpose. Data files from
+  // before `clips` existed fall back to the old per-instrument interleave.
+  let flat = (info.clips || []).map(c =>
+    ({ p: { name: c.name, mode: c.mode, handle: c.handle }, file: c.file }));
+  if (!flat.length) {
+    const rounds = [];
+    plays.forEach(p => (p.videos || []).forEach((file, vi) => {
+      (rounds[vi] = rounds[vi] || []).push({ p, file, vi });
+    }));
+    flat = rounds.flat();
+  }
   // data-i indexes the FULL list, never the filtered view — the lightbox reads
   // it to know what to play, so filtering must not renumber anything
   strip.innerHTML = flat.map((e, i) => `
@@ -988,12 +995,15 @@ function initArtistPage() {
       openDemoLightbox({ ...model, productHandle: model.productHandle || e.p.handle }, idx);
       return;
     }
+    // no MODELS entry: the tab list is this artist's own takes on the SAME
+    // instrument, in strip order — works for clips and the legacy shape alike
+    const same = flat.filter(x => x.p.name === e.p.name);
     openDemoLightbox({
       name: e.p.name,
       scale: e.p.mode,
       productHandle: e.p.handle,
-      videos: e.p.videos.map((f, n) => ({ artist: `${artist}${numerals[n] || ""}`, file: f }))
-    }, e.vi);
+      videos: same.map((x, n) => ({ artist: `${artist}${numerals[n] || ""}`, file: x.file }))
+    }, Math.max(0, same.indexOf(e)));
   };
   strip.addEventListener("click", ev => {
     const c = ev.target.closest(".demo-card");

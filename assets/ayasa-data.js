@@ -98,7 +98,7 @@ const ARTISTS = {
     credential: "Live-looping soloist · teaches Master the Handpan",
     bio: "",
     img: AYASA_ASSET("player-jeremy-nattagh.jpg"),
-    links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", music: "https://open.spotify.com/artist/2ztpUNuwyFwI6yG9nFCrvF", web: "http://www.nattagh.fr/" },
+    links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", web: "http://www.nattagh.fr/" },
     visiblePlays: 4,
     clips: [
     ],

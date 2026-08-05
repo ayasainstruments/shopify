@@ -11,14 +11,17 @@
         "quote": "What resonates with me in Ayasa craft is the constant search for pristine sound and balance. Elements that are essential in my own music. Every scale that I try brings me new inspiration and new perspectives",
         "relation_more": "<p>His musician career spans over 3 decades, as a live drummer, a soundtrack composer and producer for documentaries, exhibitions, as well as radio anthems.</p><p>His 10 years as an international one man band artist have contributed to bringing the handpan to a new realm, numerous crowds discovering that this instrument can be an ambient and electro instrument, without any computer involved.</p><p>He is also a celebrated teacher on the Masterthehandpan portal, as well as in festivals and handpan retreats around the world.</p>",
         "story": "",
-        "show_videos": false,
-        "show_instruments": false,
+        "show_videos": true,
+        "show_instruments": true,
         "crosslink_text": "Want to explore?",
         "crosslink_label": "Meet the other Ayasa artists →",
         "crosslink_url": "/pages/artists",
         "link_youtube": "https://www.youtube.com/@JeremyNattagh/videos",
         "link_instagram": "http://www.instagram.com/jeremy_nattagh/",
-        "link_web": "http://www.nattagh.fr/"
+        "link_web": "http://www.nattagh.fr/",
+        "plays_sub": "",
+        "video_date": "",
+        "plays_kicker": ""
       }
     }
   },

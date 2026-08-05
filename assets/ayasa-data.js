@@ -104,6 +104,8 @@ const ARTISTS = {
       { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") }
     ],
     plays: [
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",
+        videos: [AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4")] }
     ]
   }
 };

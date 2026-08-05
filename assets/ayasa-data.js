@@ -59,10 +59,10 @@ const ARTISTS = {
     links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" },
     visiblePlays: 2,
     plays: [
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4")] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4"), AYASA_ASSET("vybeshift-e-amara-20-3.mp4"), AYASA_ASSET("vybeshift-e-amara-20-4.mp4")] }
+        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4"), AYASA_ASSET("vybeshift-e-amara-20-3.mp4"), AYASA_ASSET("vybeshift-e-amara-20-4.mp4")] },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
+        videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4")] }
     ]
   },
   "Johann Immanuel": {

@@ -46,6 +46,10 @@ const ARTISTS = {
     page: "/pages/malte-marten",
     links: { youtube: "https://www.youtube.com/@MalteMarten", instagram: "https://www.instagram.com/maltemarten/", web: "https://www.maltemarten.com/" },
     visiblePlays: 4,
+    clips: [
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") }
+    ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
         videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] }
@@ -58,6 +62,13 @@ const ARTISTS = {
     page: "/pages/vybeshift",
     links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" },
     visiblePlays: 2,
+    clips: [
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") }
+    ],
     plays: [
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
         videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4"), AYASA_ASSET("vybeshift-e-amara-20-3.mp4"), AYASA_ASSET("vybeshift-e-amara-20-4.mp4")] },
@@ -72,6 +83,9 @@ const ARTISTS = {
     page: "/pages/johann-immanuel",
     links: { youtube: "https://www.youtube.com/@johannimmanuel", instagram: "https://www.instagram.com/johannimmanuel/", web: "https://www.tiktok.com/@johannimmanuel_" },
     visiblePlays: 4,
+    clips: [
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") }
+    ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
         videos: [AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4")] }

@@ -911,7 +911,10 @@ function initArtistPage() {
   const artist = rail.dataset.artist;
   const info = ARTISTS[artist] || {};
   const plays = info.plays || [];
-  if (!plays.length) return;
+  // an empty rail must not silence the listening room: "video on the page,
+  // instrument not in the rail" is a valid state — artists borrow instruments
+  // they do not own, and the studio asks the rail question separately
+  if (!plays.length && !(info.clips || []).length) return;
 
   // --- the instruments he plays: the real range cards, sent back to the shop ---
   // Only the scales with a full MODELS entry can render a card (note map, desc,
@@ -926,6 +929,8 @@ function initArtistPage() {
     loadCardAvailability(rail);
   } else {
     rail.hidden = true;
+    // the "X plays" heading would sit orphaned above a hidden grid
+    document.querySelector(".artist-plays-head")?.setAttribute("hidden", "");
   }
 
   // --- listening room ---

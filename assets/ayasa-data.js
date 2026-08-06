@@ -142,6 +142,21 @@ const ARTISTS = {
         videos: [AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4")] }
     ]
   },
+  "Łukasz Dembiński": {
+    credential: "1,000+ concerts · founder of Foliba",
+    bio: "",
+    img: AYASA_ASSET("player-lukasz-dembinski.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UCZjFaTR29jubrGa4ZZ-haJA", instagram: "https://www.instagram.com/lukasz_dembinski/", music: "https://open.spotify.com/artist/4ki17Pcjvii44WnQ77VT5j", web: "http://www.lukaszdembinski.com/" },
+    visiblePlays: 4,
+    clips: [
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4") },
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") }
+    ],
+    plays: [
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
+        videos: [AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4"), AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4")] }
+    ]
+  },
   "Tomek Torres": {
     credential: "Session drummer, Poland · “Handpan Meditations”",
     bio: "",
@@ -768,7 +783,9 @@ const MODELS = [
     videos: [
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") },
-      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") }
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4") },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") }
     ]
   },
   {

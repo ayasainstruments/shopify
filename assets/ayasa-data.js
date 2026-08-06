@@ -56,7 +56,8 @@ const ARTISTS = {
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4") },
       { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") },
       { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") },
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") }
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") },
+      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
@@ -68,7 +69,9 @@ const ARTISTS = {
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
         videos: [AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4")] },
       { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4"), AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4")] }
+        videos: [AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4"), AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4")] },
+      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
+        videos: [AYASA_ASSET("malte-marten-d-aegean-20-1.mp4")] }
     ]
   },
   "Vybeshift": {
@@ -682,7 +685,8 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") }
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") }
     ]
   },
   {

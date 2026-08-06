@@ -113,13 +113,16 @@ const ARTISTS = {
     visiblePlays: 4,
     clips: [
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") }
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") },
+      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") }
     ],
     plays: [
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
         videos: [AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4")] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("julia-baier-e-amara-20-1.mp4")] }
+        videos: [AYASA_ASSET("julia-baier-e-amara-20-1.mp4")] },
+      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
+        videos: [AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4")] }
     ]
   },
   "Jeremy Nattagh": {
@@ -626,7 +629,10 @@ const MODELS = [
     bottom: ["E3", "F#3", "G4", "C#5", "D5", "E5", "G5", "A5"],
     desc: "The extended major scale co-created with Malte Marten in 2017 — uplifting and easy to love, with just enough melancholy to keep it honest.",
     availability: "In stock. Ships in 1–2 working days",
-    inStock: true
+    inStock: true,
+    videos: [
+      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") }
+    ]
   },
   {
     range: "premium",

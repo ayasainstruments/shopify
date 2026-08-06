@@ -47,31 +47,31 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@MalteMarten", instagram: "https://www.instagram.com/maltemarten/", web: "https://www.maltemarten.com/" },
     visiblePlays: 4,
     clips: [
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") },
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") },
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") },
-      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4") },
-      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") },
-      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") },
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") },
-      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") }
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d" },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") + "?v=51f7b019" },
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") + "?v=d135dce0" },
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") + "?v=8bc224d0" },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") + "?v=312b0dc9" },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") + "?v=3c844ec9" },
+      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4") + "?v=0ae4ecd9" },
+      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") + "?v=6bfda61a" },
+      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") + "?v=c5daabdd" },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") + "?v=75c46575" },
+      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e" }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-3.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d", AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") + "?v=51f7b019", AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") + "?v=75c46575"] },
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4"), AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") + "?v=d135dce0", AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") + "?v=8bc224d0"] },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4"), AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") + "?v=312b0dc9", AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") + "?v=3c844ec9"] },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
-        videos: [AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4") + "?v=0ae4ecd9"] },
       { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4"), AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4")] },
+        videos: [AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") + "?v=6bfda61a", AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") + "?v=c5daabdd"] },
       { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-20-1.mp4")] }
+        videos: [AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e"] }
     ]
   },
   "Vybeshift": {
@@ -82,21 +82,21 @@ const ARTISTS = {
     links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" },
     visiblePlays: 2,
     clips: [
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") },
-      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") },
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") },
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") }
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") + "?v=25cc12b8" },
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") + "?v=83bcd733" },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") + "?v=f351f8ae" },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") + "?v=c54ad8d6" }
     ],
     plays: [
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4"), AYASA_ASSET("vybeshift-e-amara-20-2.mp4"), AYASA_ASSET("vybeshift-e-amara-20-3.mp4"), AYASA_ASSET("vybeshift-e-amara-20-4.mp4")] },
+        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d", AYASA_ASSET("vybeshift-e-amara-20-2.mp4") + "?v=25cc12b8", AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7", AYASA_ASSET("vybeshift-e-amara-20-4.mp4") + "?v=f351f8ae"] },
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4"), AYASA_ASSET("vybeshift-d-aegean-18-2.mp4")] },
+        videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1", AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") + "?v=c54ad8d6"] },
       { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",
-        videos: [AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4")] }
+        videos: [AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") + "?v=83bcd733"] }
     ]
   },
   "Johann Immanuel": {
@@ -107,21 +107,21 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@johannimmanuel", instagram: "https://www.instagram.com/johannimmanuel/", web: "https://www.tiktok.com/@johannimmanuel_" },
     visiblePlays: 4,
     clips: [
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") },
-      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") }
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") + "?v=205482d2" },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") + "?v=a6a63a96" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") + "?v=8b64127c" },
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") + "?v=c6065104" },
+      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") + "?v=193af47d" }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4")] },
+        videos: [AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") + "?v=205482d2"] },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4")] },
+        videos: [AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") + "?v=a6a63a96"] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4")] },
+        videos: [AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") + "?v=8b64127c"] },
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
-        videos: [AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4")] }
+        videos: [AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") + "?v=c6065104"] }
     ]
   },
   "Julia Baier": {
@@ -131,17 +131,17 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@changeofcolours", instagram: "https://www.instagram.com/changeofcolours/", web: "https://changeofcolours.com/" },
     visiblePlays: 4,
     clips: [
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") },
-      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") }
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") + "?v=68989250" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") + "?v=c3bd6eea" },
+      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") + "?v=41c68e8a" }
     ],
     plays: [
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4")] },
+        videos: [AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") + "?v=68989250"] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("julia-baier-e-amara-20-1.mp4")] },
+        videos: [AYASA_ASSET("julia-baier-e-amara-20-1.mp4") + "?v=c3bd6eea"] },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
-        videos: [AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4")] }
+        videos: [AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") + "?v=41c68e8a"] }
     ]
   },
   "Jeremy Nattagh": {
@@ -151,11 +151,11 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", web: "http://www.nattagh.fr/" },
     visiblePlays: 4,
     clips: [
-      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") }
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") + "?v=ec17bbf7" }
     ],
     plays: [
       { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",
-        videos: [AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4")] }
+        videos: [AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") + "?v=ec17bbf7"] }
     ]
   },
   "Łukasz Dembiński": {
@@ -165,21 +165,21 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/channel/UCZjFaTR29jubrGa4ZZ-haJA", instagram: "https://www.instagram.com/lukasz_dembinski/", music: "https://open.spotify.com/artist/4ki17Pcjvii44WnQ77VT5j", web: "http://www.lukaszdembinski.com/" },
     visiblePlays: 4,
     clips: [
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") },
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") },
-      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") }
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") + "?v=cee3c1bd" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") + "?v=cca809df" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169" },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") + "?v=e4ef6c73" },
+      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") + "?v=356b2127" }
     ],
     plays: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
         videos: [] },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4")] },
+        videos: [AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") + "?v=cee3c1bd"] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4"), AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4")] },
+        videos: [AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") + "?v=cca809df", AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169"] },
       { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
-        videos: [AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4")] }
+        videos: [AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") + "?v=356b2127"] }
     ]
   },
   "Rishiraj Kulkarni": {
@@ -189,11 +189,11 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@rishiraj.kulkarni", instagram: "https://www.instagram.com/rishiraj.kulkarni", music: "https://open.spotify.com/artist/4mdUQh0dEzK2PIZkOFOVtz", web: "https://www.rishirajkulkarni.com/" },
     visiblePlays: 4,
     clips: [
-      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4") }
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4") + "?v=99eb582d" }
     ],
     plays: [
       { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",
-        videos: [AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4")] }
+        videos: [AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4") + "?v=99eb582d"] }
     ]
   },
   "Tomek Torres": {
@@ -203,15 +203,15 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@tomektorresmusic", instagram: "https://www.instagram.com/tomektorres/", music: "https://open.spotify.com/artist/23L0CzYMuf5yUd0Pgzq8g4?si=aA6l2qPOS-uhPYJ1CbbUlA&nd=1&dlsi=5122bbad7eb647bf" },
     visiblePlays: 4,
     clips: [
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") },
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") },
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") }
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") + "?v=47788bc8" },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") + "?v=404facf5" },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") + "?v=8b7ae466" }
     ],
     plays: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
-        videos: [AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4")] },
+        videos: [AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") + "?v=47788bc8"] },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4")] }
+        videos: [AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") + "?v=404facf5"] }
     ]
   },
   "Warren Shanti": {
@@ -221,19 +221,19 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/channel/UC4eeCb06B2CKRjGanve1zog", instagram: "https://www.instagram.com/warren_shanti/", music: "https://open.spotify.com/artist/3XwAsaKVwRUdKkHZKAGovh" },
     visiblePlays: 4,
     clips: [
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") },
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") },
-      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("warren-shanti-c-ashakiran-17-1.mp4") },
-      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") }
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") + "?v=9a4338d9" },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") + "?v=f0d4313d" },
+      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4") + "?v=0d53c291" },
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("warren-shanti-c-ashakiran-17-1.mp4") + "?v=c8a7db4d" },
+      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") + "?v=5f16b312" }
     ],
     plays: [
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4"), AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4")] },
+        videos: [AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") + "?v=9a4338d9", AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") + "?v=f0d4313d"] },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
-        videos: [AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4")] },
+        videos: [AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4") + "?v=0d53c291"] },
       { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
-        videos: [AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4")] }
+        videos: [AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") + "?v=5f16b312"] }
     ]
   }
 };
@@ -637,14 +637,14 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") },
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") },
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") },
-      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") },
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") },
-      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") + "?v=312b0dc9" },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") + "?v=a6a63a96" },
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") + "?v=9a4338d9" },
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") + "?v=404facf5" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") + "?v=3c844ec9" },
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") + "?v=f0d4313d" },
+      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") + "?v=68989250" },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") + "?v=cee3c1bd" }
     ]
   },
   {
@@ -665,14 +665,14 @@ const MODELS = [
     videoShop: { name: "D Aegean 18 — Ember Steel®", url: "/products/d-aegean-18-ember-steel" },
     // demo clips: one poster jpg per mp4 (same basename), served from theme assets
     videos: [
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") },
-      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") + "?v=51f7b019" },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") + "?v=205482d2" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1" },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") + "?v=e4ef6c73" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") + "?v=75c46575" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") + "?v=c54ad8d6" },
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") + "?v=8b7ae466" }
     ]
   },
   {
@@ -688,9 +688,9 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") }
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") + "?v=5f16b312" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e" },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") + "?v=356b2127" }
     ]
   },
   {
@@ -706,9 +706,9 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4") },
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4") }
+      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") + "?v=41c68e8a" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4") + "?v=0ae4ecd9" },
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4") + "?v=0d53c291" }
     ]
   },
   {
@@ -726,14 +726,14 @@ const MODELS = [
     videoShop: { name: "E Amara 20 — Ember Steel®", url: "/products/e-amara-20-ember-steel" },
     // real footage — having its own videos: means the placeholder loop skips this model
     videos: [
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") },
-      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") },
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") + "?v=25cc12b8" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") + "?v=f351f8ae" },
+      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") + "?v=c3bd6eea" },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") + "?v=8b64127c" },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") + "?v=cca809df" },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169" }
     ]
   },
   {
@@ -749,9 +749,9 @@ const MODELS = [
     availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load. VERIFY: draft catalogue card says in stock, pricing table says 2 months
     inStock: false,
     videos: [
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") },
-      { artist: "Jeremy Nattagh", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") },
-      { artist: "Rishiraj Kulkarni", file: AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4") }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") + "?v=83bcd733" },
+      { artist: "Jeremy Nattagh", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") + "?v=ec17bbf7" },
+      { artist: "Rishiraj Kulkarni", file: AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4") + "?v=99eb582d" }
     ]
   },
   {
@@ -839,12 +839,12 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") },
-      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") },
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") },
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-c-ashakiran-17-1.mp4") }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") + "?v=d135dce0" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") + "?v=8bc224d0" },
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") + "?v=47788bc8" },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") + "?v=7b352628" },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") + "?v=c6065104" },
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-c-ashakiran-17-1.mp4") + "?v=c8a7db4d" }
     ]
   },
   {
@@ -860,9 +860,9 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") }
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") + "?v=193af47d" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") + "?v=6bfda61a" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") + "?v=c5daabdd" }
     ]
   }
 ];
@@ -905,10 +905,10 @@ MODELS.forEach((m, i) => {
 MODELS.forEach(m => {
   if (!m.videos || !m.videos.length) {
     m.videos = [
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
-      { artist: "Malte Marten · II", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d" },
+      { artist: "Malte Marten · II", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") + "?v=51f7b019" },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") + "?v=205482d2" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1" }
     ];
   }
 });

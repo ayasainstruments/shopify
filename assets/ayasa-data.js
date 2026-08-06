@@ -795,8 +795,8 @@ const MODELS = [
     availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load
     inStock: false,
     videos: [
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c" },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-2.mp4") + "?v=8a8f1b5e" }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-2.mp4") + "?v=8a8f1b5e" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c" }
     ]
   },
 

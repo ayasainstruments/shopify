@@ -798,9 +798,9 @@ const MODELS = [
     inStock: false,
     videos: [
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-3.mp4") + "?v=186dbd40" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-4.mp4") + "?v=eed063fb" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-2.mp4") + "?v=8a8f1b5e" },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c" },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-4.mp4") + "?v=eed063fb" }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c" }
     ]
   },
 

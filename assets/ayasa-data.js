@@ -145,13 +145,20 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/DanMulqueen", instagram: "https://www.instagram.com/danmulqueen/", web: "https://www.danmulqueen.com/" }
   },
   {
-    name: "Lea Valentina",
-    credential: "Founder, Handpan Atelier Munich",
-    quote: "I love the Ayasa handpans for crystal clear sound and the purity of the notes.",
-    handle: "lea-valentina",
-    img: AYASA_ASSET("player-lea-valentina.jpg"),
-    featured: true,
-    links: { youtube: "https://www.youtube.com/c/LeaValentina", instagram: "https://www.instagram.com/leavalentina.music/", music: "https://open.spotify.com/artist/2sulGEfNo27qx0Hssaw2D7", web: "https://leavalentina.com/" }
+    name: "David Kuckhermann",
+    credential: "World percussionist · toured with Dead Can Dance",
+    quote: "Ralf not only builds these beauties, he is also open for experiments and innovation.",
+    handle: "david-kuckhermann",
+    img: AYASA_ASSET("player-david-kuckhermann.jpg"),
+    links: { youtube: "https://www.youtube.com/user/DavidKuckhermann", web: "http://worldpercussion.net/" }
+  },
+  {
+    name: "Jeremy Nattagh",
+    credential: "Live-looping soloist · teaches Master the Handpan",
+    quote: "What resonates with me in Ayasa craft is the constant search for pristine sound and balance.",
+    handle: "jeremy-nattagh",
+    img: AYASA_ASSET("player-jeremy-nattagh.jpg"),
+    links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", music: "https://open.spotify.com/artist/2ztpUNuwyFwI6yG9nFCrvF", web: "http://www.nattagh.fr/" }
   },
   {
     // not on the old site — portrait is a frame from our own D Aegean footage.
@@ -163,14 +170,6 @@ const PLAYERS = [
     img: AYASA_ASSET("player-vybeshift.jpg") + "?v=2", // beach photo replaced the video frame under the same name
     featured: true,
     links: { youtube: "https://youtube.com/@vybeshift", instagram: "https://www.instagram.com/vybeshift", web: "https://www.vybeshift.com/" }
-  },
-  {
-    name: "David Kuckhermann",
-    credential: "World percussionist · toured with Dead Can Dance",
-    quote: "Ralf not only builds these beauties, he is also open for experiments and innovation.",
-    handle: "david-kuckhermann",
-    img: AYASA_ASSET("player-david-kuckhermann.jpg"),
-    links: { youtube: "https://www.youtube.com/user/DavidKuckhermann", web: "http://worldpercussion.net/" }
   },
   {
     name: "Warren Shanti",
@@ -238,14 +237,6 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/user/skelter1992" }
   },
   {
-    name: "Konstantin Rössler",
-    credential: "Full-time musician · concerts and retreats",
-    quote: "The precision in sound and dynamic range is out of this world.",
-    handle: "konstantin-rossler",
-    img: AYASA_ASSET("player-konstantin-rossler.jpg"),
-    links: { youtube: "https://www.youtube.com/@konstantin.roessler/featured", instagram: "https://www.instagram.com/konstantin.roessler/", music: "https://open.spotify.com/artist/4qedSQHMODqYZOTF10C8le", web: "https://konstantin-roessler.com/" }
-  },
-  {
     name: "Laurent Sureau",
     credential: "Conservatory prizes · playing since 2005",
     quote: "A special Ayasa, full with feeling, amazing sound and touching nature.",
@@ -254,20 +245,29 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/channel/UC6s1l_zsHImitRsQ81-OtqA", music: "https://oloji.bandcamp.com/album/orion", web: "http://www.laurent-sureau.net/" }
   },
   {
+    name: "Lea Valentina",
+    credential: "Founder, Handpan Atelier Munich",
+    quote: "I love the Ayasa handpans for crystal clear sound and the purity of the notes.",
+    handle: "lea-valentina",
+    img: AYASA_ASSET("player-lea-valentina.jpg"),
+    featured: true,
+    links: { youtube: "https://www.youtube.com/c/LeaValentina", instagram: "https://www.instagram.com/leavalentina.music/", music: "https://open.spotify.com/artist/2sulGEfNo27qx0Hssaw2D7", web: "https://leavalentina.com/" }
+  },
+  {
+    name: "Konstantin Rössler",
+    credential: "Full-time musician · concerts and retreats",
+    quote: "The precision in sound and dynamic range is out of this world.",
+    handle: "konstantin-rossler",
+    img: AYASA_ASSET("player-konstantin-rossler.jpg"),
+    links: { youtube: "https://www.youtube.com/@konstantin.roessler/featured", instagram: "https://www.instagram.com/konstantin.roessler/", music: "https://open.spotify.com/artist/4qedSQHMODqYZOTF10C8le", web: "https://konstantin-roessler.com/" }
+  },
+  {
     name: "Adrian J Portia",
     credential: "Percussionist, Melbourne · “the hummingbird”",
     quote: "What I love about the Ayasa is ease of playability, they are very responsive with beautiful sustain and consistency in sound.",
     handle: "adrian-j-portia",
     img: AYASA_ASSET("player-adrian-j-portia.jpg"),
     links: { youtube: "http://www.youtube.com/user/ADRIANJPDRUM/", instagram: "https://instagram.com/adrianjportia", music: "https://soundcloud.com/adrian-portia", web: "http://www.adrianportia.com/" }
-  },
-  {
-    name: "Jeremy Nattagh",
-    credential: "Live-looping soloist · teaches Master the Handpan",
-    quote: "What resonates with me in Ayasa craft is the constant search for pristine sound and balance.",
-    handle: "jeremy-nattagh",
-    img: AYASA_ASSET("player-jeremy-nattagh.jpg"),
-    links: { youtube: "https://www.youtube.com/@JeremyNattagh/videos", instagram: "http://www.instagram.com/jeremy_nattagh/", music: "https://open.spotify.com/artist/2ztpUNuwyFwI6yG9nFCrvF", web: "http://www.nattagh.fr/" }
   },
   {
     name: "Johann Immanuel",

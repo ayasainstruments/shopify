@@ -125,6 +125,20 @@ const ARTISTS = {
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
         videos: [AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4")] }
     ]
+  },
+  "Warren Shanti": {
+    credential: "Self-taught · sound healer and teacher",
+    bio: "",
+    img: AYASA_ASSET("player-warren-shanti.jpg"),
+    links: { youtube: "https://www.youtube.com/channel/UC4eeCb06B2CKRjGanve1zog", instagram: "https://www.instagram.com/warren_shanti/", music: "https://open.spotify.com/artist/3XwAsaKVwRUdKkHZKAGovh" },
+    visiblePlays: 4,
+    clips: [
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") }
+    ],
+    plays: [
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
+        videos: [AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4")] }
+    ]
   }
 };
 
@@ -525,7 +539,10 @@ const MODELS = [
     bottom: ["D3", "E3", "B3", "D4", "B4", "D5", "A5", "B5", "C#6"],
     desc: "The deep one. Ethereal and comforting at once — and its bottom side opens a second, A-major voice from the same instrument.",
     availability: "In stock. Ships in 1–2 working days",
-    inStock: true
+    inStock: true,
+    videos: [
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") }
+    ]
   },
   {
     range: "premium",

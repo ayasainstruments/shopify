@@ -63,7 +63,7 @@ const ARTISTS = {
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102" },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") + "?v=312b0dc9" },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") + "?v=3c844ec9" },
-      { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c" },
+      { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=3bb32544" },
       { name: "F# Kurd 22", mode: "", handle: "fis-kurd-22-ember-steel", file: AYASA_ASSET("malte-marten-fis-kurd-22-1.mp4") + "?v=54fb9dfd" },
       { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-2.mp4") + "?v=8a8f1b5e" },
       { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-3.mp4") + "?v=186dbd40" },
@@ -85,7 +85,7 @@ const ARTISTS = {
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
         videos: [AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba", AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102"] },
       { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c", AYASA_ASSET("malte-marten-fis2-nordlys-16-2.mp4") + "?v=8a8f1b5e", AYASA_ASSET("malte-marten-fis2-nordlys-16-3.mp4") + "?v=186dbd40", AYASA_ASSET("malte-marten-fis2-nordlys-16-4.mp4") + "?v=eed063fb"] },
+        videos: [AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=3bb32544", AYASA_ASSET("malte-marten-fis2-nordlys-16-2.mp4") + "?v=8a8f1b5e", AYASA_ASSET("malte-marten-fis2-nordlys-16-3.mp4") + "?v=186dbd40", AYASA_ASSET("malte-marten-fis2-nordlys-16-4.mp4") + "?v=eed063fb"] },
       { name: "F# Kurd 22", mode: "", handle: "fis-kurd-22-ember-steel",
         videos: [AYASA_ASSET("malte-marten-fis-kurd-22-1.mp4") + "?v=54fb9dfd"] }
     ]
@@ -800,7 +800,7 @@ const MODELS = [
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-3.mp4") + "?v=186dbd40" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-4.mp4") + "?v=eed063fb" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-2.mp4") + "?v=8a8f1b5e" },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c" }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=3bb32544" }
     ]
   },
 

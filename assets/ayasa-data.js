@@ -59,7 +59,8 @@ const ARTISTS = {
       { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e" },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-2.mp4") + "?v=0ae4ecd9" },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-3.mp4") + "?v=60d29ded" },
-      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-4.mp4") + "?v=a9a9a4ff" }
+      { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-4.mp4") + "?v=a9a9a4ff" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba" }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
@@ -73,7 +74,9 @@ const ARTISTS = {
       { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel",
         videos: [AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") + "?v=6bfda61a", AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") + "?v=c5daabdd"] },
       { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e"] }
+        videos: [AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e"] },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
+        videos: [AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba"] }
     ]
   },
   "Vybeshift": {
@@ -733,7 +736,8 @@ const MODELS = [
       { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") + "?v=c3bd6eea" },
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") + "?v=8b64127c" },
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") + "?v=cca809df" },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169" }
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba" }
     ]
   },
   {

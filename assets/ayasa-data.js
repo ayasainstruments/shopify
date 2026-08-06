@@ -126,11 +126,14 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@tomektorresmusic", instagram: "https://www.instagram.com/tomektorres/", music: "https://open.spotify.com/artist/23L0CzYMuf5yUd0Pgzq8g4?si=aA6l2qPOS-uhPYJ1CbbUlA&nd=1&dlsi=5122bbad7eb647bf" },
     visiblePlays: 4,
     clips: [
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") }
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") }
     ],
     plays: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
-        videos: [AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4")] }
+        videos: [AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4")] },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
+        videos: [AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4")] }
     ]
   },
   "Warren Shanti": {
@@ -553,7 +556,8 @@ const MODELS = [
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") },
       { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") },
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") }
     ]
   },
   {

@@ -99,14 +99,16 @@ const ARTISTS = {
     visiblePlays: 2,
     clips: [
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") + "?v=25cc12b8" },
       { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") + "?v=83bcd733" },
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1" },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") + "?v=05a31a22" },
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") + "?v=7c72d23b" }
     ],
     plays: [
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d", AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7"] },
+        videos: [AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d", AYASA_ASSET("vybeshift-e-amara-20-2.mp4") + "?v=25cc12b8", AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7", AYASA_ASSET("vybeshift-e-amara-20-4.mp4") + "?v=05a31a22"] },
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
         videos: [AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1", AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") + "?v=7c72d23b"] },
       { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",

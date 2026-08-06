@@ -552,12 +552,12 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") },
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") },
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") },
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") },
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") },
-      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") }
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") }
     ]
   },
   {

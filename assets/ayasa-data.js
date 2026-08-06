@@ -61,7 +61,8 @@ const ARTISTS = {
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-3.mp4") + "?v=60d29ded" },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-4.mp4") + "?v=a9a9a4ff" },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba" },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102" }
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102" },
+      { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c" }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
@@ -77,7 +78,9 @@ const ARTISTS = {
       { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
         videos: [AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e"] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba", AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102"] }
+        videos: [AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba", AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102"] },
+      { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel",
+        videos: [AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c"] }
     ]
   },
   "Vybeshift": {
@@ -784,7 +787,10 @@ const MODELS = [
     bottom: ["A#2", "C#3", "F3", "F#4", "C#5", "F5", "G#5"],
     desc: "“Northern lights.” A rare Lydian voicing over one of the deepest dings in the range. Bright, mysterious, unlike anything else here.",
     availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load
-    inStock: false
+    inStock: false,
+    videos: [
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-1.mp4") + "?v=8241a16c" }
+    ]
   },
 
   // ---------- ELEMENTS — EU lineup, sold direct ----------

@@ -158,7 +158,8 @@ const ARTISTS = {
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4") },
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") }
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") }
     ],
     plays: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
@@ -166,7 +167,7 @@ const ARTISTS = {
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
         videos: [AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4")] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4")] }
+        videos: [AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4"), AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4")] }
     ]
   },
   "Tomek Torres": {
@@ -691,7 +692,8 @@ const MODELS = [
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") },
       { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") },
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") }
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") }
     ]
   },
   {

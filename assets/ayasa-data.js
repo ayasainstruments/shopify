@@ -858,12 +858,12 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") + "?v=d135dce0" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") + "?v=8bc224d0" },
       { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") + "?v=47788bc8" },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") + "?v=7b352628" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") + "?v=d135dce0" },
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-c-ashakiran-17-1.mp4") + "?v=c8a7db4d" },
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") + "?v=c6065104" },
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-c-ashakiran-17-1.mp4") + "?v=c8a7db4d" }
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") + "?v=7b352628" }
     ]
   },
   {

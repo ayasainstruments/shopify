@@ -181,6 +181,11 @@ function getWatched() {
 function videoKey(url) {
   return url.split("/").pop().split("?")[0].replace(/\.jpg$/, ".mp4");
 }
+// A clip's poster sits beside it under the same name. Clip urls now carry a ?v=
+// stamp of the file's contents — so that replacing a video actually reaches the
+// caches — and the swap has to happen BEFORE that stamp, not at the end of the
+// string, or the poster silently becomes a request for an .mp4?v=… as an image.
+const posterOf = url => url.replace(/\.mp4(\?|$)/, ".jpg$1");
 function refreshWatchedDots() {
   const seen = getWatched();
   document.querySelectorAll(".demo-card img").forEach(img => {
@@ -350,7 +355,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
       <div class="demo-dots" aria-hidden="true">${model.videos.map((_, i) =>
         `<span${i === start ? ' class="on"' : ""}></span>`).join("")}</div>` : ""}
       <video controls playsinline preload="metadata"
-             poster="${model.videos[start].file.replace(/\.mp4$/, ".jpg")}"
+             poster="${posterOf(model.videos[start].file)}"
              src="${model.videos[start].file}"></video>
       ${ctaHTML}
       <div class="demo-mini-info">
@@ -437,7 +442,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     const w = document.createElement("video");
     w.preload = "metadata";
     w.src = model.videos[k].file;
-    new Image().src = model.videos[k].file.replace(/\.mp4$/, ".jpg");
+    new Image().src = posterOf(model.videos[k].file);
   });
   const select = i => {
     const n = (i + model.videos.length) % model.videos.length;
@@ -452,7 +457,7 @@ function openDemoLightbox(model, startIndex, buyCtx) {
     }
     dotEls.forEach((d, di) => d.classList.toggle("on", di === n));
     const v = model.videos[n];
-    video.poster = v.file.replace(/\.mp4$/, ".jpg");
+    video.poster = posterOf(v.file);
     video.src = v.file;
     // autoplay refused (un-gestured after src swap, e.g. iOS): rest on the poster, one tap resumes
     video.play().catch(() => {});
@@ -952,7 +957,7 @@ function initArtistPage() {
   // it to know what to play, so filtering must not renumber anything
   strip.innerHTML = flat.map((e, i) => `
     <article class="demo-card" data-i="${i}" data-scale="${e.p.handle}" tabindex="0" role="button" aria-label="Watch ${artist} play the ${e.p.name}">
-      <img src="${e.file.replace(/\.mp4$/, ".jpg")}" alt="" loading="lazy">
+      <img src="${posterOf(e.file)}" alt="" loading="lazy">
       <span class="demo-card-play" aria-hidden="true">▶</span>
       <div class="demo-card-info">
         <strong>${e.p.name}</strong>
@@ -1028,7 +1033,7 @@ function initArtistPage() {
       "@type": "VideoObject",
       "name": `${artist} plays the Ayasa ${e.p.name}`,
       "description": `${artist} performs on the Ayasa ${e.p.name} handpan (${e.p.mode}).`,
-      "thumbnailUrl": new URL(e.file.replace(/\.mp4$/, ".jpg"), location.href).href,
+      "thumbnailUrl": new URL(posterOf(e.file), location.href).href,
       "contentUrl": new URL(e.file, location.href).href,
       "uploadDate": rail.dataset.published || "2026-01-01"
     }))
@@ -1591,7 +1596,7 @@ function initProductPage() {
       const a = (typeof ARTISTS !== "undefined" && ARTISTS[base]) || {};
       return `
       <article class="demo-card" data-i="${i}" tabindex="0" role="button" aria-label="Play performance by ${v.artist}">
-        <img src="${v.file.replace(/\.mp4$/, ".jpg")}" alt="" loading="lazy">
+        <img src="${posterOf(v.file)}" alt="" loading="lazy">
         <span class="demo-card-play" aria-hidden="true">▶</span>
         <div class="demo-card-info">
           <strong>${base}</strong>

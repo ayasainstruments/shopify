@@ -156,15 +156,13 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/channel/UCZjFaTR29jubrGa4ZZ-haJA", instagram: "https://www.instagram.com/lukasz_dembinski/", music: "https://open.spotify.com/artist/4ki17Pcjvii44WnQ77VT5j", web: "http://www.lukaszdembinski.com/" },
     visiblePlays: 4,
     clips: [
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") }
     ],
     plays: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
-        videos: [AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4"), AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4")] },
+        videos: [] },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
         videos: [AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4")] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
@@ -817,7 +815,6 @@ const MODELS = [
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") },
       { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4") },
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") },
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") }
     ]

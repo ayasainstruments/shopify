@@ -198,7 +198,8 @@ const ARTISTS = {
     visiblePlays: 4,
     clips: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") },
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") }
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") }
     ],
     plays: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
@@ -664,7 +665,8 @@ const MODELS = [
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") },
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") },
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") }
     ]
   },
   {

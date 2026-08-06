@@ -698,7 +698,8 @@ const MODELS = [
     videos: [
       { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") + "?v=5f16b312" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e" },
-      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") + "?v=5a02f409" }
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") + "?v=5a02f409" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-20-2.mp4") + "?v=3d374d6e" }
     ]
   },
   {

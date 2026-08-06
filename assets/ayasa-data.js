@@ -717,6 +717,39 @@ const MODELS = [
     desc: "Lighter, higher and distinctly meditative — and C3 and D3 beneath the ding add real depth and open chords the topside alone can't reach.",
     availability: "Made for you. Ships 1 December 2026", // fallback; the live ships: date replaces this on load
     inStock: false
+  },
+
+  // ---------- studio-built cards (note maps from the studio; descs are drafts) ----------
+  {
+    range: "other",
+    family: "c-major",
+    name: "C Ashakiran 17",
+    productHandle: "c-ashakiran-17-ember-steel",
+    scale: "Extended major · “Ray of Hope”",
+    ding: "C3",
+    top: ["F3", "G3", "A3", "B3", "C4", "D4", "E4", "G4"],
+    bottom: ["D3", "E3", "F4", "A4", "B4", "C5", "D5", "E5"],
+    desc: "The Ray of Hope a whole step down — the same uplifting major, warmer and rounder in C, spread across seventeen notes.",
+    availability: "In stock. Ships in 1–2 working days",
+    inStock: true,
+    videos: [
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") },
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") }
+    ]
+  },
+  {
+    range: "other",
+    family: "b-minor",
+    name: "B3 Pygmy 20",
+    productHandle: "b3-pygmy-20-ember-steel",
+    scale: "B minor pentatonic · fully extended",
+    ding: "B3",
+    top: ["C#4", "D4", "D#4", "A4", "B4", "C#5", "D5", "F#5", "A5", "B5", "C#6", "D6"],
+    bottom: ["F#3", "G3", "A3", "G4", "E5", "G5"],
+    desc: "Pygmy intimacy with a bright top end — twenty notes from a B3 ding, meditative down low and sparkling up high.",
+    availability: "In stock. Ships in 1–2 working days",
+    inStock: true
   }
 ];
 

@@ -101,7 +101,8 @@ const ARTISTS = {
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") }
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("johann-immanuel-c-ashakiran-17-1.mp4") },
+      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
@@ -832,7 +833,10 @@ const MODELS = [
     bottom: ["F#3", "G3", "A3", "G4", "E5", "G5"],
     desc: "Pygmy intimacy with a bright top end — twenty notes from a B3 ding, meditative down low and sparkling up high.",
     availability: "In stock. Ships in 1–2 working days",
-    inStock: true
+    inStock: true,
+    videos: [
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") }
+    ]
   }
 ];
 

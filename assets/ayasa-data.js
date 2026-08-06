@@ -112,11 +112,14 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@changeofcolours", instagram: "https://www.instagram.com/changeofcolours/", web: "https://changeofcolours.com/" },
     visiblePlays: 4,
     clips: [
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") }
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") }
     ],
     plays: [
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4")] }
+        videos: [AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4")] },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
+        videos: [AYASA_ASSET("julia-baier-e-amara-20-1.mp4")] }
     ]
   },
   "Jeremy Nattagh": {
@@ -643,7 +646,8 @@ const MODELS = [
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") },
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-2.mp4") },
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-4.mp4") },
+      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") }
     ]
   },
   {

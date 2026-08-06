@@ -217,13 +217,16 @@ const ARTISTS = {
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("warren-shanti-c-ashakiran-17-1.mp4") }
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("warren-shanti-c-ashakiran-17-1.mp4") },
+      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") }
     ],
     plays: [
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
         videos: [AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4"), AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4")] },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
-        videos: [AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4")] }
+        videos: [AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4")] },
+      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
+        videos: [AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4")] }
     ]
   }
 };
@@ -675,7 +678,10 @@ const MODELS = [
     bottom: ["B2", "E3", "G#3", "B3", "E4", "B4", "E5"],
     desc: "The Aegean's reach, extended — two more voices in the upper register for players who want the full canvas.",
     availability: "In stock. Ships in 1–2 working days",
-    inStock: true
+    inStock: true,
+    videos: [
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") }
+    ]
   },
   {
     range: "premium",

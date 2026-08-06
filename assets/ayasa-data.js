@@ -648,7 +648,6 @@ const MODELS = [
     // demo clips: one poster jpg per mp4 (same basename), served from theme assets
     videos: [
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") }
     ]

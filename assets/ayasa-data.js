@@ -764,8 +764,8 @@ const MODELS = [
     availability: "Made for you. Built to order", // fallback; the live ships: date replaces this on load. VERIFY: draft catalogue card says in stock, pricing table says 2 months
     inStock: false,
     videos: [
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") + "?v=83bcd733" },
       { artist: "Jeremy Nattagh", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") + "?v=ec17bbf7" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") + "?v=83bcd733" },
       { artist: "Rishiraj Kulkarni", file: AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4") + "?v=99eb582d" }
     ]
   },

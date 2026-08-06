@@ -111,6 +111,20 @@ const ARTISTS = {
       { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",
         videos: [AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4")] }
     ]
+  },
+  "Tomek Torres": {
+    credential: "Session drummer, Poland · “Handpan Meditations”",
+    bio: "",
+    img: AYASA_ASSET("player-tomek-torres.jpg"),
+    links: { youtube: "https://www.youtube.com/@tomektorresmusic", instagram: "https://www.instagram.com/tomektorres/", music: "https://open.spotify.com/artist/23L0CzYMuf5yUd0Pgzq8g4?si=aA6l2qPOS-uhPYJ1CbbUlA&nd=1&dlsi=5122bbad7eb647bf" },
+    visiblePlays: 4,
+    clips: [
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4") }
+    ],
+    plays: [
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
+        videos: [AYASA_ASSET("tomek-torres-c-ashakiran-17-1.mp4")] }
+    ]
   }
 };
 

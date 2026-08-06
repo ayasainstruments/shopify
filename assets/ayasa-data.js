@@ -156,11 +156,14 @@ const ARTISTS = {
     visiblePlays: 4,
     clips: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") }
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4") },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") }
     ],
     plays: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
-        videos: [AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4"), AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4")] }
+        videos: [AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-1.mp4"), AYASA_ASSET("lukasz-dembinski-c-ashakiran-17-2.mp4")] },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
+        videos: [AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4")] }
     ]
   },
   "Tomek Torres": {
@@ -605,7 +608,8 @@ const MODELS = [
       { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-fis-low-pygmy-21-1.mp4") },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") },
       { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") },
-      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") }
+      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-fis-low-pygmy-21-1.mp4") },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") }
     ]
   },
   {

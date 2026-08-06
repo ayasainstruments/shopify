@@ -677,13 +677,13 @@ const MODELS = [
     videoShop: { name: "D Aegean 18 — Ember Steel®", url: "/products/d-aegean-18-ember-steel" },
     // demo clips: one poster jpg per mp4 (same basename), served from theme assets
     videos: [
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") + "?v=51f7b019" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d" },
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") + "?v=205482d2" },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") + "?v=7c72d23b" },
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") + "?v=e4ef6c73" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") + "?v=75c46575" },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-2.mp4") + "?v=7c72d23b" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1" },
       { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") + "?v=8b7ae466" }
     ]
   },
@@ -719,10 +719,10 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") + "?v=41c68e8a" },
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4") + "?v=0d53c291" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-ashakiran-19-2.mp4") + "?v=0ae4ecd9" },
+      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-d-ashakiran-19-1.mp4") + "?v=41c68e8a" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-ashakiran-19-3.mp4") + "?v=60d29ded" },
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-ashakiran-19-1.mp4") + "?v=0d53c291" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-ashakiran-19-4.mp4") + "?v=a9a9a4ff" }
     ]
   },

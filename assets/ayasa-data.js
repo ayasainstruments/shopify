@@ -49,13 +49,14 @@ const ARTISTS = {
     clips: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") },
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") },
-      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") }
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") },
+      { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel", file: AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
         videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4"), AYASA_ASSET("malte-marten-d-aegean-18-2.mp4")] },
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4")] }
+        videos: [AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4"), AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4")] }
     ]
   },
   "Vybeshift": {

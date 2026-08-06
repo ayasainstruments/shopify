@@ -91,11 +91,14 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/@johannimmanuel", instagram: "https://www.instagram.com/johannimmanuel/", web: "https://www.tiktok.com/@johannimmanuel_" },
     visiblePlays: 4,
     clips: [
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") }
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4")] }
+        videos: [AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4")] },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
+        videos: [AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4")] }
     ]
   },
   "Jeremy Nattagh": {
@@ -133,11 +136,12 @@ const ARTISTS = {
     links: { youtube: "https://www.youtube.com/channel/UC4eeCb06B2CKRjGanve1zog", instagram: "https://www.instagram.com/warren_shanti/", music: "https://open.spotify.com/artist/3XwAsaKVwRUdKkHZKAGovh" },
     visiblePlays: 4,
     clips: [
-      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") }
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") },
+      { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") }
     ],
     plays: [
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
-        videos: [AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4")] }
+        videos: [AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4"), AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4")] }
     ]
   }
 };
@@ -541,7 +545,9 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") }
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-1.mp4") },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-fis-low-pygmy-21-1.mp4") },
+      { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-fis-low-pygmy-21-2.mp4") }
     ]
   },
   {

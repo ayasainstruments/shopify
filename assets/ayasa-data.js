@@ -170,6 +170,20 @@ const ARTISTS = {
         videos: [AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4"), AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4")] }
     ]
   },
+  "Rishiraj Kulkarni": {
+    credential: "Tabla player · designed his own Ayasa scale",
+    bio: "",
+    img: AYASA_ASSET("player-rishiraj-kulkarni.jpg"),
+    links: { youtube: "https://www.youtube.com/@rishiraj.kulkarni", instagram: "https://www.instagram.com/rishiraj.kulkarni", music: "https://open.spotify.com/artist/4mdUQh0dEzK2PIZkOFOVtz", web: "https://www.rishirajkulkarni.com/" },
+    visiblePlays: 4,
+    clips: [
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel", file: AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4") }
+    ],
+    plays: [
+      { name: "B2 Aavartan 17", mode: "B major · low B2 ding", handle: "b2-aavartan-17-ember-steel",
+        videos: [AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4")] }
+    ]
+  },
   "Tomek Torres": {
     credential: "Session drummer, Poland · “Handpan Meditations”",
     bio: "",
@@ -710,7 +724,8 @@ const MODELS = [
     inStock: false,
     videos: [
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-b2-aavartan-17-1.mp4") },
-      { artist: "Jeremy Nattagh", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") }
+      { artist: "Jeremy Nattagh", file: AYASA_ASSET("jeremy-nattagh-b2-aavartan-17-1.mp4") },
+      { artist: "Rishiraj Kulkarni", file: AYASA_ASSET("rishiraj-kulkarni-b2-aavartan-17-1.mp4") }
     ]
   },
   {

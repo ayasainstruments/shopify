@@ -879,8 +879,8 @@ const MODELS = [
     availability: "In stock. Ships in 1–2 working days",
     inStock: true,
     videos: [
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") + "?v=193af47d" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") + "?v=6bfda61a" },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") + "?v=193af47d" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") + "?v=c5daabdd" }
     ]
   }

@@ -735,11 +735,11 @@ const MODELS = [
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba" },
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") + "?v=cca809df" },
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102" },
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") + "?v=8b64127c" },
       { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") + "?v=c3bd6eea" },
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169" },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d" },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102" }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d" }
     ]
   },
   {

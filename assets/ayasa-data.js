@@ -54,7 +54,8 @@ const ARTISTS = {
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-1.mp4") },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("malte-marten-fis-low-pygmy-21-2.mp4") },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4") },
-      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") }
+      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") },
+      { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel", file: AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
@@ -66,7 +67,7 @@ const ARTISTS = {
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted",
         videos: [AYASA_ASSET("malte-marten-d-ashakiran-19-1.mp4")] },
       { name: "B3 Pygmy 20", mode: "", handle: "b3-pygmy-20-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4")] }
+        videos: [AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4"), AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4")] }
     ]
   },
   "Vybeshift": {
@@ -836,7 +837,8 @@ const MODELS = [
     inStock: true,
     videos: [
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-b3-pygmy-20-1.mp4") },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-1.mp4") },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-b3-pygmy-20-2.mp4") }
     ]
   }
 ];

@@ -60,7 +60,8 @@ const ARTISTS = {
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-2.mp4") + "?v=0ae4ecd9" },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-3.mp4") + "?v=60d29ded" },
       { name: "D Ashakiran 19", mode: "Extended major · “Ray of Hope”", handle: "d-ashakiran-19-ember-steel-spotted", file: AYASA_ASSET("malte-marten-d-ashakiran-19-4.mp4") + "?v=a9a9a4ff" },
-      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba" }
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba" },
+      { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102" }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
@@ -76,7 +77,7 @@ const ARTISTS = {
       { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
         videos: [AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e"] },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba"] }
+        videos: [AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba", AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102"] }
     ]
   },
   "Vybeshift": {
@@ -731,13 +732,14 @@ const MODELS = [
     videoShop: { name: "E Amara 20 — Ember Steel®", url: "/products/e-amara-20-ember-steel" },
     // real footage — having its own videos: means the placeholder loop skips this model
     videos: [
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d" },
-      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7" },
-      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") + "?v=c3bd6eea" },
-      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") + "?v=8b64127c" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba" },
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") + "?v=cca809df" },
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-3.mp4") + "?v=6d8c6bd7" },
+      { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-e-amara-20-1.mp4") + "?v=8b64127c" },
+      { artist: "Julia Baier", file: AYASA_ASSET("julia-baier-e-amara-20-1.mp4") + "?v=c3bd6eea" },
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169" },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-e-amara-20-1.mp4") + "?v=742a51ba" }
+      { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-e-amara-20-1.mp4") + "?v=b2e0ac9d" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-e-amara-20-2.mp4") + "?v=3564f102" }
     ]
   },
   {

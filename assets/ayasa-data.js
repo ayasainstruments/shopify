@@ -168,7 +168,8 @@ const ARTISTS = {
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel", file: AYASA_ASSET("lukasz-dembinski-fis-low-pygmy-21-1.mp4") + "?v=cee3c1bd" },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") + "?v=cca809df" },
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169" },
-      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") + "?v=e4ef6c73" }
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") + "?v=e4ef6c73" },
+      { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel", file: AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") + "?v=d86b54a3" }
     ],
     plays: [
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
@@ -178,7 +179,7 @@ const ARTISTS = {
       { name: "E Amara 20", mode: "E Celtic minor · fully extended", handle: "e-amara-20-ember-steel",
         videos: [AYASA_ASSET("lukasz-dembinski-e-amara-20-1.mp4") + "?v=cca809df", AYASA_ASSET("lukasz-dembinski-e-amara-20-2.mp4") + "?v=b33a9169"] },
       { name: "D Aegean 20", mode: "D Lydian · extended", handle: "d-aegean-20-ember-steel",
-        videos: [] }
+        videos: [AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") + "?v=d86b54a3"] }
     ]
   },
   "Rishiraj Kulkarni": {
@@ -688,7 +689,8 @@ const MODELS = [
     inStock: true,
     videos: [
       { artist: "Warren Shanti", file: AYASA_ASSET("warren-shanti-d-aegean-20-1.mp4") + "?v=5f16b312" },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e" }
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-20-1.mp4") + "?v=af4d4b0e" },
+      { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-20-1.mp4") + "?v=d86b54a3" }
     ]
   },
   {

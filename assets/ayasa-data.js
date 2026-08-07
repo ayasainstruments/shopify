@@ -682,6 +682,7 @@ const MODELS = [
     videoShop: { name: "D Aegean 18 — Ember Steel®", url: "/products/d-aegean-18-ember-steel" },
     // demo clips: one poster jpg per mp4 (same basename), served from theme assets
     videos: [
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-4.mp4") + "?v=b649d23b" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") + "?v=51f7b019" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d" },
       { artist: "Johann Immanuel", file: AYASA_ASSET("johann-immanuel-d-aegean-18-1.mp4") + "?v=205482d2" },
@@ -689,8 +690,7 @@ const MODELS = [
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") + "?v=e4ef6c73" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") + "?v=75c46575" },
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1" },
-      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") + "?v=8b7ae466" },
-      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-4.mp4") + "?v=b649d23b" }
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") + "?v=8b7ae466" }
     ]
   },
   {

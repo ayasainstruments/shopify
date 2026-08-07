@@ -67,11 +67,12 @@ const ARTISTS = {
       { name: "F# Kurd 22", mode: "", handle: "fis-kurd-22-ember-steel", file: AYASA_ASSET("malte-marten-fis-kurd-22-1.mp4") + "?v=54fb9dfd" },
       { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-2.mp4") + "?v=8a8f1b5e" },
       { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-3.mp4") + "?v=186dbd40" },
-      { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-4.mp4") + "?v=eed063fb" }
+      { name: "F#2 Nordlys 16", mode: "F# Lydian hexatonic · deep F#2 ding", handle: "fis2-nordlys-16-ember-steel", file: AYASA_ASSET("malte-marten-fis2-nordlys-16-4.mp4") + "?v=eed063fb" },
+      { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel", file: AYASA_ASSET("malte-marten-d-aegean-18-4.mp4") + "?v=b649d23b" }
     ],
     plays: [
       { name: "D Aegean 18", mode: "D Lydian", handle: "d-aegean-18-ember-steel",
-        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d", AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") + "?v=51f7b019", AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") + "?v=75c46575"] },
+        videos: [AYASA_ASSET("malte-marten-d-aegean-18-1.mp4") + "?v=ad608c9d", AYASA_ASSET("malte-marten-d-aegean-18-2.mp4") + "?v=51f7b019", AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") + "?v=75c46575", AYASA_ASSET("malte-marten-d-aegean-18-4.mp4") + "?v=b649d23b"] },
       { name: "C Ashakiran 17", mode: "", handle: "c-ashakiran-17-ember-steel",
         videos: [AYASA_ASSET("malte-marten-c-ashakiran-17-1.mp4") + "?v=d135dce0", AYASA_ASSET("malte-marten-c-ashakiran-17-2.mp4") + "?v=8bc224d0"] },
       { name: "F# Low Pygmy 21", mode: "F# minor pentatonic · fully extended", handle: "fis-low-pygmy-21-ember-steel",
@@ -688,7 +689,8 @@ const MODELS = [
       { artist: "Łukasz Dembiński", file: AYASA_ASSET("lukasz-dembinski-d-aegean-18-1.mp4") + "?v=e4ef6c73" },
       { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-3.mp4") + "?v=75c46575" },
       { artist: "Vybeshift", file: AYASA_ASSET("vybeshift-d-aegean-18-1.mp4") + "?v=79a6acf1" },
-      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") + "?v=8b7ae466" }
+      { artist: "Tomek Torres", file: AYASA_ASSET("tomek-torres-d-aegean-18-1.mp4") + "?v=8b7ae466" },
+      { artist: "Malte Marten", file: AYASA_ASSET("malte-marten-d-aegean-18-4.mp4") + "?v=b649d23b" }
     ]
   },
   {

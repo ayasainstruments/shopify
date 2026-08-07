@@ -286,14 +286,6 @@ const PLAYERS = [
     links: { youtube: "https://www.youtube.com/DanMulqueen", instagram: "https://www.instagram.com/danmulqueen/", web: "https://www.danmulqueen.com/" }
   },
   {
-    name: "David Kuckhermann",
-    credential: "World percussionist · toured with Dead Can Dance",
-    quote: "Ralf not only builds these beauties, he is also open for experiments and innovation.",
-    handle: "david-kuckhermann",
-    img: AYASA_ASSET("player-david-kuckhermann.jpg"),
-    links: { youtube: "https://www.youtube.com/user/DavidKuckhermann", web: "http://worldpercussion.net/" }
-  },
-  {
     name: "Jeremy Nattagh",
     credential: "Live-looping soloist · teaches Master the Handpan",
     quote: "What resonates with me in Ayasa craft is the constant search for pristine sound and balance.",
@@ -327,6 +319,14 @@ const PLAYERS = [
     handle: "tomek-torres",
     img: AYASA_ASSET("player-tomek-torres.jpg"),
     links: { youtube: "https://www.youtube.com/@tomektorresmusic", instagram: "https://www.instagram.com/tomektorres/", music: "https://open.spotify.com/artist/23L0CzYMuf5yUd0Pgzq8g4?si=aA6l2qPOS-uhPYJ1CbbUlA&nd=1&dlsi=5122bbad7eb647bf" }
+  },
+  {
+    name: "David Kuckhermann",
+    credential: "World percussionist · toured with Dead Can Dance",
+    quote: "Ralf not only builds these beauties, he is also open for experiments and innovation.",
+    handle: "david-kuckhermann",
+    img: AYASA_ASSET("player-david-kuckhermann.jpg"),
+    links: { youtube: "https://www.youtube.com/user/DavidKuckhermann", web: "http://worldpercussion.net/" }
   },
   {
     name: "Julia Baier",
